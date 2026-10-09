@@ -2,7 +2,7 @@
 
 ## 1.2.1 — 09/10/2026
 ### Modifications
-- **redaction-memoire** : règle d'équilibre des longueurs (sections et sous-sections proches au sein d'un chapitre, chapitres proches au sein d'une partie, repère 10 / 80 / 10 %).
+- **redaction-memoire** : règle d'équilibre des longueurs (sections et sous-sections proches au sein d'un chapitre, chapitres proches au sein d'une partie, conclusion concise de 1 à 1,5 page).
 
 ## 1.2.0 — 08/10/2026
 ### Ajouts

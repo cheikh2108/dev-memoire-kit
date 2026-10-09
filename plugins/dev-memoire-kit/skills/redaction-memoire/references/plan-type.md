@@ -5,7 +5,7 @@
 - Subdivisions conventionnelles : **parties → chapitres → sections → sous-sections → paragraphes**.
 - Structure **homogène** : chaque partie a le même nombre de chapitres (2), chaque chapitre a idéalement 3 sections.
 - **Longueurs équilibrées à chaque niveau** : les sections d'un même chapitre ont une longueur proche, de même que les sous-sections d'une même section et les deux chapitres d'une même partie. Pas une égalité stricte au nombre de pages, mais aucun écart flagrant (une section de 6 pages à côté d'une section d'un demi-paragraphe signale soit un manque de contenu, soit une section à scinder).
-- Entre parties, l'écart peut être plus grand selon leur importance : la partie conception et mise en œuvre est souvent la plus longue. Repère courant : introduction ≈ 10 %, conclusion ≈ 10 %, développement ≈ 80 % du corps du texte.
+- Entre parties, l'écart peut être plus grand selon leur importance : la partie conception et mise en œuvre est souvent la plus longue. Le développement occupe l'essentiel du corps du texte ; la conclusion générale reste **concise (1 à 1,5 page)** comme le demande le guide de l'école. Le repère « 10 / 80 / 10 % » de certains guides méthodologiques ne s'applique pas ici à la conclusion.
 - Pas de subdivision unique : un 1.1.1 appelle au moins un 1.1.2.
 - **Classification décimale** où le numéro de chapitre continue d'une partie à l'autre (particularité de l'école, à respecter) :
 

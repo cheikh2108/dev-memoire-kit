@@ -43,6 +43,8 @@ Si une information manque, **laisser un marqueur visible** `[À COMPLÉTER : nom
 - fin de chapitre : bilan + annonce du chapitre suivant.
 Ne jamais empiler « En résumé… En conclusion… En somme… » à la suite, ni terminer chaque section par « En définitive, cette section nous a permis de… » : une seule clôture par niveau.
 
+**Objectifs spécifiques = étapes du travail, jamais des fonctionnalités.** Quatre ou cinq, dans l'ordre chronologique : analyser l'existant, recueillir et analyser les besoins, modéliser le système, développer la solution, la tester et la valider (adaptés au sujet). Les fonctionnalités (« réserver un créneau », « payer en ligne ») vont dans les exigences fonctionnelles (2.4.1). Cette règle vaut aussi dans une simple proposition de plan.
+
 **Garder la traçabilité** : chaque fonctionnalité montrée au chapitre 3 renvoie à son exigence (EF05), chaque exigence citée existe dans le tableau du chapitre 2, et chaque exigence non fonctionnelle chiffrée est vérifiée dans la section Tests.
 
 ## Document Word : toujours partir du modèle
@@ -62,6 +64,7 @@ Quand la demande porte sur un texte isolé (une introduction, une section), le r
 
 | Demande | Fichier à lire |
 |---|---|
+| **Mémoire complet** de bout en bout (recueil des faits, plan, registre de cohérence, rédaction chapitre par chapitre dans le modèle, vérification, liste des points à compléter) | `references/memoire-complet.md` + `assets/fiche-projet.md` |
 | Plan détaillé, numérotation décimale | `references/plan-type.md` |
 | Rédiger un chapitre : formats observés dans des mémoires validés (structure d'accueil, existant, enquête, tableaux d'exigences EF/ENF, fiche de cas d'utilisation, présentation des outils, architecture, écrans par flux, tests, bilans de chapitre) | `references/modeles-de-chapitres.md` |
 | Introduction générale (7 à 8 paragraphes) ou conclusion générale | `references/introduction-conclusion.md` |

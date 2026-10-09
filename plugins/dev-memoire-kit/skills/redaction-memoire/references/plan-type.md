@@ -12,7 +12,7 @@ Chapitre 1 : Présentation générale                      (≈ 5 à 9 pages)
     1.3. Problématique
     1.4. Objectifs
          1.4.1. Objectif général
-         1.4.2. Objectifs spécifiques
+         1.4.2. Objectifs spécifiques        (les ÉTAPES du travail, pas les fonctionnalités)
     1.5. Méthodologie
          1.5.1. Approche quantitative (questionnaire)
          1.5.2. Approche qualitative (entretien, observation)
@@ -51,6 +51,8 @@ Chapitre 3 : Réalisation de la solution                 (≈ 18 à 23 pages)
     3.4. Tests et validation
 Conclusion générale                                     (1 à 1,5 page)
 ```
+
+**Objectifs spécifiques (1.4.2)** : quatre ou cinq étapes de la démarche, dans l'ordre (analyser l'existant, recueillir les besoins, modéliser, développer, tester et valider), formulées « **Intitulé** : il s'agit de + infinitif ». Les fonctionnalités de l'application n'y figurent pas : elles vont dans les exigences fonctionnelles (2.4.1).
 
 Corps du texte complet : **50 à 60 pages** environ. Le format exact de chaque élément (tableaux d'exigences, fiche de cas d'utilisation, présentation des outils, des écrans et des tests) est dans `modeles-de-chapitres.md`.
 

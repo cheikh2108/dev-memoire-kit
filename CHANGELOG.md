@@ -1,5 +1,11 @@
 # Historique des versions
 
+## 1.5.0 — 09/10/2026
+### Ajouts
+- **redaction-memoire** : procédure « mémoire complet » (`references/memoire-complet.md`) : recueil des faits, plan, registre de cohérence, rédaction chapitre par chapitre dans le modèle, vérification, liste des points à compléter ; fiche projet à remplir (`assets/fiche-projet.md`).
+### Modifications
+- Règle renforcée : les objectifs spécifiques sont les étapes du travail, jamais les fonctionnalités (SKILL.md, plan type).
+
 ## 1.4.0 — 09/10/2026
 ### Modifications
 - **redaction-memoire** réaligné sur la structure de mémoires de licence récemment soutenus et validés dans la filière (anonymisés) :

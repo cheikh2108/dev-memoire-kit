@@ -1,5 +1,9 @@
 # Historique des versions
 
+## 1.3.1 — 09/10/2026
+### Modifications
+- **redaction-memoire** : tout fichier Word du mémoire part obligatoirement du modèle `assets/modele-memoire.docx` (copie puis remplissage, 22 pages conventionnelles conservées dans l'ordre, styles gardés) ; Claude ne génère plus de document de zéro.
+
 ## 1.3.0 — 09/10/2026
 ### Ajouts
 - **Marketplace** : 10 skills populaires de la communauté (Matt Pocock, Anthropic, Vercel), relus et figés sur un commit précis, installables un par un : `soutenance-grill-me`, `tdd`, `diagnostic-bugs`, `architecture-code`, `apprendre-une-techno`, `frontend-design`, `tests-webapp`, `react-bonnes-pratiques`, `react-native-bonnes-pratiques`, `creer-un-skill`. Ils restent hébergés chez leurs auteurs.

@@ -1,7 +1,7 @@
 {
   "name": "dev-memoire-kit",
   "description": "Rédaction de mémoire de fin de cycle en informatique (licence GLAR), bonnes pratiques de développeur et guide anti-contenu générique (texte, code, design, prompts).",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "author": {
     "name": "Oblivion"
   },

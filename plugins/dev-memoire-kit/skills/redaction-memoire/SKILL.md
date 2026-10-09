@@ -1,6 +1,6 @@
 ---
 name: redaction-memoire
-description: Rédiger, structurer, relire ou préparer la soutenance d'un mémoire de fin de cycle en informatique (licence GLAR / téléinformatique, écoles sénégalaises). À utiliser pour un plan détaillé, une introduction ou conclusion générale, une problématique ou des hypothèses, une page conventionnelle (avant-propos, dédicace, sommaire…), une bibliographie ou webographie, un questionnaire d'enquête, la relecture d'un chapitre, la préparation de la soutenance et des questions du jury, et pour toute question de modélisation UML ou Merise d'un projet étudiant (diagramme de cas d'utilisation, include ou extend, diagramme de classes, multiplicités, séquence, activité, MCD/MLD, passage à la base de données).
+description: Rédiger, structurer, relire ou préparer la soutenance d'un mémoire de fin de cycle en informatique (licence GLAR / téléinformatique, écoles sénégalaises). À utiliser pour un plan détaillé, une introduction ou conclusion générale, une problématique ou des hypothèses, une page conventionnelle (avant-propos, dédicace, sommaire…), une bibliographie ou webographie, un questionnaire d'enquête, la relecture d'un chapitre, la création ou le remplissage du fichier Word du mémoire (toujours à partir du modèle fourni), la préparation de la soutenance et des questions du jury, et pour toute question de modélisation UML ou Merise d'un projet étudiant (diagramme de cas d'utilisation, include ou extend, diagramme de classes, multiplicités, séquence, activité, MCD/MLD, passage à la base de données).
 ---
 
 # Rédaction de mémoire de fin de cycle (informatique)
@@ -43,6 +43,19 @@ Si une information manque, **laisser un marqueur visible** `[À COMPLÉTER : nom
 - section : contenu, puis **une** phrase de conclusion et **une** phrase de transition ;
 - fin de chapitre / fin de partie : conclusion partielle + transition.
 Ne jamais empiler « En résumé… En conclusion… En somme… » à la suite : une seule clôture par niveau.
+
+## Document Word : toujours partir du modèle
+
+Dès qu'il faut produire le mémoire (ou une partie) sous forme de fichier Word, **partir obligatoirement de `assets/modele-memoire.docx`**. Ne jamais créer un nouveau document de zéro ni régénérer sa structure ou ses styles, même si l'étudiant ne précise rien : un document « inventé » oublie des pages conventionnelles, change leur ordre et casse les normes de mise en page.
+
+1. **Copier** le modèle sous un nouveau nom (`memoire-<nom>.docx`) ; ne jamais modifier l'original.
+2. **Remplir** le modèle en éditant le document existant (dézipper, modifier le XML, rezipper, comme pour l'édition d'un .docx existant), sans passer par un générateur qui recrée le fichier.
+3. **Conserver les 22 pages conventionnelles dans l'ordre** (`references/22-pages-conventionnelles.md`) : ne pas en supprimer, renommer ni déplacer. Une page dont le contenu manque garde son titre et un marqueur `[À COMPLÉTER : …]`.
+4. **Remplacer les consignes grises** par le texte de l'étudiant et supprimer celles qui restent une fois la page remplie.
+5. **Garder les styles du modèle** (Titre 1/2/3, Normal, légendes, note de bas de page) : sommaire, table des matières et listes des figures et tableaux en dépendent. Rappeler à l'étudiant de mettre à jour les champs (F9) à l'ouverture.
+6. Si l'étudiant a **déjà son propre fichier**, travailler dedans, mais vérifier qu'il contient les 22 pages dans l'ordre et signaler celles qui manquent.
+
+Quand la demande porte sur un texte isolé (une introduction, une section), le rendre dans la conversation en indiquant **à quel endroit du modèle** il se place.
 
 ## Tâches courantes
 

@@ -1,0 +1,20 @@
+schema_version: "1.1"
+name: design-dashboard-pme
+description: Une demande de spécification d'écran qui veut éviter le look IA doit déclencher anti-generique et produire une spec contextualisée.
+tags: [anti-generique, design]
+runs: 1
+execution:
+  max_turns: 12
+  allowed_tools: [Skill, Read, Glob, Grep]
+  prompt: |
+    Je dois faire le tableau de bord d'une appli de gestion de stock pour des boutiques à Dakar (gérants sur téléphone Android). Donne-moi les spécifications de l'écran à passer à mon outil de génération d'UI. Je ne veux surtout pas le rendu « dashboard généré par IA » qu'on voit partout.
+graders:
+  - name: skill-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?anti-generique"'
+  - name: qualite
+    type: llm
+    criteria: |
+      PASS si la spécification tient compte du contexte réel (usage mobile Android, montants en FCFA ou données locales plausibles, action principale de l'écran), donne des règles visuelles précises (couleur à rôle défini, hiérarchie typographique, états vide/chargement/erreur) ET liste des interdits explicites contre le rendu générique (par exemple dégradés violets, cartes identiques à icônes, emojis, chiffres inventés).
+      FAIL si la réponse reste générique (aucun élément de contexte local ni de contrainte mobile) ou ne donne aucun interdit concret.

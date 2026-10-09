@@ -1,0 +1,27 @@
+schema_version: "1.1"
+name: problematique-memoire
+description: Une demande de rédaction de problématique doit déclencher redaction-memoire et produire une question centrale et des hypothèses testables.
+tags: [memoire]
+runs: 1
+execution:
+  max_turns: 12
+  allowed_tools: [Skill, Read, Glob, Grep]
+  prompt: |
+    Je suis en L3 Génie Logiciel et Administration Réseaux. Mon sujet de mémoire : « Réalisation d'une application de pointage et de gestion des étudiants : cas d'un établissement d'enseignement supérieur ».
+    Aujourd'hui les enseignants font circuler une feuille de présence, la scolarité ressaisit tout dans Excel en fin de mois.
+    Écris-moi la problématique et deux hypothèses de travail pour mon introduction.
+graders:
+  - name: skill-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?redaction-memoire"'
+  - name: pas-de-de-nos-jours
+    type: regex
+    pattern: 'de nos jours|à l.ère du numérique'
+    flags: i
+    match: not_contains
+  - name: qualite
+    type: llm
+    criteria: |
+      PASS si la réponse contient une question centrale sous forme interrogative liée au pointage dans l'établissement, ET au moins deux hypothèses formulées de façon vérifiable (avec « si… », le conditionnel ou « supposons que », et un critère qu'on pourra confirmer ou infirmer), ET n'invente pas de chiffres présentés comme des faits (ou les signale comme à compléter).
+      FAIL si la problématique est absente ou n'est pas une question, si les hypothèses sont de simples souhaits invérifiables, ou si des statistiques inventées sont présentées comme réelles.

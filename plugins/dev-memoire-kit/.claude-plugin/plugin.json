@@ -1,0 +1,10 @@
+{
+  "name": "dev-memoire-kit",
+  "description": "Rédaction de mémoire de fin de cycle en informatique (licence GLAR), bonnes pratiques de développeur et guide anti-contenu générique (texte, code, design, prompts).",
+  "version": "1.2.1",
+  "author": {
+    "name": "Oblivion"
+  },
+  "keywords": ["memoire", "redaction", "soutenance", "bonnes-pratiques", "prompts", "francais", "senegal"],
+  "license": "MIT"
+}

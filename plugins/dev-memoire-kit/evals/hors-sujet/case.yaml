@@ -1,0 +1,17 @@
+schema_version: "1.1"
+name: hors-sujet
+description: Une question sans rapport ne doit déclencher aucun skill du pack.
+tags: [negatif]
+runs: 1
+execution:
+  max_turns: 4
+  allowed_tools: [Skill]
+  prompt: |
+    Combien de temps faut-il pour cuire du riz au four ?
+graders:
+  - name: aucun-skill-du-pack
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?(redaction-memoire|anti-generique|bonnes-pratiques-dev)"'
+    min: 0
+    max: 0

@@ -1,0 +1,36 @@
+schema_version: "1.1"
+name: securite-multitenant
+description: Une revue de sécurité d'un contrôleur Laravel multi-tenant doit déclencher bonnes-pratiques-dev et repérer l'IDOR / fuite entre tenants.
+tags: [dev, securite]
+runs: 2
+execution:
+  max_turns: 12
+  allowed_tools: [Skill, Read, Glob, Grep]
+  prompt: |
+    C'est sûr ce contrôleur ? On a une app SaaS Laravel multi-tenant, chaque structure cliente ne doit voir que ses factures.
+
+    ```php
+    class FactureController extends Controller
+    {
+        public function show($id)
+        {
+            return Facture::find($id);
+        }
+
+        public function update(Request $request, $id)
+        {
+            Facture::find($id)->update($request->all());
+            return response()->json(['ok' => true]);
+        }
+    }
+    ```
+graders:
+  - name: skill-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?bonnes-pratiques-dev"'
+  - name: qualite
+    type: llm
+    criteria: |
+      PASS si la réponse signale (1) l'absence de contrôle d'accès / filtrage par tenant permettant de lire ou modifier la facture d'une autre structure (IDOR, contrôle d'accès défaillant), ET (2) le danger de update($request->all()) (affectation de masse : un attaquant peut changer tenant_id ou d'autres champs), ET propose des corrections concrètes (policy/authorize, portée par tenant, validation et champs autorisés explicites).
+      FAIL si l'un de ces deux problèmes n'est pas mentionné.

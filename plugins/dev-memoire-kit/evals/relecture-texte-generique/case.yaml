@@ -1,0 +1,22 @@
+schema_version: "1.1"
+name: relecture-texte-generique
+description: Un paragraphe de mémoire générique doit déclencher redaction-memoire ou anti-generique, et la réécriture ne doit pas inventer de faits.
+tags: [memoire, anti-generique]
+runs: 1
+execution:
+  max_turns: 12
+  allowed_tools: [Skill, Read, Glob, Grep]
+  prompt: |
+    Mon encadreur dit que ce paragraphe de mon mémoire « fait IA ». Corrige-le :
+
+    « De nos jours, le monde connaît une avancée technologique considérable dans tous les secteurs. Dans ce contexte, notre application innovante offre une solution robuste, intuitive et performante qui permettra d'optimiser la gestion des taxes communales au Sénégal. En somme, cette solution constitue un levier majeur pour les collectivités. En conclusion, cette section a permis de présenter notre solution. »
+graders:
+  - name: skill-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?(redaction-memoire|anti-generique)"'
+  - name: qualite
+    type: llm
+    criteria: |
+      PASS si la réponse identifie les formules creuses (ouverture « de nos jours », adjectifs non justifiés comme innovante/robuste/intuitive/performante, clôtures empilées), propose une réécriture plus concrète, ET n'invente aucun fait précis (chiffre, nom de commune, nombre d'utilisateurs) présenté comme réel : les informations manquantes sont demandées ou signalées comme à compléter.
+      FAIL si la réécriture garde les mêmes tics, ou remplace le vague par des chiffres ou faits inventés présentés comme vrais.

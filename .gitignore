@@ -1,0 +1,12 @@
+.DS_Store
+__pycache__/
+*.pyc
+.env
+*.zip
+# Ne jamais versionner de mémoires d'étudiants ni de documents personnels
+brouillons/
+*.docx
+
+# Résultats des évaluations
+plugins/dev-memoire-kit/evals/results/
+!plugins/dev-memoire-kit/skills/redaction-memoire/assets/modele-memoire.docx

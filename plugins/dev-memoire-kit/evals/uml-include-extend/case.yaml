@@ -1,0 +1,20 @@
+schema_version: "1.1"
+name: uml-include-extend
+description: Une question de modélisation UML pour un mémoire doit déclencher redaction-memoire et donner une réponse juste sur include / extend.
+tags: [memoire, uml]
+runs: 2
+execution:
+  max_turns: 12
+  allowed_tools: [Skill, Read, Glob, Grep]
+  prompt: |
+    Pour le diagramme de cas d'utilisation de mon mémoire (application de vente en ligne), je ne sais pas si « Appliquer un code promo » doit être relié à « Valider une commande » avec include ou avec extend, ni dans quel sens va la flèche. Et est-ce que je dois mettre « S'authentifier » en include sur tous les cas ?
+graders:
+  - name: skill-fired
+    type: tool_used
+    tool: Skill
+    input_match: '"skill"\s*:\s*"(?:[\w-]+:)?redaction-memoire"'
+  - name: qualite
+    type: llm
+    criteria: |
+      PASS si la réponse indique que « Appliquer un code promo » est un extend (optionnel), avec la flèche partant du cas d'extension (code promo) vers le cas de base (valider une commande), ET déconseille de relier « S'authentifier » en include à tous les cas (précondition ou cas unique relié aux acteurs).
+      FAIL si elle propose include pour le code promo, inverse le sens de la flèche extend, ou recommande d'inclure « S'authentifier » partout.

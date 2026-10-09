@@ -49,12 +49,15 @@ Chapitre 3 : Réalisation de la solution                 (≈ 18 à 23 pages)
          3.3.3. Flux 2 : [Profil acteur 1]
          3.3.4. Flux 3 : [Profil acteur 2] …
     3.4. Tests et validation
+    3.5. Déploiement et estimation des coûts            (facultatif, apprécié)
 Conclusion générale                                     (1 à 1,5 page)
 ```
 
 **Objectifs spécifiques (1.4.2)** : quatre ou cinq étapes de la démarche, dans l'ordre (analyser l'existant, recueillir les besoins, modéliser, développer, tester et valider), formulées « **Intitulé** : il s'agit de + infinitif ». Les fonctionnalités de l'application n'y figurent pas : elles vont dans les exigences fonctionnelles (2.4.1).
 
 Corps du texte complet : **50 à 60 pages** environ. Le format exact de chaque élément (tableaux d'exigences, fiche de cas d'utilisation, présentation des outils, des écrans et des tests) est dans `modeles-de-chapitres.md`.
+
+Autre variante observée : chapitres numérotés en chiffres romains (« II Analyse et conception ») et figures « Figure II.6 ». Acceptable si c'est **la même forme partout** ; ⚠️ observé : « II » dans le corps mais « CHAPITRE 2 » dans le sommaire. Le chapitre 3 peut être plus long que le chapitre 2 quand l'application a beaucoup d'écrans (web + mobile) ; renvoyer alors les écrans secondaires en annexe.
 
 Variante acceptée (observée) : la méthodologie et l'existant peuvent être regroupés autrement (« Chapitre 1 : Présentation du sujet » sans structure d'accueil, existant traité seulement au chapitre 2). Ce qui ne varie pas : l'analyse et la modélisation au chapitre 2, la réalisation au chapitre 3.
 

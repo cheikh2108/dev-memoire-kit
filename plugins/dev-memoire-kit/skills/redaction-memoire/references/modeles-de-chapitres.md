@@ -153,6 +153,16 @@ Une référence à la norme ISO/IEC 25010 (qualité logicielle) pour le choix de
 ### 3.1 Outils et technologies utilisés
 Paragraphe d'ouverture sur les **critères de choix** (adéquation aux exigences, compétences de l'équipe, coût, hébergement) et, pour les choix structurants, l'alternative écartée et pourquoi (« Flutter plutôt que React Native, car… »).
 
+Pour chaque choix structurant (back-end, web, mobile, base de données), une **étude comparative** avec les **mêmes colonnes** pour chaque couche :
+
+| Framework (version) | Langage | Points forts | Points faibles | Adéquation au projet |
+|---|---|---|---|---|
+| Express 4 | JavaScript | … | … | … |
+| Laravel 11 | PHP | … | … | … |
+| Django 5 | Python | … | … | … |
+
+suivie d'un paragraphe **« Choix et justification »** (3 à 5 lignes) qui relie le choix à une exigence (« temps réel exigé par EF09 », « un seul code mobile pour Android et iOS »). Trois ou quatre candidats, dont le retenu. ⚠️ Observé : des colonnes différentes d'un tableau à l'autre ; des tableaux en couleurs sombres illisibles en noir et blanc (garder un en-tête gris clair).
+
 Puis un tableau récapitulatif par catégorie :
 
 | Catégorie | Outil (version) | Usage dans le projet | Justification |
@@ -178,6 +188,8 @@ Chaque outil important peut ensuite avoir un paragraphe de 3 à 5 lignes : ce qu
   2. la capture (une ou deux captures mobiles côte à côte) avec sa légende `Figure 3.6 : Écran « Mes demandes »` ;
   3. un **paragraphe de commentaire** (3 à 5 lignes) : ce que montre l'écran, l'exigence qu'il réalise **(EF05)**, une règle métier visible (« le bouton Payer n'apparaît qu'après validation du dossier »).
 - ⚠️ Observé : légendes sans commentaire ; commentaires agrammaticaux (« La figure ci-dessus illustre l'écran d'accueil affiche… »). Une phrase simple : « La figure 3.6 présente la liste des demandes du demandeur, avec leur statut. »
+- Application **web et mobile** : présenter l'écran web et l'écran mobile côte à côte dans une même figure, ou en deux figures successives (Figure 3.10, Figure 3.11) ; ⚠️ éviter les sous-numéros du type « Figure III.18.3 ». Regrouper dans un bloc **« Interfaces communes »** les écrans partagés par plusieurs profils (messagerie, notifications, documents, paramètres) au lieu de les montrer pour chaque profil.
+- Une **règle métier** visible à l'écran se rattache à une exigence (« sans vérification d'identité validée, le propriétaire ne peut pas publier de bien : EF07 »).
 - Écrans secondaires en Annexe C, appelés dans le texte (« voir Annexe C.2 »).
 
 ### 3.4 Tests et validation
@@ -201,6 +213,20 @@ Recette fonctionnelle (toujours possible, même sans tests automatisés) :
 
 Vérification des exigences non fonctionnelles : ENF, méthode de mesure, valeur mesurée.
 
+### 3.5 Déploiement et estimation des coûts (facultatif, apprécié)
+Section à part entière, **après** les tests (⚠️ observé : rangée par erreur dans « Présentation de l'application »).
+- **3.5.1 Déploiement** : diagramme de déploiement (`uml.md`) puis une puce par composant : base de données, API, front web, application mobile (publication Play Store / App Store), avec l'hébergeur et ce qu'il apporte (sauvegardes, HTTPS, déploiement continu). Dire clairement ce qui **est** déployé et ce qui est **prévu** (au conditionnel).
+- **3.5.2 Estimation des coûts** :
+
+| Composante | Service | Offre retenue | Périodicité | Coût (FCFA) | Équivalent mensuel (FCFA) |
+|---|---|---|---|---|---|
+| Base de données | [hébergeur] | [offre] | Mensuelle | … | … |
+| Nom de domaine | [registraire] | .sn / .com | Annuelle | … | … |
+| Compte Play Store | Google | — | Unique | … | — |
+| Passerelle de paiement | [opérateur] | Commission | Par transaction | … % | — |
+
+  puis un récapitulatif **Scénario | Coûts uniques | Coût mensuel | Coût annuel** (démarrage, croissance…). Dater les tarifs et le taux de change (« tarifs relevés le … ; 1 USD = … FCFA »). ⚠️ Observé : un coût annuel compté comme mensuel, des frais uniques oubliés dans le total, une offre gratuite qui n'existe plus chez l'hébergeur : vérifier chaque tarif sur le site du fournisseur.
+
 ---
 
 ## Conclusion générale (1 à 1,5 page)
@@ -212,5 +238,12 @@ Cinq paragraphes (détails : `introduction-conclusion.md`) :
 4. difficultés et limites, honnêtes et précises (échantillon, fonctionnalités non finalisées, prototype) ;
 5. perspectives réalistes, éventuellement à court, moyen et long terme.
 
-## Annexes (rappel)
-Annexe A : questionnaire vierge et résultats ; Annexe B : guide d'entretien et synthèse des réponses ; Annexe C : interfaces supplémentaires (C.1, C.2 par profil). Figures d'annexe numérotées A.1, B.1, C.1… ⚠️ jamais « Figure 0.x » (numérotation par chapitre restée active hors chapitre).
+## Annexes
+- **Annexe A : Questionnaire** vierge, puis les résultats (graphiques refaits).
+- **Annexe B : Guide d'entretien**, un bloc par entretien :
+  1. tableau d'identification : Interlocuteur (**fonction**, pas le nom) | Type de structure | Date | Lieu | Durée | Mode (présentiel, téléphone) ;
+  2. contexte de l'entretien (un paragraphe) ;
+  3. questions regroupées par **thème** (Thème 1 : organisation actuelle, Thème 2 : paiements…), chaque question en italique « *Q1 : … ?* » suivie de « Réponse : … » (synthèse fidèle) ;
+  4. synthèse et enseignements : 4 ou 5 constats, puis une phrase qui les relie aux exigences fonctionnelles ;
+  5. l'entretien est **exploité dans le corps** (problématique, besoins), pas seulement rangé en annexe.
+- **Annexe C : Interfaces supplémentaires** (C.1, C.2 par profil). Figures d'annexe numérotées A.1, B.1, C.1… ⚠️ jamais « Figure 0.x » (numérotation par chapitre restée active hors chapitre).

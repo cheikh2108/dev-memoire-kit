@@ -5,14 +5,14 @@
   },
   "metadata": {
     "description": "Skills Claude pour rédiger un mémoire d'informatique, coder proprement et éviter le contenu générique, plus une sélection de skills de la communauté.",
-    "version": "1.5.0"
+    "version": "1.6.0"
   },
   "plugins": [
     {
       "name": "dev-memoire-kit",
       "source": "./plugins/dev-memoire-kit",
       "description": "3 skills : redaction-memoire, bonnes-pratiques-dev, anti-generique.",
-      "version": "1.5.0"
+      "version": "1.6.0"
     },
     {
       "name": "soutenance-grill-me",

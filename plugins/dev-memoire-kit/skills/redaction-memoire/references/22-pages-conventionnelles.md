@@ -32,7 +32,11 @@ Règles de pagination :
 - même casse partout : si le pied de page affiche « ii », la table des matières affiche « ii », pas « II » ;
 - aucune page blanche numérotée (vérifier les sauts de section entre le glossaire et les listes).
 
-Variante observée : Résumé et Abstract placés tout de suite après la couverture (avant « À la mémoire de »). Les deux ordres existent ; garder celui du modèle sauf demande du directeur.
+Variantes observées dans d'autres mémoires validés :
+- Résumé et Abstract tout de suite après la couverture (avant « À la mémoire de »), ou juste avant l'introduction générale (après les listes) ;
+- Sommaire placé avant le glossaire et les listes ;
+- page de garde (doublure de la couverture) présente.
+Ces ordres existent ; garder celui du modèle sauf demande du directeur, et ne pas mélanger : une seule série de numéros romains (⚠️ observé : couverture numérotée I, garde II, puis la numérotation qui repart à I).
 
 Le guide officiel plaçait Résumé et Abstract en fin de document (4e de couverture) et prévoyait 22 pages avec la page de garde et l'errata. Les mémoires validés récents les placent en tête et omettent garde et errata : suivre la pratique validée, sauf consigne contraire du directeur.
 

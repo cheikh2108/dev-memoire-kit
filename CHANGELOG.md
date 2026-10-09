@@ -1,5 +1,14 @@
 # Historique des versions
 
+## 1.6.0 — 09/10/2026
+### Ajouts
+- **redaction-memoire**, à partir d'un troisième mémoire validé (anonymisé) :
+  - gabarits : étude comparative des frameworks par couche, section 3.5 « Déploiement et estimation des coûts » (tableau des coûts par périodicité, récapitulatif par scénario), bloc « Interfaces communes » pour les applications web + mobile, annexe d'entretien structurée par thèmes ;
+  - variantes acceptées : ordre des pages liminaires, chapitres en chiffres romains, fiche de cas d'utilisation au format A1/E1 ;
+  - nouveaux défauts relevés (annonce du plan contradictoire, données personnelles dans les captures, coûts mal calculés, CRUD en extend, « S'authentifier » pivot…).
+- Modèle Word : étude comparative, déploiement et coûts, tableau d'identification de l'entretien.
+- `verifier_memoire.py` : chapitres en chiffres romains, plan en chapitres annoncé en « parties ».
+
 ## 1.5.0 — 09/10/2026
 ### Ajouts
 - **redaction-memoire** : procédure « mémoire complet » (`references/memoire-complet.md`) : recueil des faits, plan, registre de cohérence, rédaction chapitre par chapitre dans le modèle, vérification, liste des points à compléter ; fiche projet à remplir (`assets/fiche-projet.md`).

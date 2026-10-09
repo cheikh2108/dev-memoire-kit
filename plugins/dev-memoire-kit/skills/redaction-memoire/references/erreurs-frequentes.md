@@ -125,3 +125,19 @@ Même des mémoires soutenus et validés contiennent ces défauts. Le jury les r
 - Captures Google Forms brutes (boutons visibles) au lieu de graphiques refaits.
 - Commentaires d'écran agrammaticaux (« La figure ci-dessus illustre l'écran d'accueil affiche… »), anglicismes (« uploader »).
 - Fautes d'accord dans les pages personnelles (« n'a jamais cessée », « leurs soutien ») : les relire aussi, le jury les lit en premier.
+
+**Relevés dans un troisième mémoire validé**
+- Annonce du plan qui contredit le corps : « trois parties », « cadre théorique », « tests effectués », « Merise », alors que le mémoire a trois chapitres, aucun test et de l'UML.
+- Couverture numérotée « I », garde « II », puis numérotation qui repart à I ; pages finales qui continuent en romains majuscules.
+- Chapitre « II » dans le corps, « CHAPITRE 2 » dans le sommaire ; titres avec une majuscule à chaque mot.
+- Technologie citée qui n'est pas utilisée (« déploiement sur Next.js » pour un front React) ; « Flutter unifie le web et le mobile » alors que le web est en React.
+- Schéma d'architecture générique trouvé en ligne, en anglais, légendé « Logo MVC », sans lien avec la pile réelle.
+- Diagramme de cas d'utilisation avec « S'authentifier » comme pivot, CRUD en extend, sans frontière du système ; classes aux conventions de nommage mélangées (idbien / bien_id / date_Debut) et avec une faute dans un nom de classe.
+- Fiches de cas d'utilisation dont la numérotation Word continue sur les alternatives (16., 17.) ; acteur « utilisateur » absent de la liste des acteurs.
+- Captures avec le **prénom de l'étudiant** dans le compte de démonstration et les **noms des parents** de la dédicace comme locataire et propriétaire fictifs ; interlocuteur et structure nommés dans l'annexe d'entretien.
+- Interface montrée avec ses bugs (chaîne vide « pour "" », barre de défilement parasite) : corriger ou choisir une autre capture.
+- Coûts mal calculés (annuel compté en mensuel, frais uniques oubliés) et offre gratuite qui n'existe plus.
+- Tableaux sur fond noir, texte cyan : illisibles à l'impression.
+- Glossaire aux développements faux (« MY Structured… » pour MySQL) et incomplet (APK, CDN, SMTP, SSL…).
+- « Les tableaux ci-dessous… » écrit **après** les tableaux ; définition de manuel avant chaque notion (« Un acteur désigne… », « Une fonctionnalité se définit comme… »).
+- Problématique en trois questions dans l'introduction et une autre au chapitre 1 : une seule question centrale, la même partout.

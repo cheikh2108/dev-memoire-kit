@@ -64,6 +64,9 @@ La modélisation est la partie où les mémoires de licence sont le plus souvent
 
 ### 4.3 Erreurs fréquentes
 - **« S'authentifier » inclus partout** : 15 flèches `include` vers « S'authentifier » encombrent le diagramme. L'authentification est une **précondition**, à écrire dans les descriptions textuelles, ou un seul cas relié aux acteurs.
+- **« S'authentifier » comme pivot** : l'acteur n'est relié qu'à « S'authentifier », d'où partent toutes les autres flèches. Faux : chaque acteur est relié directement à ses cas ; l'authentification est une précondition.
+- **CRUD modélisé en extend** (« Ajouter », « Modifier », « Supprimer » qui étendent « Gérer les biens ») : ce ne sont pas des extensions conditionnelles. Soit un seul cas « Gérer les biens » (avec une note), soit des cas séparés reliés à l'acteur.
+- **Pas de frontière du système** (le rectangle qui contient les cas, nommé) ni de diagramme général : présenter le diagramme **général d'abord**, puis un par acteur.
 - **Cas trop gros** (« Gérer les étudiants ») sans détail. Accepté pour le CRUD si on précise en note : ajouter / modifier / supprimer / consulter. Sinon, découper.
 - **Cas trop fins** : « Cliquer sur le bouton Valider » est une étape d'interface, pas un cas.
 - **Flèches de séquence entre cas** (« d'abord A puis B ») : un diagramme de cas d'utilisation ne montre pas l'ordre. L'ordre va dans un diagramme d'activité ou de séquence.
@@ -89,6 +92,8 @@ Scénarios alternatifs (numérotés d'après l'étape où ils naissent, dans l'o
 Postconditions : une présence horodatée est liée à l'étudiant et à la séance.
 Règles de gestion : un étudiant arrivé plus de 15 min après le début est marqué « en retard ».
 ```
+
+Variante acceptée (format « Cockburn ») : enchaînements alternatifs codés **A1, A2** et d'erreur **E1** (« L'enchaînement A1 démarre au point 4 du scénario nominal »). Choisir **un** format pour tout le mémoire et vérifier chaque point de départ.
 
 Dans le mémoire, cette description se présente en **tableau à deux colonnes** (rubrique en gras | contenu), avec une légende au-dessus (`Tableau 2.10 : Description du cas d'utilisation « Pointer un étudiant »`) et les rubriques dans cet ordre : Nom, Acteur(s), Objectif, Préconditions, Scénario nominal, Scénarios alternatifs, Scénarios d'erreur, Postconditions (modèle complet : `modeles-de-chapitres.md`, §2.5).
 

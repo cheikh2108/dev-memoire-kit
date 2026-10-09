@@ -102,10 +102,32 @@ TECHNOS = {
 CHAPITRES = {"1": {"1", "2"}, "2": {"3", "4"}, "3": {"5", "6", "7"}}
 
 NOMBRES = {"deux": 2, "trois": 3, "quatre": 4, "cinq": 5, "six": 6, "sept": 7, "huit": 8}
-RX_CHAPITRE = re.compile(r"^chapitre\s+(\d+)\s*[:.\-–]", re.IGNORECASE)
+RX_CHAPITRE_ARABE = re.compile(r"^chapitre\s+(\d+)\s*[:.\-–]\s*[A-ZÉÈÀa-zé]", re.IGNORECASE)
+RX_CHAPITRE_ROMAIN = re.compile(r"^(?:chapitre\s+)?(I|II|III|IV|V|VI)\s*[:.\-–]?\s+[A-ZÉÈÀ][A-Za-zéèêàçœ’' ]+$")
+ROMAINS = {"I": "1", "II": "2", "III": "3", "IV": "4", "V": "5", "VI": "6"}
+
+
+class _Chapitre:
+    """Reconnaît « Chapitre 2 : … » ou « II Analyse et conception » ; group(1) rend le numéro arabe."""
+    def match(self, p):
+        if "http" in p or ".pdf" in p.lower():
+            return None
+        m = RX_CHAPITRE_ARABE.match(p)
+        if m:
+            return m
+        m = RX_CHAPITRE_ROMAIN.match(p)
+        if m:
+            class M:
+                def __init__(self, n): self.n = n
+                def group(self, _): return self.n
+            return M(ROMAINS[m.group(1)])
+        return None
+
+
+RX_CHAPITRE = _Chapitre()
 RX_SECTION = re.compile(r"^(\d{1,2})\.(\d{1,2})\.?\s+[A-ZÉÈÀÂÎÔÙÇa-zé]")          # 2.3 ou 2.3. Titre
 RX_SOUS_SECTION = re.compile(r"^(\d{1,2})\.(\d{1,2})\.(\d{1,2})\.?\s+[A-ZÉÈÀÂÎÔÙÇa-zé]")
-RX_LIGNE_TABLE = re.compile(r"(\.{3,}|…|\t)\s*[\dIVXLivxl]+\s*$")  # entrée de sommaire avec n° de page
+RX_LIGNE_TABLE = re.compile(r"([.…]{3,}|…|\t)\s*[\dIVXLivxl]+\s*$")  # entrée de sommaire avec n° de page
 RX_ANNONCE = re.compile(r"(?:s[’']articule|est structuré|s[’']organise|se décline)[^.]{0,40}?\b(" + "|".join(NOMBRES) + r"|\d)\s+(?:sections|parties principales|points)", re.IGNORECASE)
 RX_EF = re.compile(r"\bEF-?(\d{1,3})\b")
 
@@ -258,6 +280,11 @@ def analyser(paragraphes, structure=True):
                 n_reel = len(dict.fromkeys(sections_par_chapitre.get(chapitre_courant, [])))
                 if n_reel and n_annonce != n_reel:
                     annonces.append((i, chapitre_courant, n_annonce, n_reel))
+    # Plan en chapitres annoncé comme « trois parties »
+    if plan_chapitres:
+        rx_parties = re.compile(r"(structur[ée]|organis[ée]|articul[ée]|divis[ée]|s[’']articule)[^.]{0,40}?\b(deux|trois|quatre)\s+parties", re.IGNORECASE)
+        for i, p, m in chercher(paragraphes, rx_parties.pattern):
+            annonces.append((i, "plan", m.group(2) + " parties", "chapitres (le plan est en chapitres)"))
     rapport["annonces"] = annonces
 
     # Codes d'exigences : définis (cellule ou début de ligne de tableau) vs cités
@@ -344,7 +371,10 @@ def afficher(rapport, chemin):
     if rapport["annonces"]:
         titre("ANNONCES DE CHAPITRE FAUSSES (bloquant)")
         for i, chap, annonce, reel in rapport["annonces"]:
-            print(f"  §{i}  chapitre {chap} : {annonce} sections annoncées, {reel} sections réelles")
+            if chap == "plan":
+                print(f"  §{i}  « {annonce} » annoncées alors que le mémoire est organisé en {reel}")
+            else:
+                print(f"  §{i}  chapitre {chap} : {annonce} sections annoncées, {reel} sections réelles")
             bloquants += 1
         print()
 

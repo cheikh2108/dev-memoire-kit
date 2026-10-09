@@ -1,5 +1,13 @@
 # Historique des versions
 
+## 1.3.0 — 09/10/2026
+### Ajouts
+- **Marketplace** : 10 skills populaires de la communauté (Matt Pocock, Anthropic, Vercel), relus et figés sur un commit précis, installables un par un : `soutenance-grill-me`, `tdd`, `diagnostic-bugs`, `architecture-code`, `apprendre-une-techno`, `frontend-design`, `tests-webapp`, `react-bonnes-pratiques`, `react-native-bonnes-pratiques`, `creer-un-skill`. Ils restent hébergés chez leurs auteurs.
+- Fiche `bonnes-pratiques-dev/references/skills-complementaires.md` : Claude propose le bon skill au bon moment.
+
+### Modifications
+- **redaction-memoire** (UML / Merise) : éviter les associations 1 — 1 strictes (fusionner les deux classes), cas où un 1 — 0..1 se justifie, règle de passage à la base mise à jour.
+
 ## 1.2.1 — 09/10/2026
 ### Modifications
 - **redaction-memoire** : règle d'équilibre des longueurs (sections et sous-sections proches au sein d'un chapitre, chapitres proches au sein d'une partie, conclusion concise de 1 à 1,5 page).

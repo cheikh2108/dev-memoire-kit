@@ -52,3 +52,7 @@ Valable quelle que soit la stack (Laravel/PHP, Node/Express, React/React Native,
 - Chaque membre doit pouvoir expliquer **toute** l'architecture au jury, pas seulement sa partie.
 - Revue croisée de chaque PR par un autre membre (`references/checklist-revue.md`).
 - Un tableau de suivi simple (GitHub Projects, Trello) : à faire / en cours / en revue / terminé.
+
+## Skills complémentaires
+
+Si l'utilisateur fait du TDD, bloque sur un bug, travaille l'architecture, fait du React / React Native ou teste une application web, un skill de la communauté peut l'aider : voir `references/skills-complementaires.md` et le proposer en une phrase s'il n'est pas installé.

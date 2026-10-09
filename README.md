@@ -37,6 +37,25 @@ Zipper un dossier de skill (ex. `redaction-memoire/`, avec son `SKILL.md` à la 
 
 Coût en contexte : environ 600 tokens permanents par session pour les trois skills ; le détail (références, exemples) n'est lu qu'à la demande.
 
+## Skills complémentaires de la communauté
+
+La marketplace propose aussi une sélection de skills populaires d'autres auteurs, relus et figés sur une version précise. Ils restent hébergés chez leurs auteurs et sous leur licence ; rien n'est installé tant qu'on ne le demande pas. On les voit dans `/plugin`, onglet Découvrir, une fois la marketplace ajoutée, et Claude les propose quand la situation s'y prête.
+
+| Plugin | À quoi il sert | Auteur, licence |
+|---|---|---|
+| `soutenance-grill-me` | Claude t'interroge sans relâche sur ton plan ou tes choix, comme un jury (`/grill-me`) | Matt Pocock, MIT |
+| `tdd` | Écrire les tests avant le code | Matt Pocock, MIT |
+| `diagnostic-bugs` | Trouver la cause d'un bug difficile ou d'une lenteur | Matt Pocock, MIT |
+| `architecture-code` | Améliorer l'architecture d'un projet existant, glossaire, ADR | Matt Pocock, MIT |
+| `apprendre-une-techno` | Apprendre une technologie sur plusieurs séances (`/teach`) | Matt Pocock, MIT |
+| `frontend-design` | Interfaces web soignées et non génériques | Anthropic, Apache-2.0 |
+| `tests-webapp` | Tester une application web dans un navigateur (Playwright) | Anthropic, Apache-2.0 |
+| `react-bonnes-pratiques` | Performance React et Next.js | Vercel, MIT |
+| `react-native-bonnes-pratiques` | Applications mobiles React Native et Expo | Vercel, MIT |
+| `creer-un-skill` | Créer et tester ses propres skills | Anthropic, Apache-2.0 |
+
+Installation : `/plugin install <nom>@dev-memoire-kit`, par exemple `/plugin install soutenance-grill-me@dev-memoire-kit`.
+
 ## Utilisation (exemples)
 
 - « Voici mon sujet et mes notes d'entretien, aide-moi à écrire la problématique et les hypothèses. »

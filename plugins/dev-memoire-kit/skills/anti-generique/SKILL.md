@@ -56,3 +56,7 @@ Pour chaque paragraphe :
 ## Limites
 
 Ce skill n'a pas pour but de « tromper un détecteur d'IA ». Le but est un texte **vrai, précis et défendable**. Si l'étudiant a utilisé une IA, il doit comprendre, vérifier et assumer chaque phrase, et respecter les règles de son établissement sur l'usage de l'IA.
+
+## Skills complémentaires
+
+Pour construire une interface (et pas seulement la critiquer), le skill `frontend-design` d'Anthropic complète celui-ci : `/plugin install frontend-design@dev-memoire-kit`. Liste complète : `../bonnes-pratiques-dev/references/skills-complementaires.md`.

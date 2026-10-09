@@ -128,6 +128,7 @@ La multiplicité s'écrit **du côté de la classe qu'elle compte**. C'est l'err
 - **Multiplicités absentes** : un diagramme de classes sans multiplicités ne vaut presque rien.
 - **Attributs calculés stockés sans raison** (`age` alors que `dateNaissance` existe) : en faire une méthode.
 - **Héritage abusif** : si les sous-classes n'ont aucun attribut ni comportement propre, un attribut `role` suffit.
+- **Associations 1 — 1 à éviter** (`1` des deux côtés ; Merise `(1,1) — (1,1)`) : deux classes toujours liées une à une décrivent presque toujours **le même objet**. Les **fusionner** en une seule classe (`Etudiant` + `DossierEtudiant` → `Etudiant`). Une association 1 — 1 n'est défendable que si un côté est **facultatif** (`0..1` : un étudiant n'a pas forcément de carte, `Etudiant "1" —— "0..1" CarteEtudiant`), si les deux objets ont des **cycles de vie différents** (la carte est remplacée, l'étudiant reste), ou pour **isoler des données sensibles** ou rarement lues (informations médicales, pièces justificatives). Dans ces cas, le justifier en une phrase dans le mémoire : le jury pose souvent la question.
 - **Diagramme différent de la base livrée** : le jury vérifie avec les captures de la base ou les migrations.
 
 ---
@@ -206,6 +207,8 @@ Exemple « un cours a plusieurs séances, une séance appartient à un seul cour
 - UML : `Cours "1" —— "*" Seance`
 Les valeurs semblent « inversées » : c'est normal.
 
+Même règle qu'en UML : éviter `(1,1) — (1,1)`, signe de deux entités à fusionner ; préférer `(1,1) — (0,1)` quand une entité est facultative pour l'autre, et le justifier (voir §5.4).
+
 ---
 
 ## 9. Du modèle à la base de données
@@ -218,7 +221,7 @@ Les valeurs semblent « inversées » : c'est normal.
 | Association **0..1 — \*** | Clé étrangère **nullable** du côté \* | `etudiant.classe_id` NULL autorisé |
 | Association **\* — \*** (Merise : (0,n) — (0,n)) | **Table de jonction** avec les deux clés | `inscription(etudiant_id FK, cours_id FK, date_inscription, PK(etudiant_id, cours_id))` |
 | Classe d'association / association porteuse | Ses attributs vont dans la table de jonction | `date_inscription` ci-dessus |
-| **1 — 1** | Clé étrangère `UNIQUE` dans l'une des deux tables (ou fusion) | `carte_etudiant.etudiant_id UNIQUE` |
+| **1 — 0..1** (1 — 1 strict : fusionner, voir §5.4) | Clé étrangère `UNIQUE` du côté facultatif | `carte_etudiant.etudiant_id UNIQUE` |
 | Composition | Clé étrangère `NOT NULL` + `ON DELETE CASCADE` | `ligne_facture.facture_id` |
 | Héritage | 3 stratégies : **table unique** avec colonne `type` (simple, conseillée en licence) ; **une table par classe concrète** ; **table mère + tables filles** liées par la même clé | `utilisateur(id, type ENUM('enseignant','etudiant','admin'), …)` |
 | Énumération | `ENUM` ou table de référence | `presence.statut ENUM('present','retard','absent','excuse')` |

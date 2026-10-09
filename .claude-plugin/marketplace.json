@@ -4,15 +4,255 @@
     "name": "Oblivion"
   },
   "metadata": {
-    "description": "Skills Claude pour rédiger un mémoire d'informatique, coder proprement et éviter le contenu générique.",
-    "version": "1.2.1"
+    "description": "Skills Claude pour rédiger un mémoire d'informatique, coder proprement et éviter le contenu générique, plus une sélection de skills de la communauté.",
+    "version": "1.3.0"
   },
   "plugins": [
     {
       "name": "dev-memoire-kit",
       "source": "./plugins/dev-memoire-kit",
       "description": "3 skills : redaction-memoire, bonnes-pratiques-dev, anti-generique.",
-      "version": "1.2.1"
+      "version": "1.3.0"
+    },
+    {
+      "name": "soutenance-grill-me",
+      "description": "Claude te pose des questions difficiles, une par une, sur ton plan ou tes choix techniques. Idéal pour préparer les questions du jury. Lancer avec /grill-me.",
+      "category": "soutenance",
+      "tags": [
+        "soutenance",
+        "entrainement"
+      ],
+      "author": {
+        "name": "Matt Pocock"
+      },
+      "license": "MIT",
+      "homepage": "https://github.com/mattpocock/skills",
+      "source": {
+        "source": "git-subdir",
+        "url": "mattpocock/skills",
+        "path": "skills/productivity",
+        "sha": "49dd158d1076134a641b33efb035946536778336"
+      },
+      "skills": [
+        "./grill-me",
+        "./grilling"
+      ]
+    },
+    {
+      "name": "tdd",
+      "description": "Développement piloté par les tests (rouge, vert, refactorisation) : écrire le test avant le code.",
+      "category": "dev",
+      "tags": [
+        "tests",
+        "tdd"
+      ],
+      "author": {
+        "name": "Matt Pocock"
+      },
+      "license": "MIT",
+      "homepage": "https://github.com/mattpocock/skills",
+      "source": {
+        "source": "git-subdir",
+        "url": "mattpocock/skills",
+        "path": "skills/engineering",
+        "sha": "49dd158d1076134a641b33efb035946536778336"
+      },
+      "skills": [
+        "./tdd"
+      ]
+    },
+    {
+      "name": "diagnostic-bugs",
+      "description": "Méthode pour trouver la cause d'un bug difficile ou d'une lenteur : reproduire, isoler, prouver, corriger.",
+      "category": "dev",
+      "tags": [
+        "debug",
+        "bugs"
+      ],
+      "author": {
+        "name": "Matt Pocock"
+      },
+      "license": "MIT",
+      "homepage": "https://github.com/mattpocock/skills",
+      "source": {
+        "source": "git-subdir",
+        "url": "mattpocock/skills",
+        "path": "skills/engineering",
+        "sha": "49dd158d1076134a641b33efb035946536778336"
+      },
+      "skills": [
+        "./diagnosing-bugs"
+      ]
+    },
+    {
+      "name": "architecture-code",
+      "description": "Analyse un projet existant et propose des améliorations d'architecture (rapport HTML), avec glossaire du domaine et décisions d'architecture (ADR).",
+      "category": "dev",
+      "tags": [
+        "architecture",
+        "refactoring",
+        "adr"
+      ],
+      "author": {
+        "name": "Matt Pocock"
+      },
+      "license": "MIT",
+      "homepage": "https://github.com/mattpocock/skills",
+      "source": {
+        "source": "git-subdir",
+        "url": "mattpocock/skills",
+        "path": "skills",
+        "sha": "49dd158d1076134a641b33efb035946536778336"
+      },
+      "skills": [
+        "./engineering/improve-codebase-architecture",
+        "./engineering/codebase-design",
+        "./engineering/domain-modeling",
+        "./productivity/grilling"
+      ]
+    },
+    {
+      "name": "apprendre-une-techno",
+      "description": "Claude devient ton professeur sur une technologie ou un concept, avec leçons, fiches et suivi de progression sur plusieurs séances. Lancer avec /teach.",
+      "category": "apprentissage",
+      "tags": [
+        "cours",
+        "apprendre"
+      ],
+      "author": {
+        "name": "Matt Pocock"
+      },
+      "license": "MIT",
+      "homepage": "https://github.com/mattpocock/skills",
+      "source": {
+        "source": "git-subdir",
+        "url": "mattpocock/skills",
+        "path": "skills/productivity",
+        "sha": "49dd158d1076134a641b33efb035946536778336"
+      },
+      "skills": [
+        "./teach"
+      ]
+    },
+    {
+      "name": "frontend-design",
+      "description": "Interfaces web soignées et non génériques : direction visuelle, typographie, composition. Complète le skill anti-generique.",
+      "category": "design",
+      "tags": [
+        "frontend",
+        "ui",
+        "design"
+      ],
+      "author": {
+        "name": "Anthropic"
+      },
+      "license": "Apache-2.0",
+      "homepage": "https://github.com/anthropics/skills",
+      "source": {
+        "source": "git-subdir",
+        "url": "anthropics/skills",
+        "path": "skills",
+        "sha": "9d630808e4add0a7146de4af9384155d5dee350a"
+      },
+      "skills": [
+        "./frontend-design"
+      ]
+    },
+    {
+      "name": "tests-webapp",
+      "description": "Tester une application web dans un vrai navigateur avec Playwright : parcours, captures d'écran, journaux de la console.",
+      "category": "dev",
+      "tags": [
+        "tests",
+        "playwright",
+        "web"
+      ],
+      "author": {
+        "name": "Anthropic"
+      },
+      "license": "Apache-2.0",
+      "homepage": "https://github.com/anthropics/skills",
+      "source": {
+        "source": "git-subdir",
+        "url": "anthropics/skills",
+        "path": "skills",
+        "sha": "9d630808e4add0a7146de4af9384155d5dee350a"
+      },
+      "skills": [
+        "./webapp-testing"
+      ]
+    },
+    {
+      "name": "react-bonnes-pratiques",
+      "description": "Règles de performance React et Next.js de Vercel : rendus inutiles, chargement des données, taille des bundles.",
+      "category": "dev",
+      "tags": [
+        "react",
+        "nextjs",
+        "performance"
+      ],
+      "author": {
+        "name": "Vercel"
+      },
+      "license": "MIT",
+      "homepage": "https://github.com/vercel-labs/agent-skills",
+      "source": {
+        "source": "git-subdir",
+        "url": "vercel-labs/agent-skills",
+        "path": "skills",
+        "sha": "063bee94c3f4df8453406c830b0a7df0f2860278"
+      },
+      "skills": [
+        "./react-best-practices"
+      ]
+    },
+    {
+      "name": "react-native-bonnes-pratiques",
+      "description": "Bonnes pratiques React Native et Expo pour des applications mobiles fluides : listes, animations, navigation.",
+      "category": "dev",
+      "tags": [
+        "react-native",
+        "expo",
+        "mobile"
+      ],
+      "author": {
+        "name": "Vercel"
+      },
+      "license": "MIT",
+      "homepage": "https://github.com/vercel-labs/agent-skills",
+      "source": {
+        "source": "git-subdir",
+        "url": "vercel-labs/agent-skills",
+        "path": "skills",
+        "sha": "063bee94c3f4df8453406c830b0a7df0f2860278"
+      },
+      "skills": [
+        "./react-native-skills"
+      ]
+    },
+    {
+      "name": "creer-un-skill",
+      "description": "Créer, tester et améliorer tes propres skills Claude, par exemple pour contribuer à ce kit.",
+      "category": "outils",
+      "tags": [
+        "skills",
+        "claude"
+      ],
+      "author": {
+        "name": "Anthropic"
+      },
+      "license": "Apache-2.0",
+      "homepage": "https://github.com/anthropics/skills",
+      "source": {
+        "source": "git-subdir",
+        "url": "anthropics/skills",
+        "path": "skills",
+        "sha": "9d630808e4add0a7146de4af9384155d5dee350a"
+      },
+      "skills": [
+        "./skill-creator"
+      ]
     }
-  ]
+  ],
+  "description": "Skills Claude pour rédiger un mémoire d'informatique, coder proprement et éviter le contenu générique, plus une sélection de skills de la communauté."
 }

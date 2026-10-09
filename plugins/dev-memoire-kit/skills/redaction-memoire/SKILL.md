@@ -81,3 +81,7 @@ Quand l'étudiant fournit un brouillon (.docx, .md ou .txt) :
 
 - Il ne rédige pas un mémoire « clé en main » sur un projet que l'étudiant n'a pas réalisé. Il aide à formuler, structurer et vérifier un travail réel.
 - Il ne contourne pas le plagiat : toute reprise d'idée est citée, toute reprise de texte est entre guillemets avec sa source.
+
+## Skills complémentaires
+
+Pour préparer la soutenance, proposer en une phrase le skill `soutenance-grill-me` (Claude interroge l'étudiant sur son plan et ses choix comme un jury) s'il n'est pas installé : `/plugin install soutenance-grill-me@dev-memoire-kit`, puis `/grill-me`. Liste complète : `../bonnes-pratiques-dev/references/skills-complementaires.md`.

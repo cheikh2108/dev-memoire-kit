@@ -12,6 +12,16 @@ Le fichier `plugins/dev-memoire-kit/skills/anti-generique/references/principes-c
 
 L'exemple `plugins/dev-memoire-kit/skills/anti-generique/assets/design-md/exemple-paperflow.md` provient des modèles Neuform (auteur : Sourasith Phomhome, @madebysourasith) et est reproduit à titre d'exemple pédagogique, avec son attribution d'origine.
 
+## Plugins référencés par la marketplace
+
+La marketplace (`.claude-plugin/marketplace.json`) **référence** des skills d'autres dépôts sans les copier : Claude Code les télécharge depuis le dépôt d'origine, au commit indiqué, lorsque l'utilisateur les installe. Ils restent soumis à la licence de leur auteur.
+
+| Plugin | Dépôt d'origine | Licence |
+|---|---|---|
+| soutenance-grill-me, tdd, diagnostic-bugs, architecture-code, apprendre-une-techno | https://github.com/mattpocock/skills | MIT, Copyright (c) 2026 Matt Pocock |
+| frontend-design, tests-webapp, creer-un-skill | https://github.com/anthropics/skills | Apache-2.0 |
+| react-bonnes-pratiques, react-native-bonnes-pratiques | https://github.com/vercel-labs/agent-skills | MIT, Vercel |
+
 ## Texte de la licence MIT (applicable aux projets ci-dessus)
 
 ```

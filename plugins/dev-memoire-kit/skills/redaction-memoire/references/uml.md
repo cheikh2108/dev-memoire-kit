@@ -16,13 +16,13 @@ La modélisation est la partie où les mémoires de licence sont le plus souvent
 
 | Diagramme | Question à laquelle il répond | Obligatoire en licence ? | Place dans le plan |
 |---|---|---|---|
-| Cas d'utilisation | Qui utilise le système et pour faire quoi ? | **Oui** | 2.x Analyse des besoins / Conception |
-| Classes (ou MCD Merise) | Quelles données, quelles relations ? | **Oui** | 2.x Conception |
-| Séquence (1 à 3 scénarios clés) | Comment se déroule une fonctionnalité, étape par étape ? | **Oui** | 2.x Conception |
-| Activité | Quel est le processus métier (avec décisions, acteurs) ? | Recommandé (processus actuel ou futur) | 2.3 Analyse de l'existant ou Conception |
-| Déploiement | Sur quelles machines tourne chaque composant ? | Recommandé | 3.5 Architecture |
+| Cas d'utilisation | Qui utilise le système et pour faire quoi ? | **Oui** (un général + un par acteur) | 2.5.1 Diagrammes de cas d'utilisation |
+| Classes (ou MCD Merise) | Quelles données, quelles relations ? | **Oui** | 2.5.3 Diagramme de classes |
+| Séquence (3 à 6 scénarios clés) | Comment se déroule une fonctionnalité, étape par étape ? | **Oui** | 2.5.2 Diagrammes de séquence, chacun précédé de la description textuelle du cas |
+| Activité | Quel est le processus métier (avec décisions, acteurs) ? | Recommandé (processus actuel ou futur) | 1.6 Étude de l'existant ou Conception |
+| Déploiement | Sur quelles machines tourne chaque composant ? | Recommandé | 3.2 Architecture technique |
 | États-transitions | Par quels états passe un objet important (commande, demande) ? | Si un objet a un cycle de vie | Conception |
-| Composants / paquetages | Comment le code est-il découpé ? | Optionnel | 3.5 Architecture |
+| Composants / paquetages | Comment le code est-il découpé ? | Optionnel | 3.2 Architecture technique |
 
 ## 3. Méthode : des besoins aux diagrammes
 
@@ -32,7 +32,7 @@ La modélisation est la partie où les mémoires de licence sont le plus souvent
 
 **Étape 3 — Cas d'utilisation** : chaque besoin devient un cas (ovale). Regrouper par acteur. Ajouter `include` et `extend` seulement là où c'est vrai (voir §4).
 
-**Étape 4 — Description textuelle** des 2 ou 3 cas les plus importants (modèle au §4.4). C'est elle qui révèle les données et les étapes.
+**Étape 4 — Description textuelle** des 3 à 6 cas les plus importants (modèle au §4.4), placée juste avant le diagramme de séquence du cas. C'est elle qui révèle les données et les étapes.
 
 **Étape 5 — Repérer les classes** : souligner les **noms** dans les descriptions (étudiant, séance, cours, présence…) → classes candidates. Les **verbes** → méthodes ou associations. Les **adjectifs et valeurs** → attributs.
 
@@ -82,13 +82,15 @@ Scénario nominal :
   4. Le système vérifie que l'étudiant est inscrit au cours.
   5. Le système enregistre la présence avec l'heure.
   6. Le système affiche une confirmation.
-Scénarios alternatifs :
-  4a. Étudiant non inscrit : le système affiche « Étudiant non inscrit à ce cours ».
-  5a. Déjà pointé : le système ignore le doublon et l'indique.
-  3a. Réseau indisponible : la présence est enregistrée localement puis synchronisée.
+Scénarios alternatifs (numérotés d'après l'étape où ils naissent, dans l'ordre) :
+  3a. Réseau indisponible : la présence est enregistrée localement puis synchronisée. Retour à l'étape 6.
+  4a. Étudiant non inscrit : le système affiche « Étudiant non inscrit à ce cours ». Retour à l'étape 3.
+  5a. Déjà pointé : le système ignore le doublon et l'indique. Retour à l'étape 3.
 Postconditions : une présence horodatée est liée à l'étudiant et à la séance.
 Règles de gestion : un étudiant arrivé plus de 15 min après le début est marqué « en retard ».
 ```
+
+Dans le mémoire, cette description se présente en **tableau à deux colonnes** (rubrique en gras | contenu), avec une légende au-dessus (`Tableau 2.10 : Description du cas d'utilisation « Pointer un étudiant »`) et les rubriques dans cet ordre : Nom, Acteur(s), Objectif, Préconditions, Scénario nominal, Scénarios alternatifs, Scénarios d'erreur, Postconditions (modèle complet : `modeles-de-chapitres.md`, §2.5).
 
 ---
 
@@ -187,7 +189,7 @@ Découpage du code : modules (Authentification, Pointage, Statistiques) et dépe
 ## 8. UML ou Merise ?
 
 Beaucoup d'écoles sénégalaises enseignent **Merise** (MCD → MLD → MPD) pour les données et **UML** pour le comportement. Les deux sont acceptés ; l'objectif spécifique peut dire « UML ou Merise ».
-- Choisir **un seul formalisme pour les données** (diagramme de classes **ou** MCD), et l'annoncer dans le cadre méthodologique (1.2.3 Méthode de conception) avec sa justification.
+- Choisir **un seul formalisme pour les données** (diagramme de classes **ou** MCD), et l'annoncer dans le cadre méthodologique (introduction de 2.5 Modélisation, ou 1.2.3 Méthode de conception) avec sa justification.
 - Combinaison courante et cohérente : **UML** (cas d'utilisation, séquence, activité) + **MCD/MLD Merise** pour la base.
 
 ### Correspondance des vocabulaires

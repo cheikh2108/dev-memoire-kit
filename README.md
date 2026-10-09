@@ -4,7 +4,7 @@ Skills pour Claude (Claude Code et claude.ai) destinés aux étudiants et aux d�
 
 | Skill | À quoi il sert |
 |---|---|
-| **redaction-memoire** | Rédiger un mémoire de fin de cycle en informatique selon les normes d'une école d'informatique (licence GLAR) : plan décimal, 22 pages conventionnelles, introduction en 7 étapes, conclusion en 4 points, bibliographie, questionnaire, **modélisation UML / Merise** (méthode, notation, passage à la base, exemple complet), soutenance. Inclut un **script de vérification** des brouillons. |
+| **redaction-memoire** | Rédiger un mémoire de fin de cycle en informatique selon les normes d'une école d'informatique (licence GLAR) : plan en trois chapitres calqué sur des mémoires récemment validés (gabarits de chaque chapitre : exigences EF/ENF, fiche de cas d'utilisation, présentation des écrans, tests), pages conventionnelles dans l'ordre, introduction en 7 étapes, conclusion en 4 points, bibliographie, questionnaire, **modélisation UML / Merise** (méthode, notation, passage à la base, exemple complet), soutenance. Inclut un **script de vérification** des brouillons. |
 | **bonnes-pratiques-dev** | Architecture (monolithe modulaire, Clean, hexagonale, DDD), base de données, front-end React/Next.js/Vue, Git, **sécurité** (OWASP Top 10:2025, multi-tenant, pentest par agents IA avec Strix), revue de code, **mise en production** et gestion d'incidents, ADR et postmortem. |
 | **anti-generique** | Repérer et réécrire ce qui « sonne IA » : texte, code, interfaces, diapositives. Format **DESIGN.md**, références visuelles commentées, règles de la communauté (Taste, UI Skills, Vercel Guidelines…), bibliothèque de prompts réels de l'équipe. |
 
@@ -69,7 +69,7 @@ Installation : `/plugin install <nom>@dev-memoire-kit`, par exemple `/plugin ins
 - « Checklist avant la mise en production de vendredi. »
 
 ### Modèle Word aux normes
-`plugins/dev-memoire-kit/skills/redaction-memoire/assets/modele-memoire.docx` : les 22 pages dans l'ordre, Times New Roman 12, interligne 1,5, texte justifié, titres 14 gras, notes de bas de page 10, marges 3,5 / 2,5 cm, pagination I, II… puis 01, 02… puis i, ii…, sommaire, table des matières et listes des figures et des tableaux automatiques (F9 pour les mettre à jour), consignes en gris à remplacer.
+`plugins/dev-memoire-kit/skills/redaction-memoire/assets/modele-memoire.docx` : la structure de mémoires récemment validés (pages conventionnelles dans l'ordre, plan en trois chapitres, tableaux gabarits d'exigences, de cas d'utilisation et de tests), pagination I / 1 / i, Times New Roman 12, interligne 1,5, texte justifié, titres 14 gras, notes de bas de page 10, marges 3,5 / 2,5 cm, pagination I, II… puis 1, 2… puis i, ii…, sommaire, table des matières et listes des figures et des tableaux automatiques (F9 pour les mettre à jour), consignes en gris à remplacer.
 Pour une autre école : modifier l'objet `ECOLE` dans `scripts/generer_modele_word.js` puis lancer `node scripts/generer_modele_word.js mon-modele.docx assets/drapeau-senegal.png` (paquet npm `docx`).
 
 ### Script de vérification de mémoire

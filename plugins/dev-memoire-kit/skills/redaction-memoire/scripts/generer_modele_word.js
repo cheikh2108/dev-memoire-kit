@@ -1,16 +1,19 @@
 #!/usr/bin/env node
 /**
- * Génère un modèle Word de mémoire de fin de cycle aux normes de l'école.
+ * Génère un modèle Word de mémoire de fin de cycle (licence, informatique).
  *
  * Usage :
  *   node generer_modele_word.js [sortie.docx] [drapeau.png]
  *
- * Normes appliquées (guide TEC L3 GLAR) :
+ * Structure : celle de mémoires de licence récemment soutenus et validés
+ * (plan en trois chapitres, ordre des pages conventionnelles relevé sur ces mémoires).
+ *
+ * Normes de présentation (guide de l'école) :
  *   Times New Roman 12, interligne 1,5, texte justifié, retrait de première ligne 1,5 cm,
  *   titres 14 gras, notes de bas de page 10 interligne simple,
  *   marges gauche/droite 3,5 cm, haut/bas 2,5 cm, impression recto.
- *   Pagination : rien sur couverture/garde, I, II… (liminaires), 01, 02… (corps),
- *   i, ii… (pages finales), rien sur résumé/abstract/errata.
+ *   Pagination : rien d'affiché sur la couverture (compte comme I), II, III… (liminaires),
+ *   1, 2… (corps, à partir de l'introduction), i, ii… (pages finales).
  *
  * Pour une autre école : modifier l'objet ECOLE ci-dessous puis relancer.
  * Dépendance : paquet npm « docx » (v9).
@@ -34,7 +37,6 @@ const ECOLE = {
     "DIRECTION DE L'ENSEIGNEMENT SUPÉRIEUR PRIVÉ",
   ],
   etablissement: "[NOM DE L'ÉTABLISSEMENT]",
-  sigle: "[SIGLE]",
   diplome: "Licence en TÉLÉINFORMATIQUE",
   option: "Génie Logiciel et Administration Réseaux",
   annee: "Année académique 20XX-20XX",
@@ -69,7 +71,12 @@ const h1 = (text, sautAvant = true) =>
   new Paragraph({ heading: HeadingLevel.HEADING_1, pageBreakBefore: sautAvant, children: [new TextRun(text)] });
 const h2 = (text) => new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun(text)] });
 const h3 = (text) => new Paragraph({ heading: HeadingLevel.HEADING_3, children: [new TextRun(text)] });
-const puce = (text) => new Paragraph({ numbering: { reference: "puces", level: 0 }, indent: { left: 720, hanging: 360, firstLine: 0 }, children: [new TextRun(text)] });
+/** Intertitre de niveau 4, en gras, non numéroté (hors table des matières). */
+const h4 = (text) => new Paragraph({ style: "Intertitre", children: [new TextRun(text)] });
+const puce = (text, gras) => new Paragraph({
+  numbering: { reference: "puces", level: 0 }, indent: { left: 720, hanging: 360, firstLine: 0 },
+  children: gras ? [new TextRun({ text: gras, bold: true }), new TextRun(text)] : [new TextRun(text)],
+});
 
 const piedDePage = (avecNumero) =>
   new Footer({
@@ -82,11 +89,11 @@ const piedDePage = (avecNumero) =>
     ],
   });
 
-const proprietes = (formatNumero) => ({
+const proprietes = (formatNumero, debut = 1) => ({
   page: {
     size: { width: PAGE_W, height: 16838 },
     margin: { top: cm(2.5), bottom: cm(2.5), left: MARGE_LR, right: MARGE_LR },
-    ...(formatNumero ? { pageNumbers: { start: 1, formatType: formatNumero } } : {}),
+    ...(formatNumero ? { pageNumbers: { start: debut, formatType: formatNumero } } : {}),
   },
 });
 
@@ -95,25 +102,62 @@ const sansBordure = { style: BorderStyle.NONE, size: 0, color: "FFFFFF" };
 const bordures0 = { top: sansBordure, left: sansBordure, bottom: sansBordure, right: sansBordure };
 const bordureFine = { style: BorderStyle.SINGLE, size: 4, color: "808080" };
 const bordures1 = { top: bordureFine, left: bordureFine, bottom: bordureFine, right: bordureFine };
+const bordureCartouche = { style: BorderStyle.SINGLE, size: 12, color: "1F3864" };
+const bordures2 = { top: bordureCartouche, left: bordureCartouche, bottom: bordureCartouche, right: bordureCartouche };
 
 /** Cadre bordé (tableau d'une cellule) : les bordures de paragraphe de docx-js
  *  sont écrites dans un ordre refusé par le schéma Word, d'où ce contournement. */
-function cadre(texte, run = {}) {
+function cadre(texte, run = {}, bordures = bordures1) {
   return new Table({
     width: { size: LARGEUR_TEXTE, type: WidthType.DXA }, columnWidths: [LARGEUR_TEXTE],
     alignment: AlignmentType.CENTER,
     rows: [new TableRow({ children: [new TableCell({
-      width: { size: LARGEUR_TEXTE, type: WidthType.DXA }, borders: bordures1,
-      margins: { top: 80, left: 100, bottom: 80, right: 100 },
-      children: [new Paragraph({ alignment: AlignmentType.CENTER, indent: { firstLine: 0 }, spacing: { line: 240 },
+      width: { size: LARGEUR_TEXTE, type: WidthType.DXA }, borders: bordures,
+      margins: { top: 120, left: 140, bottom: 120, right: 140 },
+      children: [new Paragraph({ alignment: AlignmentType.CENTER, indent: { firstLine: 0 }, spacing: { line: 276 },
         children: [new TextRun({ text: texte, italics: true, color: GRIS, ...run })] })],
     })] })],
   });
 }
 const espace = (apres = 120) => new Paragraph({ indent: { firstLine: 0 }, spacing: { after: apres, line: 240 }, children: [] });
 
-// ---------------------------------------------------------------- Couverture / garde
-function couverture(titrePage) {
+/**
+ * Tableau générique. `lignes` : tableau de tableaux de chaînes ; une ligne de la forme
+ * { groupe: "Module : …" } produit une ligne fusionnée en gras (regroupement par module).
+ * `poids` : largeur relative des colonnes. `colonneGras` : index de colonne à mettre en gras.
+ */
+function tableau(entetes, lignes, poids, colonneGras = -1) {
+  const total = poids.reduce((a, b) => a + b, 0);
+  const w = poids.map((x) => Math.floor((LARGEUR_TEXTE * x) / total));
+  w[w.length - 1] = LARGEUR_TEXTE - w.slice(0, -1).reduce((a, b) => a + b, 0);
+  const para = (t, gras, align = AlignmentType.LEFT) => new Paragraph({
+    indent: { firstLine: 0 }, spacing: { line: 240, after: 40 }, alignment: align,
+    children: [new TextRun({ text: t, bold: gras, size: 22 })],
+  });
+  const cell = (t, i, opts = {}) => new TableCell({
+    width: { size: opts.span ? LARGEUR_TEXTE : w[i], type: WidthType.DXA }, borders: bordures1,
+    verticalAlign: VerticalAlign.CENTER, margins: { top: 60, left: 100, bottom: 60, right: 100 },
+    columnSpan: opts.span, shading: opts.fond ? { type: ShadingType.CLEAR, fill: opts.fond, color: "auto" } : undefined,
+    children: String(t).split("\n").map((l) => para(l, !!opts.gras, opts.align)),
+  });
+  const rows = [new TableRow({ tableHeader: true, children: entetes.map((t, i) => cell(t, i, { gras: true, fond: "D9E2F3" })) })];
+  lignes.forEach((l) => {
+    if (l.groupe) {
+      rows.push(new TableRow({ children: [cell(l.groupe, 0, { span: entetes.length, gras: true, fond: "F2F2F2", align: AlignmentType.CENTER })] }));
+    } else {
+      rows.push(new TableRow({ children: l.map((t, i) => cell(t, i, { gras: i === colonneGras })) }));
+    }
+  });
+  return new Table({ width: { size: LARGEUR_TEXTE, type: WidthType.DXA }, columnWidths: w, rows });
+}
+
+const legendeFigure = (t) => new Paragraph({ style: "LegendeFigure", children: [new TextRun(t)] });
+const legendeTableau = (t) => new Paragraph({ style: "LegendeTableau", children: [new TextRun(t)] });
+const legendeAnnexe = (t) => new Paragraph({ style: "LegendeAnnexe", children: [new TextRun(t)] });
+const figure = (texteCadre, legende) => [espace(120), cadre(texteCadre), legendeFigure(legende)];
+
+// ---------------------------------------------------------------- Couverture
+function couverture() {
   const out = [];
   out.push(centre(ECOLE.republique, { bold: true }));
   if (DRAPEAU && fs.existsSync(DRAPEAU)) {
@@ -124,26 +168,23 @@ function couverture(titrePage) {
     }));
   }
   out.push(centre(ECOLE.devise, { italics: true }, { spacing: { after: 200, line: 276 } }));
-  ECOLE.tutelle.forEach((t) => out.push(centre(t, { size: 20 })));
-  out.push(centre(ECOLE.etablissement, { bold: true }, { spacing: { before: 120, after: 120, line: 276 } }));
-  // Emplacement du logo
-  out.push(cadre("[Insérer ici le logo de l'établissement]", { size: 20 }));
+  ECOLE.tutelle.forEach((t) => out.push(centre(t, { bold: true, size: 20 })));
   out.push(espace(120));
-  out.push(centre("MÉMOIRE DE FIN DE CYCLE", { bold: true, size: 32 }, { spacing: { before: 240, after: 120, line: 276 } }));
+  out.push(cadre("[Insérer ici le logo de l'établissement]", { size: 20 }));
+  out.push(centre(ECOLE.etablissement, { bold: true }, { spacing: { before: 120, after: 120, line: 276 } }));
+  out.push(centre("MÉMOIRE DE FIN DE CYCLE", { bold: true, size: 32 }, { spacing: { before: 200, after: 120, line: 276 } }));
   out.push(new Paragraph({
     alignment: AlignmentType.CENTER, indent: { firstLine: 0 }, spacing: { line: 276 },
     children: [new TextRun("Pour l'obtention de la "), new TextRun({ text: ECOLE.diplome, bold: true })],
   }));
   out.push(new Paragraph({
-    alignment: AlignmentType.CENTER, indent: { firstLine: 0 }, spacing: { line: 276, after: 360 },
+    alignment: AlignmentType.CENTER, indent: { firstLine: 0 }, spacing: { line: 276, after: 240 },
     children: [new TextRun("Option "), new TextRun({ text: ECOLE.option, bold: true })],
   }));
   out.push(centre("INTITULÉ", { bold: true, underline: {} }, { spacing: { after: 120, line: 276 } }));
-  out.push(new Paragraph({
-    alignment: AlignmentType.CENTER, indent: { firstLine: 0 }, spacing: { after: 480, line: 276 },
-    border: { top: bordureFine, bottom: bordureFine },
-    children: [new TextRun({ text: "[Titre exact du sujet de mémoire]", bold: true, size: 28 })],
-  }));
+  out.push(cadre("[Conception et réalisation d'une plateforme / application de … : cas de …]",
+    { bold: true, italics: false, color: "1F3864", size: 28 }, bordures2));
+  out.push(espace(360));
   const cellule = (lignes, align) => new TableCell({
     width: { size: LARGEUR_TEXTE / 2, type: WidthType.DXA }, borders: bordures0,
     children: lignes.map(([t, run]) => new Paragraph({ alignment: align, indent: { firstLine: 0 }, spacing: { line: 276, after: 60 }, children: [new TextRun({ text: t, ...run })] })),
@@ -153,202 +194,285 @@ function couverture(titrePage) {
     columnWidths: [LARGEUR_TEXTE / 2, LARGEUR_TEXTE / 2],
     borders: { ...bordures0, insideHorizontal: sansBordure, insideVertical: sansBordure },
     rows: [new TableRow({ children: [
-      cellule([["Présenté et soutenu par :", { bold: true, underline: {} }], ["M./Mme/Mlle Prénom NOM", {}], ["[autres membres du groupe]", { italics: true, color: GRIS }]], AlignmentType.LEFT),
-      cellule([["Sous la direction de :", { bold: true, underline: {} }], ["M./Mme Prénom NOM", {}], ["Grade / Spécialité", { italics: true }]], AlignmentType.RIGHT),
+      cellule([["Présenté et soutenu par :", { bold: true, underline: {} }], ["M./Mme Prénom NOM", {}], ["[autres membres du groupe]", { italics: true, color: GRIS }]], AlignmentType.LEFT),
+      cellule([["Sous la direction de :", { bold: true, underline: {} }], ["M./Mme Prénom NOM", {}], ["[Qualité : Ingénieur logiciel…]", { bold: true }]], AlignmentType.RIGHT),
     ] })],
   }));
-  out.push(centre(ECOLE.annee, { bold: true }, { spacing: { before: 720, line: 276 } }));
-  out.push(centre(`(${titrePage} : supprimer cette mention)`, { italics: true, color: GRIS, size: 18 }));
+  out.push(centre(ECOLE.annee, { bold: true }, { spacing: { before: 600, line: 276 } }));
   return out;
 }
 
-// ---------------------------------------------------------------- Pages liminaires
+// ---------------------------------------------------------------- Pages liminaires (II, III…)
 const liminaires = [
   titreLiminaire("À la mémoire de", false),
-  consigne("Page facultative. Personnes ayant contribué à votre éducation, votre formation ou votre réussite et qui ne sont plus là. Courte et sobre."),
-  p("Prénom NOM"),
+  consigne("Page facultative : la supprimer s'il n'y a personne à y mentionner. Une phrase d'ouverture, les noms, une phrase de clôture. Courte."),
+  p("[Prénom NOM]"),
+
   titreLiminaire("Dédicace"),
-  consigne("Hommage bref et sobre (3 à 6 lignes) à une ou quelques personnes. Personnalisez : évitez la formule toute faite reprise dans tous les mémoires."),
+  consigne("« Je dédie ce travail à : », puis une puce par personne avec une raison courte et personnelle. Une page au plus."),
+  p("Je dédie ce travail à :", { indent: { firstLine: 0 } }),
+  puce("[À mes parents, pour …] ;"),
+  puce("[À …]."),
+
   titreLiminaire("Remerciements"),
-  consigne("Commencer par le directeur de recherche et la structure d'accueil, puis les personnes interrogées, le corps professoral, la famille. Nommer précisément (fonction + nom)."),
-  puce("M./Mme Prénom NOM, [fonction], pour …"),
-  puce("…"),
+  consigne("Au « je ». Ordre : directeur de mémoire (ce qui a réellement aidé), structure d'accueil et personnes interrogées, corps enseignant, famille, camarades. Finir par « de près ou de loin »."),
+  puce("[M./Mme Prénom NOM, directeur de mémoire, pour …] ;"),
+  puce("[…]."),
+
+  titreLiminaire("Résumé"),
+  consigne("150 à 250 mots, trois paragraphes : (1) contexte et problème, « C'est dans ce contexte que s'inscrit … » ; (2) objectif, démarche et technologies réellement utilisées ; (3) résultat obtenu et perspective. N'annoncer que ce qui est prouvé dans le mémoire."),
+  p("[Paragraphe 1 : contexte et problème.]"),
+  p("[Paragraphe 2 : objectif, démarche, technologies.]"),
+  p("[Paragraphe 3 : résultat et perspective.]"),
+  new Paragraph({ indent: { firstLine: 0 }, children: [new TextRun({ text: "Mots-clés : ", bold: true }), new TextRun("[5 à 8 mots-clés séparés par des virgules]")] }),
+
+  titreLiminaire("Abstract"),
+  consigne("Traduction fidèle du résumé, paragraphe par paragraphe, relue (pas de traduction automatique brute)."),
+  p("[Abstract, paragraph 1.]"),
+  p("[Paragraph 2.]"),
+  p("[Paragraph 3.]"),
+  new Paragraph({ indent: { firstLine: 0 }, children: [new TextRun({ text: "Keywords: ", bold: true }), new TextRun("[5 to 8 keywords]")] }),
+
   titreLiminaire("Avant-propos"),
-  consigne("Paragraphe 1 (environ 7 lignes) : présentation factuelle de l'école (création, domaines, diplômes, reconnaissances)."),
+  consigne("Paragraphe 1 : présentation factuelle de l'école (création, domaines, diplômes, reconnaissances CAMES / ANAQ-Sup)."),
   new Paragraph({ children: [
-    new TextRun(`Pour l'obtention de la ${ECOLE.diplome.replace("Licence", "licence")}, l'${ECOLE.sigle} exige des étudiants la rédaction d'un mémoire de fin de cycle. C'est dans ce cadre que nous avons élaboré ce document qui a pour sujet : `),
-    new TextRun({ text: "[sujet en gras]", bold: true }), new TextRun("."),
+    new TextRun(`Dans le cadre de la ${ECOLE.diplome.replace("Licence", "licence")}, tout étudiant est tenu de produire et de soutenir un mémoire de fin de cycle. C'est dans cette perspective que s'inscrit le présent document, intitulé : `),
+    new TextRun({ text: "« [titre du mémoire] »", bold: true }), new TextRun("."),
   ] }),
-  consigne("Paragraphe 3 : explication concrète du sujet (quoi, pour qui, avec quoi), sans superlatifs."),
-  p("Ce document constitue notre premier travail de recherche académique, c'est pourquoi nous sollicitons de la part du jury beaucoup d'indulgence pour ce qui concerne son évaluation."),
-  titreLiminaire("Sommaire"),
-  consigne("Mis à jour automatiquement : clic droit > Mettre à jour les champs (ou F9). Il reprend les titres de niveau 1 et 2."),
-  new TableOfContents("Sommaire", { hyperlink: true, headingStyleRange: "1-2" }),
+  consigne("Paragraphe 3 : le sujet en 4 à 6 lignes concrètes (quoi, pour qui, avec quoi), sans superlatifs."),
+  p("Ce document constitue notre premier travail de recherche académique ; nous sollicitons de la part du jury son indulgence pour les imperfections qu'il pourrait comporter."),
+
   titreLiminaire("Glossaire"),
-  consigne("Liste alphabétique des sigles et termes techniques. Vérifier l'orthographe de chaque développement."),
-  ...[["API", "Application Programming Interface (interface de programmation)"], ["MVC", "Modèle-Vue-Contrôleur"], ["UML", "Unified Modeling Language"]]
-    .map(([s, d]) => new Paragraph({ indent: { firstLine: 0 }, children: [new TextRun({ text: `${s} : `, bold: true }), new TextRun(d)] })),
+  consigne("Ordre alphabétique. Tous les sigles employés dans le texte, avec leur développement et une définition courte."),
+  tableau(["Sigle", "Signification"], [
+    ["API", "Application Programming Interface : interface qui permet à deux logiciels d'échanger des données."],
+    ["UML", "Unified Modeling Language : langage graphique de modélisation des systèmes logiciels."],
+    ["[…]", "[…]"],
+  ], [1, 4], 0),
+
   titreLiminaire("Liste des figures"),
-  consigne("Générée automatiquement à partir des légendes de style « Légende figure » (F9 pour mettre à jour)."),
+  consigne("Générée automatiquement à partir des légendes de style « Légende figure » (F9 pour mettre à jour). Éviter les logos d'outils numérotés comme figures."),
   new TableOfContents("Liste des figures", { hyperlink: true, stylesWithLevels: [new StyleLevel("LegendeFigure", 1)] }),
+
   titreLiminaire("Liste des tableaux"),
   consigne("Générée automatiquement à partir des légendes de style « Légende tableau » (F9 pour mettre à jour)."),
   new TableOfContents("Liste des tableaux", { hyperlink: true, stylesWithLevels: [new StyleLevel("LegendeTableau", 1)] }),
+
+  titreLiminaire("Sommaire"),
+  consigne("Mis à jour automatiquement (F9). Titres de niveau 1 et 2, de l'introduction à la conclusion générale."),
+  new TableOfContents("Sommaire", { hyperlink: true, headingStyleRange: "1-2" }),
 ];
 
-// ---------------------------------------------------------------- Corps
-const legendeFigure = (t) => new Paragraph({ style: "LegendeFigure", children: [new TextRun(t)] });
-const legendeTableau = (t) => new Paragraph({ style: "LegendeTableau", children: [new TextRun(t)] });
-
-function tableauTechnologies() {
-  const w = [Math.round(LARGEUR_TEXTE * 0.22), Math.round(LARGEUR_TEXTE * 0.24), Math.round(LARGEUR_TEXTE * 0.24)];
-  w.push(LARGEUR_TEXTE - w[0] - w[1] - w[2]);
-  const cell = (t, i, entete) => new TableCell({
-    width: { size: w[i], type: WidthType.DXA }, borders: bordures1, verticalAlign: VerticalAlign.CENTER,
-    margins: { top: 60, left: 100, bottom: 60, right: 100 },
-    shading: entete ? { type: ShadingType.CLEAR, fill: "E7E6E6", color: "auto" } : undefined,
-    children: [new Paragraph({ indent: { firstLine: 0 }, spacing: { line: 240 }, alignment: AlignmentType.LEFT, children: [new TextRun({ text: t, bold: !!entete, size: 22 })] })],
-  });
-  const ligne = (vals, entete) => new TableRow({ tableHeader: !!entete, children: vals.map((v, i) => cell(v, i, entete)) });
-  return new Table({
-    width: { size: LARGEUR_TEXTE, type: WidthType.DXA }, columnWidths: w,
-    rows: [
-      ligne(["Couche", "Technologie (version)", "Rôle", "Justification"], true),
-      ligne(["Back-end", "[ex. Laravel 11]", "[API, règles métier]", "[critère réel du choix]"]),
-      ligne(["Base de données", "[ex. MySQL 8]", "[données relationnelles]", "[…]"]),
-      ligne(["Front / mobile", "[…]", "[…]", "[…]"]),
-    ],
-  });
-}
-
-const section = (num, titre, consignes) => [h3(`${num} ${titre}`), ...consignes.map(consigne)];
-const structureSection = [
-  "Petite introduction : annoncer les paragraphes de la section.",
-  "Paragraphes : idée générale → arguments → exemples tirés du cas réel → connecteurs logiques.",
-  "Une phrase de conclusion + une phrase de transition vers la section suivante (pas d'empilement « En résumé… En conclusion… En somme… »).",
-];
+// ---------------------------------------------------------------- Corps (1, 2…)
+const bilan = (texte) => consigne(`Bilan du chapitre (4 à 6 lignes : ce qui a été établi, concrètement) puis transition : ${texte}`);
 
 const corps = [
   h1("Introduction générale", false),
-  consigne("Les 7 paragraphes obligatoires, sans sous-titres. Ne rien affirmer : poser le problème (loi du suspens)."),
+  consigne("Environ 2 pages, 7 ou 8 paragraphes sans intertitres. Poser le problème sans annoncer de résultat."),
   new Paragraph({ children: [
-    new TextRun({ text: "Contextualisation. ", bold: true }),
-    new TextRun("[Du général au particulier : partir d'un fait daté et situé, finir sur le cas précis étudié]"),
+    new TextRun("[Contexte : du général au particulier, à partir d'un fait daté, situé et sourcé]"),
     new FootnoteReferenceRun(1),
     new TextRun("."),
   ] }),
-  p("[Problématique : le constat, puis la question principale sous forme interrogative.]"),
-  p("[Objectifs : un objectif général, puis 3 à 5 objectifs spécifiques avec un verbe d'action.]"),
-  p("[Motivation du choix du sujet : « Si nous avons choisi ce sujet, c'est parce que… »]"),
-  p("[Hypothèses de travail : « si… », conditionnel ou « supposons que… », vérifiables.]"),
-  p("[Approche méthodologique : techniques réellement utilisées, avec les chiffres réels.]"),
-  p("[Annonce du plan : nombre de parties, puis le titre exact de chacune.]"),
+  p("[Constat : les difficultés précises du cas étudié.]"),
+  p("[Problématique : « Dès lors, comment concevoir … ? »]"),
+  p("[Motivation du choix du sujet.]"),
+  p("[Objectif général, et en une phrase les objectifs spécifiques.]"),
+  p("[Hypothèse(s) de travail : « Nous supposons que … », vérifiable(s).]"),
+  p("[Démarche : enquête (nombre de réponses), entretien, développement.]"),
+  p("[Annonce du plan : « Ce mémoire est structuré en trois chapitres. Le premier… Le deuxième… Enfin, le troisième… », avec les titres exacts.]"),
 
-  h1("I. Cadres théorique et méthodologique"),
-  consigne("Petite introduction de la partie : annoncer les titres des chapitres 1.1 et 1.2."),
-  h2("1.1 Cadre théorique"),
-  consigne("Petite introduction du chapitre : annoncer les sections."),
-  ...section("1.1.1", "Problématique", structureSection),
-  ...section("1.1.2", "Objectifs de recherche", ["Objectif général, puis objectifs spécifiques (verbes d'action)."]),
-  ...section("1.1.3", "Hypothèses", ["Hypothèses testables : préciser comment chacune sera confirmée ou infirmée."]),
-  ...section("1.1.4", "Pertinence du sujet", ["Intérêt pratique, technique et académique, chacun avec une raison concrète. Conclusion du chapitre + transition vers 1.2."]),
-  h2("1.2 Cadre méthodologique"),
-  ...section("1.2.1", "Méthodologie de travail", structureSection),
-  ...section("1.2.2", "Outils et langages utilisés", ["Les outils réellement utilisés, cohérents avec la partie III."]),
-  ...section("1.2.3", "Méthode de conception", ["UML ou Merise, et pourquoi."]),
-  ...section("1.2.4", "Méthode de développement", ["Scrum, cycle en V… et comment elle a été appliquée."]),
-  consigne("Conclusion partielle n°1 (4 à 6 lignes) + transition : annoncer le titre de la partie II."),
+  // ------------------------------------------------------------ Chapitre 1
+  h1("Chapitre 1 : Présentation générale"),
+  consigne("Introduction du chapitre : le situer et annoncer ses sections dans l'ordre et en nombre exact (« Il s'articule autour de six sections… »)."),
+  h2("1.1. Présentation de la structure d'accueil"),
+  consigne("Si le projet est mené pour une structure : statut et texte de création, rattachement, missions, service concerné par le projet. Figure possible avec sa source. Sinon, supprimer cette section et renuméroter."),
+  h2("1.2. Contexte"),
+  consigne("Environ 1 page : tendance générale → situation au Sénégal → cas étudié. Chiffres sourcés uniquement."),
+  h2("1.3. Problématique"),
+  consigne("Deux paragraphes de constat, puis la question seule sur sa ligne. Ne pas recopier mot pour mot celle de l'introduction."),
+  new Paragraph({ alignment: AlignmentType.CENTER, indent: { firstLine: 0 }, children: [new TextRun({ text: "[Comment concevoir … permettant de … tout en garantissant … ?]", bold: true, italics: true })] }),
+  h2("1.4. Objectifs"),
+  h3("1.4.1. Objectif général"),
+  p("L'objectif général de ce mémoire est de concevoir et de réaliser [solution], qui permet à [acteur 1] de … et à [acteur 2] de …"),
+  h3("1.4.2. Objectifs spécifiques"),
+  consigne("4 ou 5 étapes du travail, chacune « Intitulé : il s'agit de + verbe à l'infinitif »."),
+  puce(" il s'agit d'analyser [le processus actuel et les solutions existantes] ;", "Analyse de l'existant :"),
+  puce(" il s'agit de recueillir et d'analyser les besoins des utilisateurs ;", "Recueil des besoins :"),
+  puce(" il s'agit de modéliser le système avec UML ;", "Modélisation :"),
+  puce(" il s'agit de développer [la plateforme / l'application] ;", "Développement :"),
+  puce(" il s'agit de vérifier que la solution répond aux exigences.", "Tests et validation :"),
+  h2("1.5. Méthodologie"),
+  h3("1.5.1. Approche quantitative"),
+  consigne("Ce qui a été fait : questionnaire (outil), nombre de réponses exploitables, période, diffusion, profil et biais des répondants, axes. Renvoi : (voir Annexe A)."),
+  h3("1.5.2. Approche qualitative"),
+  consigne("Entretien(s) (interlocuteur désigné par sa fonction, date, voir Annexe B), observation, analyse de solutions existantes."),
+  h2("1.6. Étude de l'existant"),
+  h3("1.6.1. [Processus actuel]"),
+  consigne("Décrire le processus étape par étape, puis le résumer dans le tableau."),
+  legendeTableau("Tableau 1.1 : Processus actuels et difficultés identifiées"),
+  tableau(["Processus", "Méthode actuelle", "Difficultés identifiées"], [
+    ["[Dépôt du dossier]", "[Dépôt physique au guichet]", "[Déplacements, files d'attente]"],
+    ["[…]", "[…]", "[…]"],
+  ], [1, 1.3, 1.5]),
+  h3("1.6.2. [Solution similaire]"),
+  consigne("Présentation, fonctionnalités principales, limites ; une capture avec sa source sous la figure."),
+  bilan("« Nous pouvons à présent aborder l'analyse et la conception de la solution, objet du chapitre suivant. »"),
 
-  h1("II. Cadre conceptuel"),
-  consigne("Petite introduction de la partie : annoncer les chapitres 2.3 et 2.4 (numérotation continue de l'école : 2.3 et non 2.1)."),
-  h2("2.3 Rappels sur le thème"),
-  ...section("2.3.1", "Historique de la gestion du domaine", structureSection),
-  ...section("2.3.2", "Problèmes rencontrés avec les systèmes manuels", ["Tableau « point faible | conséquence observée | exigence pour la solution »."]),
-  ...section("2.3.3", "Intérêt d'un système informatisé", ["Arguments liés au cas réel, pas des généralités."]),
-  h2("2.4 État de l'art sur le sujet"),
-  ...section("2.4.1", "Étude de systèmes similaires", ["2 ou 3 solutions réelles et nommées."]),
-  ...section("2.4.2", "Comparaison des fonctionnalités existantes", ["Tableau comparatif."]),
-  ...section("2.4.3", "Limites des solutions actuelles", ["Les limites qui justifient le projet. Conclusion partielle n°2 + transition vers la partie III."]),
+  // ------------------------------------------------------------ Chapitre 2
+  h1("Chapitre 2 : Analyse et conception"),
+  consigne("Introduction du chapitre : annoncer ses cinq sections dans l'ordre."),
+  h2("2.1. Analyse critique de l'existant"),
+  h3("2.1.1. [Analyse de l'existant 1]"),
+  h3("2.1.2. [Analyse de l'existant 2]"),
+  legendeTableau("Tableau 2.1 : Comparaison des solutions existantes"),
+  tableau(["Critère", "[Solution A]", "[Solution B]", "Solution proposée"], [
+    ["[Suivi en ligne]", "[Non]", "[Oui]", "[Oui]"],
+    ["[Paiement mobile]", "[…]", "[…]", "[…]"],
+  ], [1.4, 1, 1, 1.1]),
+  h3("2.1.3. Insuffisances observées"),
+  consigne("Un court paragraphe par insuffisance, relié à ce que la solution apportera."),
+  h2("2.2. Étude pour la mise en place de la solution"),
+  h3("2.2.1. Résultats de la collecte de données"),
+  consigne("Profil des répondants, puis un paragraphe par thème avec pourcentage ET effectif (« 45 répondants sur 54, soit 83,3 % ») et une phrase d'interprétation. Graphiques refaits, pas de capture brute du formulaire."),
+  ...figure("[Insérer le graphique]", "Figure 2.1 : [Répartition des répondants selon …]"),
+  h3("2.2.2. Analyse des besoins et identification des fonctionnalités"),
+  legendeTableau("Tableau 2.2 : Fonctionnalités prioritaires selon les répondants"),
+  tableau(["Fonctionnalité", "Répondants (%)"], [["[Suivi de la demande en ligne]", "[87 %]"], ["[…]", "[…]"]], [3, 1]),
+  h2("2.3. Identification des acteurs"),
+  puce(" [rôle et principales actions].", "[Acteur 1] :"),
+  puce(" [rôle et principales actions].", "[Acteur 2] :"),
+  h2("2.4. Exigences fonctionnelles et non fonctionnelles"),
+  h3("2.4.1. Exigences fonctionnelles"),
+  consigne("Codes EF01, EF02… continus et dans l'ordre du tableau. Chaque écran du chapitre 3 renvoie à son EF ; chaque EF cité existe ici."),
+  legendeTableau("Tableau 2.3 : Exigences fonctionnelles"),
+  tableau(["ID", "Exigence", "Priorité"], [
+    { groupe: "Module : [Gestion des utilisateurs]" },
+    ["EF01", "Le système doit permettre à l'utilisateur de créer un compte.", "Obligatoire"],
+    ["EF02", "Le système doit permettre à l'utilisateur de [verbe à l'infinitif] …", "Importante"],
+    { groupe: "Module : [Gestion des demandes]" },
+    ["EF03", "Le système doit permettre au [demandeur] de [soumettre une demande en ligne].", "Obligatoire"],
+  ], [0.8, 4, 1.3], 0),
+  h3("2.4.2. Exigences non fonctionnelles"),
+  consigne("Un critère mesurable par exigence, vérifié dans la section 3.4 (catégories : norme ISO/IEC 25010)."),
+  legendeTableau("Tableau 2.4 : Exigences non fonctionnelles"),
+  tableau(["ID", "Catégorie", "Exigence", "Critère de mesure"], [
+    ["ENF01", "Performance", "[Les pages principales se chargent rapidement.]", "[< 2 s en 3G]"],
+    ["ENF02", "Sécurité", "[Les mots de passe sont stockés de façon sûre.]", "[Hachage bcrypt]"],
+  ], [0.9, 1.3, 2.6, 1.6], 0),
+  h2("2.5. Modélisation"),
+  consigne("Langage retenu (UML) et pourquoi, outil réellement utilisé, diagrammes présentés et la question à laquelle chacun répond. Pas de figure « logo UML »."),
+  h3("2.5.1. Diagrammes de cas d'utilisation"),
+  consigne("Un diagramme général, puis un par acteur, chacun précédé d'un paragraphe (cas, include, extend)."),
+  ...figure("[Insérer le diagramme]", "Figure 2.2 : Diagramme de cas d'utilisation général"),
+  h3("2.5.2. Diagrammes de séquence"),
+  consigne("Pour chaque cas important (4 à 6) : intertitre, fiche de description, diagramme de séquence, paragraphe qui lit le diagramme."),
+  h4("Cas d'utilisation « [Soumettre une demande] »"),
+  legendeTableau("Tableau 2.5 : Description du cas d'utilisation « [Soumettre une demande] »"),
+  tableau(["Rubrique", "Contenu"], [
+    ["Nom", "[Soumettre une demande]"],
+    ["Acteur(s)", "[Demandeur]"],
+    ["Objectif", "Permettre au [demandeur] de [déposer une demande en ligne]."],
+    ["Préconditions", "[Le demandeur est authentifié.]"],
+    ["Scénario nominal", "1. [L'acteur …]\n2. [Le système …]\n3. […]"],
+    ["Scénarios alternatifs", "[2a. Libellé (numéro = étape où il naît) :]\n1. [Le système …]\n2. Retour à l'étape [N]."],
+    ["Scénarios d'erreur", "[3a. Service indisponible : …]"],
+    ["Postconditions", "[La demande est enregistrée avec le statut « En attente ».]"],
+  ], [1.3, 4], 0),
+  ...figure("[Insérer le diagramme de séquence]", "Figure 2.3 : Diagramme de séquence « [Soumettre une demande] »"),
+  h3("2.5.3. Diagramme de classes"),
+  consigne("Paragraphe sur les classes principales et leurs relations, puis le diagramme lisible à l'impression (pleine largeur, jamais pivoté)."),
+  ...figure("[Insérer le diagramme de classes]", "Figure 2.4 : Diagramme de classes"),
+  bilan("« … Nous pouvons à présent aborder la réalisation de la solution. »"),
 
-  h1("III. Mise en œuvre"),
-  consigne("Petite introduction de la partie : annoncer les chapitres 3.5 et 3.6."),
-  h2("3.5 Architecture"),
-  ...section("3.5.1", "Architecture logique", ["Figure numérotée + commentaire dans le texte."]),
-  espace(120),
-  cadre("[Insérer la figure ici : Insertion > Image]"),
-  legendeFigure("Figure 3.1 : [Titre de la figure]"),
-  consigne("Commenter la figure : ce qu'elle montre, les éléments clés, ce qu'il faut en retenir. Numérotation : n° de chapitre + rang (Figure 3.1, 3.2…)."),
-  ...section("3.5.2", "Architecture technique et déploiement", ["Diagramme de déploiement : serveurs, base, services externes, protocoles."]),
-  h2("3.6 Implémentation"),
-  ...section("3.6.1", "Environnement et technologies", ["La légende d'un tableau se place au-dessus du tableau."]),
-  legendeTableau("Tableau 3.1 : Technologies utilisées"),
-  tableauTechnologies(),
-  ...section("3.6.2", "Fonctionnalités réalisées", ["Une capture commentée par fonctionnalité clé, données de démonstration réalistes."]),
-  ...section("3.6.3", "Tests et validation", ["Tableau test | type | méthode | résultat, y compris ce qui n'a pas été testé. Conclusion partielle n°3."]),
+  // ------------------------------------------------------------ Chapitre 3
+  h1("Chapitre 3 : Réalisation de la solution"),
+  consigne("Introduction du chapitre : annoncer ses quatre sections dans l'ordre."),
+  h2("3.1. Outils et technologies utilisés"),
+  consigne("Critères de choix, et pour les choix structurants l'alternative écartée. Un tableau plutôt qu'un logo numéroté par outil."),
+  legendeTableau("Tableau 3.1 : Outils et technologies utilisés"),
+  tableau(["Catégorie", "Outil (version)", "Usage dans le projet", "Justification"], [
+    ["[Framework mobile]", "[Flutter 3.x]", "[Application du demandeur]", "[Un seul code Android et iOS]"],
+    ["[Back-end]", "[Laravel 11]", "[API REST, authentification]", "[…]"],
+    ["[Base de données]", "[PostgreSQL 16]", "[…]", "[…]"],
+    ["[Modélisation]", "[Outil réellement utilisé]", "[Diagrammes UML]", "[…]"],
+  ], [1.2, 1.2, 1.5, 1.6]),
+  h3("3.1.1. Outils de développement"),
+  h3("3.1.2. Langages de programmation"),
+  h3("3.1.3. Frameworks et bibliothèques"),
+  h2("3.2. Architecture technique"),
+  consigne("Type d'architecture et pourquoi. Le texte décrit exactement les couches du schéma."),
+  ...figure("[Insérer le schéma d'architecture]", "Figure 3.1 : Architecture technique de la solution"),
+  h3("3.2.1. Description des couches"),
+  h3("3.2.2. Services tiers et flux de données"),
+  h2("3.3. Présentation de la solution"),
+  h3("3.3.1. Répartition des flux"),
+  consigne("Lister les flux présentés : pages publiques, inscription et authentification, puis un flux par profil."),
+  h3("3.3.2. Flux 1 : Inscription et authentification"),
+  h4("[Écran de connexion]"),
+  ...figure("[Insérer la capture : données fictives, aucun mot de passe visible]", "Figure 3.2 : Écran « [Connexion] »"),
+  consigne("Commentaire de 3 à 5 lignes : ce que montre l'écran, l'exigence réalisée (EF01), une règle visible. Écrans secondaires en Annexe C."),
+  h3("3.3.3. Flux 2 : [Profil acteur 1]"),
+  h3("3.3.4. Flux 3 : [Profil acteur 2]"),
+  h2("3.4. Tests et validation"),
+  consigne("Obligatoire. Analyse honnête : ce qui échoue et pourquoi, ce qui n'a pas été testé. Taux de réussite ≠ couverture de code."),
+  legendeTableau("Tableau 3.2 : Résultats des tests"),
+  tableau(["Module testé", "Type de test", "Nombre de tests", "Réussis", "Taux de réussite"], [
+    ["[ReservationService]", "Unitaire", "[24]", "[24]", "[100 %]"],
+    ["[Routes /api/reservations]", "Intégration", "[12]", "[11]", "[91,7 %]"],
+    ["Total", "", "[36]", "[35]", "[97,2 %]"],
+  ], [1.8, 1.1, 1, 0.9, 1.1]),
+  legendeTableau("Tableau 3.3 : Recette fonctionnelle"),
+  tableau(["Cas de test", "Exigence", "Résultat attendu", "Résultat obtenu", "Statut"], [
+    ["CT01", "EF03", "[Numéro de suivi affiché]", "[Conforme]", "[Validé]"],
+  ], [0.9, 0.9, 2, 1.6, 0.9]),
+  bilan("pas de transition, la conclusion générale suit."),
 
   h1("Conclusion générale"),
-  consigne("Concise (1 à 1,5 page). Ouverture possible : « Au terme de notre analyse… »."),
-  p("[1. Récapitulation : contexte, problématique, objectifs, conclusions partielles n°1, n°2 et n°3.]"),
-  p("[2. Réponse claire à la question posée : démarche, résultats réels, hypothèses confirmées ou infirmées.]"),
-  p("[3. Difficultés rencontrées et limites, honnêtes et précises.]"),
-  p("[4. Ouverture vers de nouvelles perspectives réalistes.]"),
+  consigne("1 à 1,5 page, cinq paragraphes."),
+  p("[1. Rappel du problème, de la question et de l'objectif.]"),
+  p("[2. Démarche : « Nous avons d'abord…, ensuite…, avant de… ».]"),
+  p("[3. Résultats et réponse à la problématique ; hypothèses confirmées ou non, avec la preuve (section 3.4).]"),
+  p("[4. Difficultés et limites, honnêtes et précises.]"),
+  p("[5. Perspectives réalistes (court, moyen, long terme).]"),
 ];
 
-// ---------------------------------------------------------------- Pages finales
+// ---------------------------------------------------------------- Pages finales (i, ii…)
 const finales = [
   titreLiminaire("Bibliographie", false),
-  consigne("Ordre alphabétique des auteurs, par type. Uniquement des documents réellement consultés et vérifiés."),
-  new Paragraph({ style: "SousTitreBiblio", children: [new TextRun("I. Ouvrages")] }),
+  consigne("Documents réellement consultés, ordre alphabétique par auteur, chacun cité au moins une fois dans le texte."),
+  new Paragraph({ style: "SousTitreBiblio", children: [new TextRun("Ouvrages")] }),
   new Paragraph({ indent: { firstLine: 0, left: 567, hanging: 567 }, children: [
     new TextRun("NOM Prénom, "), new TextRun({ text: "Titre de l'ouvrage", italics: true }), new TextRun(", Ville, Éditeur, année, nombre de pages."),
   ] }),
-  new Paragraph({ style: "SousTitreBiblio", children: [new TextRun("II. Mémoires")] }),
+  new Paragraph({ style: "SousTitreBiblio", children: [new TextRun("Mémoires")] }),
   new Paragraph({ indent: { firstLine: 0, left: 567, hanging: 567 }, children: [
-    new TextRun("NOM Prénom, "), new TextRun({ text: "Titre du mémoire", italics: true }), new TextRun(", établissement, année académique, nombre de pages."),
+    new TextRun("NOM Prénom, "), new TextRun({ text: "Titre du mémoire", italics: true }), new TextRun(", Mémoire de licence en [filière], [établissement], [ville], [année académique], [nombre] pages."),
   ] }),
-  new Paragraph({ style: "SousTitreBiblio", children: [new TextRun("III. Articles")] }),
-  new Paragraph({ style: "SousTitreBiblio", children: [new TextRun("IV. Revues")] }),
-  new Paragraph({ style: "SousTitreBiblio", children: [new TextRun("V. Rapports")] }),
   titreLiminaire("Webographie"),
-  consigne("Lien + date et heure de consultation. Privilégier la documentation officielle."),
-  new Paragraph({ indent: { firstLine: 0 }, children: [new TextRun("https://… : JJ/MM/AAAA, HHhMM")] }),
+  consigne("Liste numérotée : organisme ou auteur, titre de la page, date de consultation, URL. Vérifier que chaque numéro appelé dans le texte renvoie à la bonne entrée."),
+  new Paragraph({ indent: { firstLine: 0, left: 567, hanging: 567 }, children: [
+    new TextRun("1. [Organisme]. "), new TextRun({ text: "[Titre de la page]", italics: true }), new TextRun(". [En ligne]. [Consulté le JJ mois AAAA]. https://…"),
+  ] }),
   titreLiminaire("Annexes"),
-  new Paragraph({ indent: { firstLine: 0 }, children: [new TextRun("Annexe I : Guide d'entretien")] }),
-  new Paragraph({ indent: { firstLine: 0 }, children: [new TextRun("Annexe II : Questionnaire")] }),
-  new Paragraph({ indent: { firstLine: 0 }, children: [new TextRun("Annexe III : Autres documents (captures secondaires, extraits de code longs…)")] }),
+  consigne("Chaque annexe est appelée dans le texte. Figures d'annexe numérotées A.1, B.1, C.1… (jamais « Figure 0.x »)."),
+  new Paragraph({ style: "SousTitreBiblio", children: [new TextRun("Annexe A : Questionnaire et résultats de l'enquête")] }),
+  consigne("Le questionnaire vierge, puis les graphiques des résultats."),
+  new Paragraph({ style: "SousTitreBiblio", children: [new TextRun("Annexe B : Guide d'entretien")] }),
+  consigne("Interlocuteur (fonction), date, puis tableau N° | Question | Réponse."),
+  new Paragraph({ style: "SousTitreBiblio", children: [new TextRun("Annexe C : Interfaces supplémentaires")] }),
+  cadre("[Capture d'écran secondaire]"),
+  legendeAnnexe("Figure C.1 : [Écran …]"),
   titreLiminaire("Table des matières"),
-  consigne("Mise à jour automatique : clic droit > Mettre à jour les champs > Mettre à jour toute la table (ou F9)."),
+  consigne("Mise à jour juste avant l'impression : clic droit > Mettre à jour les champs > Mettre à jour toute la table (ou F9)."),
   new TableOfContents("Table des matières", { hyperlink: true, headingStyleRange: "1-3", useAppliedParagraphOutlineLevel: true }),
-];
-
-const resumeAbstract = [
-  titreLiminaire("Résumé", false),
-  consigne("150 à 250 mots, un seul paragraphe : contexte, problème, démarche, réalisation, résultat principal, limite ou perspective."),
-  p("[Texte du résumé]"),
-  new Paragraph({ indent: { firstLine: 0 }, children: [new TextRun({ text: "Mots clés : ", bold: true }), new TextRun("[4 à 6 mots clés]")] }),
-  titreLiminaire("Abstract"),
-  consigne("Traduction fidèle du résumé, relue."),
-  p("[Abstract text]"),
-  new Paragraph({ indent: { firstLine: 0 }, children: [new TextRun({ text: "Keywords: ", bold: true }), new TextRun("[4 to 6 keywords]")] }),
-  titreLiminaire("Errata"),
-  consigne("Seulement si des erreurs sont constatées après reliure."),
-  (() => {
-    const w = Array(4).fill(Math.floor(LARGEUR_TEXTE / 4));
-    w[3] = LARGEUR_TEXTE - w[0] * 3;
-    const c = (t, i, b) => new TableCell({ width: { size: w[i], type: WidthType.DXA }, borders: bordures1, margins: { left: 100, right: 100 },
-      children: [new Paragraph({ indent: { firstLine: 0 }, spacing: { line: 240 }, children: [new TextRun({ text: t, bold: b })] })] });
-    return new Table({ width: { size: LARGEUR_TEXTE, type: WidthType.DXA }, columnWidths: w, rows: [
-      new TableRow({ children: ["Pages", "Lignes", "Au lieu de", "Lire"].map((t, i) => c(t, i, true)) }),
-      new TableRow({ children: ["", "", "", ""].map((t, i) => c(t, i, false)) }),
-    ] });
-  })(),
 ];
 
 // ---------------------------------------------------------------- Document
 const doc = new Document({
   creator: "dev-memoire-kit",
   title: "Modèle de mémoire de fin de cycle",
-  description: "Modèle aux normes de présentation du guide TEC L3 GLAR",
+  description: "Modèle de mémoire de licence en informatique, plan en trois chapitres",
   features: { updateFields: true },
   styles: {
     default: {
@@ -359,13 +483,15 @@ const doc = new Document({
         paragraph: { alignment: AlignmentType.JUSTIFIED, spacing: { line: 360, after: 120 }, indent: { firstLine: cm(1.5) } } },
       { id: "Heading1", name: "Heading 1", basedOn: "Normal", next: "Normal", quickFormat: true,
         run: { size: 28, bold: true },
-        paragraph: { alignment: AlignmentType.LEFT, indent: { firstLine: 0 }, spacing: { before: 240, after: 240 }, keepNext: true, outlineLevel: 0 } },
+        paragraph: { alignment: AlignmentType.CENTER, indent: { firstLine: 0 }, spacing: { before: 240, after: 360 }, keepNext: true, outlineLevel: 0 } },
       { id: "Heading2", name: "Heading 2", basedOn: "Normal", next: "Normal", quickFormat: true,
         run: { size: 28, bold: true },
         paragraph: { alignment: AlignmentType.LEFT, indent: { firstLine: 0 }, spacing: { before: 240, after: 120 }, keepNext: true, outlineLevel: 1 } },
       { id: "Heading3", name: "Heading 3", basedOn: "Normal", next: "Normal", quickFormat: true,
-        run: { size: 28, bold: true },
+        run: { size: 26, bold: true },
         paragraph: { alignment: AlignmentType.LEFT, indent: { firstLine: 0 }, spacing: { before: 200, after: 120 }, keepNext: true, outlineLevel: 2 } },
+      { id: "Intertitre", name: "Intertitre (niveau 4)", basedOn: "Normal", next: "Normal", quickFormat: true,
+        run: { bold: true }, paragraph: { indent: { firstLine: 0 }, spacing: { before: 160, after: 80 }, keepNext: true } },
       { id: "TitreLiminaire", name: "Titre liminaire", basedOn: "Normal", next: "Normal", quickFormat: true,
         run: { size: 28, bold: true },
         paragraph: { alignment: AlignmentType.CENTER, indent: { firstLine: 0 }, spacing: { before: 240, after: 360 }, keepNext: true, outlineLevel: 0 } },
@@ -377,24 +503,24 @@ const doc = new Document({
         run: { italics: true, size: 22 }, paragraph: { alignment: AlignmentType.CENTER, indent: { firstLine: 0 }, spacing: { before: 60, after: 240, line: 276 } } },
       { id: "LegendeTableau", name: "Légende tableau", basedOn: "Normal", next: "Normal", quickFormat: true,
         run: { italics: true, size: 22 }, paragraph: { alignment: AlignmentType.CENTER, indent: { firstLine: 0 }, spacing: { before: 240, after: 60, line: 276 }, keepNext: true } },
+      { id: "LegendeAnnexe", name: "Légende annexe", basedOn: "Normal", next: "Normal", quickFormat: true,
+        run: { italics: true, size: 22 }, paragraph: { alignment: AlignmentType.CENTER, indent: { firstLine: 0 }, spacing: { before: 60, after: 240, line: 276 } } },
       { id: "FootnoteText", name: "footnote text", basedOn: "Normal",
         run: { size: 20 }, paragraph: { alignment: AlignmentType.JUSTIFIED, indent: { firstLine: 0 }, spacing: { line: 240, after: 0 } } },
     ],
   },
   numbering: {
-    config: [{ reference: "puces", levels: [{ level: 0, format: LevelFormat.BULLET, text: "–", alignment: AlignmentType.LEFT,
+    config: [{ reference: "puces", levels: [{ level: 0, format: LevelFormat.BULLET, text: "•", alignment: AlignmentType.LEFT,
       style: { paragraph: { indent: { left: 720, hanging: 360 } } } }] }],
   },
   footnotes: {
-    1: { children: [new Paragraph({ style: "FootnoteText", children: [new TextRun("Exemple de note de bas de page : NOM Prénom, Titre, Éditeur, année, p. X. Taille 10, interligne simple.")] })] },
+    1: { children: [new Paragraph({ style: "FootnoteText", children: [new TextRun("Exemple de note de bas de page : Organisme, Titre de la page ou du rapport, année. Taille 10, interligne simple.")] })] },
   },
   sections: [
-    { properties: proprietes(null), footers: { default: piedDePage(false) },
-      children: [...couverture("Page de couverture"), new Paragraph({ pageBreakBefore: true, children: [] }), ...couverture("Page de garde")] },
-    { properties: proprietes(NumberFormat.UPPER_ROMAN), footers: { default: piedDePage(true) }, children: liminaires },
-    { properties: proprietes(NumberFormat.DECIMAL_ZERO), footers: { default: piedDePage(true) }, children: corps },
-    { properties: proprietes(NumberFormat.LOWER_ROMAN), footers: { default: piedDePage(true) }, children: finales },
-    { properties: proprietes(null), footers: { default: piedDePage(false) }, children: resumeAbstract },
+    { properties: proprietes(null), footers: { default: piedDePage(false) }, children: couverture() },
+    { properties: proprietes(NumberFormat.UPPER_ROMAN, 2), footers: { default: piedDePage(true) }, children: liminaires },
+    { properties: proprietes(NumberFormat.DECIMAL, 1), footers: { default: piedDePage(true) }, children: corps },
+    { properties: proprietes(NumberFormat.LOWER_ROMAN, 1), footers: { default: piedDePage(true) }, children: finales },
   ],
 });
 

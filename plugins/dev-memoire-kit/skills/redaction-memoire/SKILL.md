@@ -5,7 +5,7 @@ description: Rédiger, structurer, relire ou préparer la soutenance d'un mémoi
 
 # Rédaction de mémoire de fin de cycle (informatique)
 
-Ce skill reprend le guide de rédaction et de présentation remis en cours de TEC (L3 GLAR) et le complète par des règles de qualité tirées de l'analyse de vrais travaux d'étudiants. Il sert à produire un mémoire **conforme aux normes de l'école** et **qui ne sonne pas comme un texte généré**.
+Ce skill reprend le guide de rédaction et de présentation remis en cours de TEC (L3 GLAR), la structure de mémoires de licence récemment soutenus et validés dans la filière, et des règles de qualité tirées de l'analyse de vrais travaux d'étudiants. Quand le guide et la pratique validée diffèrent (plan en chapitres, ordre des pages), suivre la pratique validée, sauf consigne contraire du directeur de mémoire. Il sert à produire un mémoire **conforme aux normes de l'école** et **qui ne sonne pas comme un texte généré**.
 
 ## Principe directeur
 
@@ -17,12 +17,12 @@ Le jury évalue deux choses : le document écrit et la défense orale. Dans le d
 ## Processus d'élaboration (ordre à respecter)
 
 1. Choix du sujet et du directeur de recherche (DR)
-2. Élaboration du plan → `references/plan-type.md`
+2. Élaboration du plan (trois chapitres : présentation générale, analyse et conception, réalisation) → `references/plan-type.md`
 3. Stratégie de recherche → `references/methodologie-recherche.md`
    - observation / collecte (documentaire, enquête, entretien, observation de terrain)
    - dépouillement / exploitation des données
    - rédaction
-4. Présentation : les 22 pages conventionnelles dans l'ordre → `references/22-pages-conventionnelles.md`
+4. Présentation : les pages conventionnelles dans l'ordre → `references/22-pages-conventionnelles.md`
 5. Soutenance : préparation psychologique et intellectuelle → `references/soutenance.md`
 
 ## Comment travailler avec l'étudiant
@@ -37,12 +37,13 @@ Si une information manque, **laisser un marqueur visible** `[À COMPLÉTER : nom
 
 **Écrire section par section**, jamais tout le mémoire d'un bloc. Pour chaque section : idée générale → arguments → exemples tirés du cas réel → connecteurs logiques.
 
-**Respecter le schéma d'enchaînement de l'école**, sans le gonfler (voir `references/introduction-conclusion.md`) :
-- partie : petite introduction annonçant les chapitres ;
-- chapitre : petite introduction annonçant les sections ;
-- section : contenu, puis **une** phrase de conclusion et **une** phrase de transition ;
-- fin de chapitre / fin de partie : conclusion partielle + transition.
-Ne jamais empiler « En résumé… En conclusion… En somme… » à la suite : une seule clôture par niveau.
+**Respecter le schéma d'enchaînement**, sans le gonfler (voir `references/introduction-conclusion.md` et `references/modeles-de-chapitres.md`) :
+- chapitre : introduction qui annonce ses sections, **en nombre exact et dans l'ordre** ;
+- section : contenu, puis **une** phrase de bilan et **une** phrase de transition ;
+- fin de chapitre : bilan + annonce du chapitre suivant.
+Ne jamais empiler « En résumé… En conclusion… En somme… » à la suite, ni terminer chaque section par « En définitive, cette section nous a permis de… » : une seule clôture par niveau.
+
+**Garder la traçabilité** : chaque fonctionnalité montrée au chapitre 3 renvoie à son exigence (EF05), chaque exigence citée existe dans le tableau du chapitre 2, et chaque exigence non fonctionnelle chiffrée est vérifiée dans la section Tests.
 
 ## Document Word : toujours partir du modèle
 
@@ -50,10 +51,10 @@ Dès qu'il faut produire le mémoire (ou une partie) sous forme de fichier Word,
 
 1. **Copier** le modèle sous un nouveau nom (`memoire-<nom>.docx`) ; ne jamais modifier l'original.
 2. **Remplir** le modèle en éditant le document existant (dézipper, modifier le XML, rezipper, comme pour l'édition d'un .docx existant), sans passer par un générateur qui recrée le fichier.
-3. **Conserver les 22 pages conventionnelles dans l'ordre** (`references/22-pages-conventionnelles.md`) : ne pas en supprimer, renommer ni déplacer. Une page dont le contenu manque garde son titre et un marqueur `[À COMPLÉTER : …]`.
+3. **Conserver les pages conventionnelles dans l'ordre du modèle** (`references/22-pages-conventionnelles.md`) : ne pas en supprimer, renommer ni déplacer. Une page dont le contenu manque garde son titre et un marqueur `[À COMPLÉTER : …]`.
 4. **Remplacer les consignes grises** par le texte de l'étudiant et supprimer celles qui restent une fois la page remplie.
 5. **Garder les styles du modèle** (Titre 1/2/3, Normal, légendes, note de bas de page) : sommaire, table des matières et listes des figures et tableaux en dépendent. Rappeler à l'étudiant de mettre à jour les champs (F9) à l'ouverture.
-6. Si l'étudiant a **déjà son propre fichier**, travailler dedans, mais vérifier qu'il contient les 22 pages dans l'ordre et signaler celles qui manquent.
+6. Si l'étudiant a **déjà son propre fichier**, travailler dedans, mais vérifier qu'il contient les pages conventionnelles dans l'ordre et signaler celles qui manquent.
 
 Quand la demande porte sur un texte isolé (une introduction, une section), le rendre dans la conversation en indiquant **à quel endroit du modèle** il se place.
 
@@ -62,10 +63,11 @@ Quand la demande porte sur un texte isolé (une introduction, une section), le r
 | Demande | Fichier à lire |
 |---|---|
 | Plan détaillé, numérotation décimale | `references/plan-type.md` |
-| Introduction générale (7 étapes) ou conclusion générale (4 points) | `references/introduction-conclusion.md` |
+| Rédiger un chapitre : formats observés dans des mémoires validés (structure d'accueil, existant, enquête, tableaux d'exigences EF/ENF, fiche de cas d'utilisation, présentation des outils, architecture, écrans par flux, tests, bilans de chapitre) | `references/modeles-de-chapitres.md` |
+| Introduction générale (7 à 8 paragraphes) ou conclusion générale | `references/introduction-conclusion.md` |
 | Problématique, objectifs, hypothèses, pertinence | `references/introduction-conclusion.md` (section Cadre théorique) |
 | Page de couverture, avant-propos, dédicace, glossaire… | `references/22-pages-conventionnelles.md` |
-| Fichier Word prêt à remplir aux normes (styles, marges, pagination I/01/i, sommaire et listes automatiques, consignes) | `assets/modele-memoire.docx` ; pour une autre école : modifier l'objet `ECOLE` de `scripts/generer_modele_word.js` puis `node scripts/generer_modele_word.js sortie.docx assets/drapeau-senegal.png` |
+| Fichier Word prêt à remplir aux normes (styles, marges, pagination I/1/i, plan en trois chapitres, tableaux gabarits, sommaire et listes automatiques, consignes) | `assets/modele-memoire.docx` ; pour une autre école : modifier l'objet `ECOLE` de `scripts/generer_modele_word.js` puis `node scripts/generer_modele_word.js sortie.docx assets/drapeau-senegal.png` |
 | Bibliographie, webographie, citations, plagiat | `references/normes-presentation.md` |
 | Modélisation UML / Merise (cas d'utilisation, classes, séquence, activité, états, déploiement, passage à la base) | `references/uml.md` + exemple complet `assets/uml-exemple-pointage.md` (PlantUML + images dans `assets/uml-exemple/`) |
 | Questionnaire, guide d'entretien | `references/methodologie-recherche.md` |
@@ -75,7 +77,7 @@ Quand la demande porte sur un texte isolé (une introduction, une section), le r
 ## Relecture : procédure
 
 Quand l'étudiant fournit un brouillon (.docx, .md ou .txt) :
-1. Lancer `python3 scripts/verifier_memoire.py <fichier>` : repère les tics d'écriture génériques, les clôtures empilées, les marqueurs `[À COMPLÉTER]` restants, les titres absents ou mal numérotés et les coquilles connues des modèles (ex. « TELEINFORMQTIQUE »).
+1. Lancer `python3 scripts/verifier_memoire.py <fichier>` : repère les tics d'écriture génériques, les clôtures empilées, les marqueurs `[À COMPLÉTER]` restants, les titres mal numérotés, les annonces de chapitre fausses (« quatre sections » quand il y en a cinq), les codes EF cités mais absents du tableau des exigences, les figures « 0.x » en annexe et les coquilles connues (ex. « TELEINFORMQTIQUE », « Tables des matières »).
 2. Vérifier à la main la grille de `references/erreurs-frequentes.md`, en particulier :
    - le plan détaillé et le sommaire correspondent-ils exactement aux titres du corps ?
    - la stack citée est-elle la même partout (architecture, implémentation, conclusion) ?

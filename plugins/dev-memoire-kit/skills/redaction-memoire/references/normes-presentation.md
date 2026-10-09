@@ -13,7 +13,7 @@
 | Marges gauche et droite | 3,5 cm |
 | Marges haut et bas | 2,5 cm |
 
-Un modèle Word où tout est déjà réglé est fourni : `../assets/modele-memoire.docx` (22 pages dans l'ordre, consignes en gris à supprimer, sommaire, table des matières et listes des figures et tableaux à mettre à jour avec F9).
+Un modèle Word où tout est déjà réglé est fourni : `../assets/modele-memoire.docx` (pages conventionnelles dans l'ordre, plan en trois chapitres, tableaux gabarits, consignes en gris à supprimer, sommaire, table des matières et listes des figures et tableaux à mettre à jour avec F9).
 
 Conseils Word :
 - Définir ces réglages dans les **styles** (Normal, Titre 1/2/3, Note de bas de page) plutôt qu'à la main paragraphe par paragraphe.
@@ -27,7 +27,7 @@ Le jury consacre traditionnellement une bonne partie de son intervention aux **f
 - Respect des règles grammaticales, syntaxiques et morphologiques.
 - Pas de néologismes inutiles, d'abus de langue, de familiarités ni d'anglicismes quand le mot français existe (« données » plutôt que « datas », « mettre en production » plutôt que « déployer en prod »).
 - « **Le** mémoire » (travail académique), pas « la mémoire ».
-- Phrases simples et courtes, paragraphes bien agencés, transitions entre parties.
+- Phrases simples et courtes, paragraphes bien agencés, transitions entre chapitres et sections.
 - Première personne du pluriel (« nous ») de modestie, de façon cohérente dans tout le document.
 - Temps : dans la Mise en œuvre, décrire ce qui **a été fait** (passé composé / présent), pas ce que l'application « offrira ». Le futur est réservé aux perspectives.
 

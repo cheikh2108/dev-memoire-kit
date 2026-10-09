@@ -10,9 +10,13 @@ Lit un fichier .docx, .md ou .txt (lecture seule) et affiche un rapport :
   2. marqueurs [À COMPLÉTER] restants ;
   3. clôtures empilées (« En résumé… En conclusion… En somme… ») ;
   4. tics d'écriture génériques et formules marketing ;
-  5. numérotation décimale non conforme (2.1 au lieu de 2.3, etc.) ;
-  6. pages conventionnelles absentes ;
-  7. technologies citées (pour vérifier la cohérence à la main).
+  5. numérotation décimale non conforme (section 2.x placée dans le chapitre 3, ou,
+     dans le plan en parties du guide, 2.1 au lieu de 2.3) ;
+  6. annonces de chapitre fausses (« s'articule autour de quatre sections » quand il y en a cinq) ;
+  7. codes d'exigences (EF01…) cités mais jamais définis, ou définis dans le désordre ;
+  8. figures d'annexe numérotées « Figure 0.x » ;
+  9. pages conventionnelles absentes ;
+ 10. technologies citées (pour vérifier la cohérence à la main).
 
 Aucune dépendance externe : bibliothèque standard Python 3.8+.
 """
@@ -36,6 +40,11 @@ COQUILLES = [
     (r"file:/+C:", "lien local Word copié dans le texte (table des matières tapée à la main ?)"),
     (r"\bdatas\b", "« données »"),
     (r"\bil n'ya\b", "« il n'y a »"),
+    (r"[EÉ]tude l'existant", "« Étude de l'existant »"),
+    (r"\bListes des tableaux\b", "« Liste des tableaux » (singulier)"),
+    (r"\bTables des mati[èe]res\b", "« Table des matières » (singulier)"),
+    (r"\buploader\b|\buploadé", "« téléverser » / « importer »"),
+    (r"\bFigure\s*0\.\d+", "figure numérotée « 0.x » : numéroter les figures d'annexe A.1, B.1…"),
 ]
 
 MARQUEURS = r"\[\s*(À|A) COMPL[ÉE]TER[^\]]*\]|\bTODO\b|\bXXX\b|\(titre\)|…{3,}|\.{6,}"
@@ -89,8 +98,16 @@ TECHNOS = {
                  "Flask", "FastAPI", "Spring Boot", "ASP.NET"],
 }
 
-# Chapitres autorisés par partie (numérotation continue de l'école)
+# Plan en parties du guide : chapitres autorisés par partie (numérotation continue)
 CHAPITRES = {"1": {"1", "2"}, "2": {"3", "4"}, "3": {"5", "6", "7"}}
+
+NOMBRES = {"deux": 2, "trois": 3, "quatre": 4, "cinq": 5, "six": 6, "sept": 7, "huit": 8}
+RX_CHAPITRE = re.compile(r"^chapitre\s+(\d+)\s*[:.\-–]", re.IGNORECASE)
+RX_SECTION = re.compile(r"^(\d{1,2})\.(\d{1,2})\.?\s+[A-ZÉÈÀÂÎÔÙÇa-zé]")          # 2.3 ou 2.3. Titre
+RX_SOUS_SECTION = re.compile(r"^(\d{1,2})\.(\d{1,2})\.(\d{1,2})\.?\s+[A-ZÉÈÀÂÎÔÙÇa-zé]")
+RX_LIGNE_TABLE = re.compile(r"(\.{3,}|…|\t)\s*[\dIVXLivxl]+\s*$")  # entrée de sommaire avec n° de page
+RX_ANNONCE = re.compile(r"(?:s[’']articule|est structuré|s[’']organise|se décline)[^.]{0,40}?\b(" + "|".join(NOMBRES) + r"|\d)\s+(?:sections|parties principales|points)", re.IGNORECASE)
+RX_EF = re.compile(r"\bEF-?(\d{1,3})\b")
 
 # --- Lecture -----------------------------------------------------------------
 
@@ -150,7 +167,9 @@ def analyser(paragraphes, structure=True):
                 vus.add((i, conseil))
                 rapport["coquilles"].append((i, conseil, extrait(p, m.start(), m.end())))
 
-    rapport["marqueurs"] = [(i, extrait(p, m.start(), m.end())) for i, p, m in chercher(paragraphes, MARQUEURS, 0)]
+    # Les points de conduite des sommaires et listes (« Titre ....... 12 ») ne sont pas des trous
+    rapport["marqueurs"] = [(i, extrait(p, m.start(), m.end())) for i, p, m in chercher(paragraphes, MARQUEURS, 0)
+                            if not RX_LIGNE_TABLE.search(p)]
 
     # Clôtures : phrases de clôture dans des paragraphes consécutifs ou plusieurs dans un même paragraphe
     rx_clo = re.compile(CLOTURES, re.IGNORECASE)
@@ -186,15 +205,76 @@ def analyser(paragraphes, structure=True):
             marketing.setdefault(m.group(0).lower(), []).append(i)
     rapport["marketing"] = marketing
 
+    # Numérotation : plan en chapitres (pratique validée) ou en parties (guide)
     numerotation = []
-    rx_num = re.compile(r"^(\d)\.(\d)(?:\.(\d))*\.?\s+\S")
-    for i, p in enumerate(paragraphes, 1):
-        m = rx_num.match(p)
-        if m and len(p) < 140:
-            partie, chap = m.group(1), m.group(2)
-            if partie in CHAPITRES and chap not in CHAPITRES[partie]:
-                numerotation.append((i, p[:80], f"partie {partie} → chapitres attendus {sorted(CHAPITRES[partie])}"))
+    # Exclure les entrées de sommaire / table des matières (y compris un titre coupé sur deux lignes)
+    corps = [(i, p) for i, p in enumerate(paragraphes, 1)
+             if len(p) < 140 and not RX_LIGNE_TABLE.search(p)
+             and not (i < len(paragraphes) and RX_LIGNE_TABLE.search(paragraphes[i]) and len(paragraphes[i]) < 140
+                      and not RX_SECTION.match(paragraphes[i]) and not RX_CHAPITRE.match(paragraphes[i]))]
+    plan_chapitres = any(RX_CHAPITRE.match(p) for _, p in corps)
+    chapitre_courant = None
+    sections_par_chapitre = {}
+    for i, p in corps:
+        mc = RX_CHAPITRE.match(p)
+        if mc:
+            chapitre_courant = mc.group(1)
+            sections_par_chapitre.setdefault(chapitre_courant, [])
+            continue
+        if RX_SOUS_SECTION.match(p):
+            m = RX_SOUS_SECTION.match(p)
+            premier = m.group(1)
+        else:
+            m = RX_SECTION.match(p)
+            if not m:
+                continue
+            premier = m.group(1)
+            if plan_chapitres and chapitre_courant == premier:
+                sections_par_chapitre[chapitre_courant].append(m.group(2))
+        if plan_chapitres:
+            if chapitre_courant and premier != chapitre_courant:
+                numerotation.append((i, p[:80], f"dans le chapitre {chapitre_courant}, attendu {chapitre_courant}.x"))
+        else:
+            chap = m.group(2)
+            if premier in CHAPITRES and chap not in CHAPITRES[premier]:
+                numerotation.append((i, p[:80], f"partie {premier} → chapitres attendus {sorted(CHAPITRES[premier])}"))
     rapport["numerotation"] = numerotation
+
+    # Annonces de chapitre (« s'articule autour de quatre sections »)
+    annonces = []
+    if plan_chapitres:
+        chapitre_courant = None
+        for i, p in enumerate(paragraphes, 1):
+            mc = RX_CHAPITRE.match(p) if len(p) < 140 else None
+            if mc and not RX_LIGNE_TABLE.search(p):
+                chapitre_courant = mc.group(1)
+                continue
+            # L'annonce peut être coupée sur deux lignes (texte extrait d'un PDF)
+            suivant = paragraphes[i] if i < len(paragraphes) else ""
+            ma = RX_ANNONCE.search(p) or RX_ANNONCE.search(p + " " + suivant)
+            if ma and chapitre_courant:
+                annonce = ma.group(1).lower()
+                n_annonce = NOMBRES.get(annonce, int(annonce) if annonce.isdigit() else 0)
+                n_reel = len(dict.fromkeys(sections_par_chapitre.get(chapitre_courant, [])))
+                if n_reel and n_annonce != n_reel:
+                    annonces.append((i, chapitre_courant, n_annonce, n_reel))
+    rapport["annonces"] = annonces
+
+    # Codes d'exigences : définis (cellule ou début de ligne de tableau) vs cités
+    definis, ordre_def = set(), []
+    for p in paragraphes:
+        m = re.match(r"^\|?\s*EF-?(\d{1,3})\s*(\||$)", p)
+        if m:
+            n = int(m.group(1))
+            if n not in definis:
+                ordre_def.append(n)
+            definis.add(n)
+    cites = {}
+    for i, p, m in chercher(paragraphes, RX_EF.pattern, 0):
+        cites.setdefault(int(m.group(1)), i)
+    rapport["ef_non_definis"] = sorted((n, i) for n, i in cites.items() if n not in definis) if definis else []
+    rapport["ef_desordre"] = ordre_def != sorted(ordre_def) and len(ordre_def) > 1
+    rapport["ef_ordre"] = ordre_def
 
     if structure:
         tout = "\n".join(paragraphes).lower()
@@ -236,9 +316,15 @@ def afficher(rapport, chemin):
 
     if rapport["coquilles"]:
         titre("COQUILLES ET NOMS ERRONÉS (bloquant)")
+        par_regle = {}
         for i, conseil, ex in rapport["coquilles"]:
-            print(f"  §{i} → {conseil}\n      {ex}")
-            bloquants += 1
+            par_regle.setdefault(conseil, []).append((i, ex))
+        for conseil, cas in par_regle.items():
+            for i, ex in cas[:3]:
+                print(f"  §{i} → {conseil}\n      {ex}")
+            if len(cas) > 3:
+                print(f"  … et {len(cas) - 3} autre(s) occurrence(s) de la même règle (§{', §'.join(str(i) for i, _ in cas[3:10])}{' …' if len(cas) > 10 else ''})")
+            bloquants += len(cas)
         print()
 
     if rapport["marqueurs"]:
@@ -253,6 +339,22 @@ def afficher(rapport, chemin):
         for i, p, attendu in rapport["numerotation"]:
             print(f"  §{i}  « {p} »  ({attendu})")
             bloquants += 1
+        print()
+
+    if rapport["annonces"]:
+        titre("ANNONCES DE CHAPITRE FAUSSES (bloquant)")
+        for i, chap, annonce, reel in rapport["annonces"]:
+            print(f"  §{i}  chapitre {chap} : {annonce} sections annoncées, {reel} sections réelles")
+            bloquants += 1
+        print()
+
+    if rapport["ef_non_definis"] or rapport["ef_desordre"]:
+        titre("EXIGENCES FONCTIONNELLES (traçabilité)")
+        for n, i in rapport["ef_non_definis"]:
+            print(f"  §{i}  EF{n:02d} est cité mais absent du tableau des exigences")
+            bloquants += 1
+        if rapport["ef_desordre"]:
+            print(f"  codes définis dans le désordre : {', '.join(f'EF{n:02d}' for n in rapport['ef_ordre'])}")
         print()
 
     if rapport["empilements"]:

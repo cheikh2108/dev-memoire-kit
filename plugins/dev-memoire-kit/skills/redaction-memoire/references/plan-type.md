@@ -1,96 +1,96 @@
 # Plan type et numérotation
 
+## Plan de référence : trois chapitres (pratique validée)
+
+Les mémoires de licence récemment soutenus et validés dans la filière suivent tous le **même plan en trois chapitres**, sans « parties ». C'est le plan à proposer par défaut pour un mémoire de réalisation (application web ou mobile, plateforme). Les intitulés peuvent varier légèrement, l'ordre et le contenu restent.
+
+```
+Introduction générale                                   (≈ 2 pages)
+Chapitre 1 : Présentation générale                      (≈ 5 à 9 pages)
+    1.1. Présentation de la structure d'accueil         (si le projet est mené pour une structure)
+    1.2. Contexte
+    1.3. Problématique
+    1.4. Objectifs
+         1.4.1. Objectif général
+         1.4.2. Objectifs spécifiques
+    1.5. Méthodologie
+         1.5.1. Approche quantitative (questionnaire)
+         1.5.2. Approche qualitative (entretien, observation)
+    1.6. Étude de l'existant
+         1.6.1. [Processus actuel de la structure]
+         1.6.2. [Solution similaire n° 1] …
+Chapitre 2 : Analyse et conception                      (≈ 20 à 25 pages, le plus long)
+    2.1. Analyse critique de l'existant
+         2.1.1. [Analyse de l'existant 1]
+         2.1.2. [Analyse de l'existant 2]
+         2.1.3. Insuffisances observées
+    2.2. Étude pour la mise en place de la solution
+         2.2.1. Résultats de la collecte de données
+         2.2.2. Analyse des besoins et identification des fonctionnalités
+    2.3. Identification des acteurs
+    2.4. Exigences fonctionnelles et non fonctionnelles
+         2.4.1. Exigences fonctionnelles
+         2.4.2. Exigences non fonctionnelles
+    2.5. Modélisation
+         2.5.1. Diagrammes de cas d'utilisation
+         2.5.2. Diagrammes de séquence (avec la description textuelle de chaque cas)
+         2.5.3. Diagramme de classes
+Chapitre 3 : Réalisation de la solution                 (≈ 18 à 23 pages)
+    3.1. Outils et technologies utilisés
+         3.1.1. Outils de développement
+         3.1.2. Langages de programmation
+         3.1.3. Frameworks et bibliothèques
+    3.2. Architecture technique
+         3.2.1. Description des couches
+         3.2.2. Services tiers et flux de données
+    3.3. Présentation de la solution
+         3.3.1. Répartition des flux
+         3.3.2. Flux 1 : Inscription et authentification
+         3.3.3. Flux 2 : [Profil acteur 1]
+         3.3.4. Flux 3 : [Profil acteur 2] …
+    3.4. Tests et validation
+Conclusion générale                                     (1 à 1,5 page)
+```
+
+Corps du texte complet : **50 à 60 pages** environ. Le format exact de chaque élément (tableaux d'exigences, fiche de cas d'utilisation, présentation des outils, des écrans et des tests) est dans `modeles-de-chapitres.md`.
+
+Variante acceptée (observée) : la méthodologie et l'existant peuvent être regroupés autrement (« Chapitre 1 : Présentation du sujet » sans structure d'accueil, existant traité seulement au chapitre 2). Ce qui ne varie pas : l'analyse et la modélisation au chapitre 2, la réalisation au chapitre 3.
+
+**Toujours faire valider le plan par le directeur de mémoire.** S'il impose le plan en parties du guide (voir plus bas), c'est lui qui prime.
+
 ## Règles de structuration
 
-- Subdivisions conventionnelles : **parties → chapitres → sections → sous-sections → paragraphes**.
-- Structure **homogène** : chaque partie a le même nombre de chapitres (2), chaque chapitre a idéalement 3 sections.
-- **Longueurs équilibrées à chaque niveau** : les sections d'un même chapitre ont une longueur proche, de même que les sous-sections d'une même section et les deux chapitres d'une même partie. Pas une égalité stricte au nombre de pages, mais aucun écart flagrant (une section de 6 pages à côté d'une section d'un demi-paragraphe signale soit un manque de contenu, soit une section à scinder).
-- Entre parties, l'écart peut être plus grand selon leur importance : la partie conception et mise en œuvre est souvent la plus longue. Le développement occupe l'essentiel du corps du texte ; la conclusion générale reste **concise (1 à 1,5 page)** comme le demande le guide de l'école. Le repère « 10 / 80 / 10 % » de certains guides méthodologiques ne s'applique pas ici à la conclusion.
-- Pas de subdivision unique : un 1.1.1 appelle au moins un 1.1.2.
-- **Classification décimale** où le numéro de chapitre continue d'une partie à l'autre (particularité de l'école, à respecter) :
+- **Numérotation décimale par chapitre** : `Chapitre 2` → `2.1.`, `2.2.` → `2.2.1.`, `2.2.2.`. Choisir **une** forme (avec ou sans point final : `2.1.` ou `2.1`) et la garder partout, titres, sommaire et table des matières compris.
+- Niveau 4 éventuel : intertitre en gras **non numéroté** (« Diagramme de cas d'utilisation « Agent » », « Module : Paiement »).
+- Pas de subdivision unique : un 1.4.1 appelle au moins un 1.4.2.
+- **Longueurs équilibrées au sein d'un chapitre** : les sections d'un même chapitre ont une longueur proche, de même que les sous-sections d'une même section. Pas une égalité stricte, mais aucun écart flagrant (une section de 6 pages à côté d'une section d'un demi-paragraphe signale un manque de contenu ou une section à scinder).
+- **Entre chapitres**, l'écart est normal : le chapitre 1 (cadrage) est le plus court, le chapitre 2 (analyse et modélisation) le plus long. La conclusion générale reste **concise (1 à 1,5 page)**.
+- Chaque chapitre commence sur une nouvelle page, par un paragraphe d'introduction qui annonce ses sections, et se termine par un bilan et une transition vers le chapitre suivant (`modeles-de-chapitres.md`).
 
-| Traditionnel | Décimal |
-|---|---|
-| 1re partie | I |
-| Chapitre 1 | 1.1 |
-| Section 1, 2, 3 | 1.1.1 · 1.1.2 · 1.1.3 |
-| Chapitre 2 | 1.2 |
-| 2e partie | II |
-| Chapitre 3 | **2.3** |
-| Chapitre 4 | **2.4** |
-| 3e partie | III |
-| Chapitre 5 | **3.5** |
-| Chapitre 6 | **3.6** |
+## Variante : plan en parties du guide officiel
 
-Erreur fréquente : numéroter 2.1 / 2.2 dans la 2e partie. Ici on écrit 2.3 / 2.4, puis 3.5 / 3.6.
-
-## Plan imposé pour un mémoire informatique (licence GLAR)
+Le guide de rédaction de l'école présente aussi un plan en trois **parties**, avec une numérotation de chapitres qui continue d'une partie à l'autre. Il n'est pas utilisé dans les mémoires de réalisation récents ; ne le proposer que si le directeur de mémoire le demande.
 
 ```
 Introduction générale
 I   Cadres théorique et méthodologique
-    1.1 Cadre théorique
-        1.1.1 Problématique
-        1.1.2 Objectifs de recherche
-              (objectif général / objectifs spécifiques)
-        1.1.3 Hypothèses
-        1.1.4 Pertinence du sujet
-    1.2 Cadre méthodologique
-        1.2.1 Méthodologie de travail
-        1.2.2 Outils et langages utilisés
-        1.2.3 Méthode de conception (UML, Merise…)
-        1.2.4 Méthode de développement (Scrum, cycle en V…)
+    1.1 Cadre théorique (problématique, objectifs, hypothèses, pertinence)
+    1.2 Cadre méthodologique (méthodologie, outils, méthode de conception, méthode de développement)
 II  Cadre conceptuel
     2.3 Rappels sur le thème
-        2.3.1 Historique du domaine / des pratiques
-        2.3.2 Problèmes rencontrés avec les systèmes manuels
-        2.3.3 Intérêt d'un système informatisé
     2.4 État de l'art sur le sujet
-        2.4.1 Étude de systèmes similaires
-        2.4.2 Comparaison des fonctionnalités existantes
-        2.4.3 Limites des solutions actuelles
 III Mise en œuvre
     3.5 Architecture
     3.6 Implémentation
 Conclusion générale
 ```
 
-Le titre des sections peut être adapté au sujet, mais les intitulés **Cadres théorique et méthodologique / Cadre conceptuel / Mise en œuvre** et la numérotation restent.
-
-### Contenu attendu de la Mise en œuvre (proposition de sections)
-
-C'est la partie où le jury voit le travail réel. Elle doit contenir des **preuves** : figures, tableaux, captures, extraits de code courts.
-
-```
-3.5 Architecture
-    3.5.1 Architecture logique (couches, modules) — Figure
-    3.5.2 Architecture technique / déploiement (serveurs, BD, services externes) — Figure
-    3.5.3 Modélisation retenue (cas d'utilisation, classes, séquence) — si non placée en II
-3.6 Implémentation
-    3.6.1 Environnement et technologies (tableau : outil | version | rôle | justification)
-    3.6.2 Fonctionnalités réalisées (captures commentées, une par fonctionnalité clé)
-    3.6.3 Tests et validation (ce qui a été testé, comment, résultats mesurés, limites)
-```
-
-Pour choisir, construire et commenter les diagrammes (et passer à la base de données) : `uml.md`.
-
-Si le DR accepte un chapitre 3.7 « Résultats », il reste dans la partie III. Toujours garder le plan homogène et validé par le DR.
-
-## Variante générique (plan du modèle « 22 pages »)
-
-Le modèle Word fourni utilise une variante non spécifique à l'informatique :
-
-```
-I   Cadres théorique et méthodologique (1.1 théorique, 1.2 méthodologique)
-II  Cadres conceptuel et organisationnel (2.3 conceptuel, 2.4 organisationnel)
-III Cadre analytique et quelques recommandations (3.5 analytique, 3.6 recommandations)
-```
-
-Utile pour un mémoire d'étude (analyse d'une organisation) plutôt que de réalisation. Pour un projet de développement, préférer le plan informatique ci-dessus.
+Dans cette variante, la 2e partie numérote ses chapitres **2.3 / 2.4** (pas 2.1 / 2.2), puis **3.5 / 3.6**. Une version « mémoire d'étude » (Cadres conceptuel et organisationnel, Cadre analytique et recommandations) existe aussi, pour l'analyse d'une organisation plutôt qu'une réalisation.
 
 ## Vérifications du plan
 
-- [ ] Le plan détaillé, le sommaire, la table des matières et les titres du corps sont **identiques mot pour mot**.
-- [ ] La table des matières est générée automatiquement par Word (styles Titre 1/2/3), pas tapée à la main. Sinon on retrouve des liens cassés de type `file:/C:/Users/...` dans le document.
-- [ ] Chaque titre de section annonce un contenu qui existe vraiment dans la section.
-- [ ] L'annonce du plan dans l'introduction cite le **même nombre de parties** et les **mêmes titres**.
+- [ ] Le sommaire, la table des matières et les titres du corps sont **identiques mot pour mot** (générés par Word à partir des styles Titre 1/2/3, jamais tapés à la main).
+- [ ] L'annonce du plan dans l'introduction cite le **même nombre de chapitres** et les **mêmes titres**.
+- [ ] Chaque introduction de chapitre annonce le **nombre réel** de sections (« s'articule autour de cinq sections » quand il y en a cinq) et dans le bon ordre.
+- [ ] Chaque titre annonce un contenu qui existe vraiment dans la section.
+- [ ] Les intitulés sont sans faute (« Étude **de** l'existant », « Liste des tableaux », « Table des matières » au singulier) et accentués, majuscules comprises (« Étude », « Écran »).

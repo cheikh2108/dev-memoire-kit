@@ -48,11 +48,11 @@ Comprendre en profondeur une situation réelle : assister au processus actuel (p
 
 | Ce qui a été collecté | Où ça va dans le mémoire |
 |---|---|
-| Observation du processus actuel | 2.3 Rappels / analyse de l'existant (description + schéma du processus) |
+| Observation du processus actuel | 1.6 Étude de l'existant (description + tableau du processus) |
 | Difficultés citées en entretien | 2.3.2 Problèmes rencontrés / critique de l'existant (avec citations courtes) |
 | Résultats du questionnaire | Tableaux ou graphiques commentés (numérotés) + besoins fonctionnels |
 | Solutions concurrentes testées | 2.4 État de l'art : tableau comparatif des fonctionnalités, limites |
-| Contraintes (réseau, matériel) | Besoins non fonctionnels, choix techniques justifiés en 3.5 |
+| Contraintes (réseau, matériel) | Besoins non fonctionnels, choix techniques justifiés en 3.1 et 3.2 |
 
 ## Analyse de l'existant : format recommandé
 - Décrire le processus actuel étape par étape (qui fait quoi, avec quel support, combien de temps).

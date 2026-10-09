@@ -1,5 +1,16 @@
 # Historique des versions
 
+## 1.4.0 — 09/10/2026
+### Modifications
+- **redaction-memoire** réaligné sur la structure de mémoires de licence récemment soutenus et validés dans la filière (anonymisés) :
+  - plan de référence en **trois chapitres** (présentation générale, analyse et conception, réalisation) ; le plan en parties du guide devient une variante ;
+  - ordre réel des pages conventionnelles (résumé et abstract en tête, sommaire après les listes, table des matières à la fin) et pagination I / 1 / i ;
+  - modèle Word régénéré sur cette structure, avec tableaux gabarits (existant, comparaison, exigences fonctionnelles par module, exigences non fonctionnelles mesurables, fiche de cas d'utilisation, outils, tests, recette).
+### Ajouts
+- `references/modeles-de-chapitres.md` : format de chaque section tel qu'observé dans les mémoires validés, corrigé de leurs défauts.
+- `erreurs-frequentes.md` : défauts relevés dans des mémoires validés (annonces fausses, codes EF incohérents, tests absents, données réelles dans les captures…).
+- `verifier_memoire.py` : numérotation par chapitre, annonces de sections fausses, codes EF cités mais non définis ou dans le désordre, figures « 0.x », intitulés fautifs.
+
 ## 1.3.1 — 09/10/2026
 ### Modifications
 - **redaction-memoire** : tout fichier Word du mémoire part obligatoirement du modèle `assets/modele-memoire.docx` (copie puis remplissage, 22 pages conventionnelles conservées dans l'ordre, styles gardés) ; Claude ne génère plus de document de zéro.

@@ -12,11 +12,13 @@ Rôle : poser le problème **sans le résoudre** (« loi du suspens »). On n'af
 | 4 | **Motivation du choix du sujet** | Les raisons réelles : constat vécu, stage, demande d'une structure, intérêt technique. « Si nous avons choisi ce sujet, c'est parce que… » | Motivation passe-partout (« la santé est un enjeu majeur de notre époque »). |
 | 5 | **Hypothèses de travail** | Les solutions probables, formulées avec « hypothèse », « si… », le conditionnel ou « supposons que… ». Annoncées ici, **vérifiées** dans le développement. | Hypothèse invérifiable ou qui n'est qu'un souhait. |
 | 6 | **Approche méthodologique** | Les techniques d'investigation réellement utilisées : recherche documentaire, questionnaire, guide d'entretien, observation, stage. Avec les chiffres réels (nombre d'entretiens, de réponses). | Citer des méthodes (SWOT, NVivo, 50 questionnaires) qui n'ont pas été pratiquées. |
-| 7 | **Annonce du plan** | Le nombre de parties, puis le titre exact de chacune. | Annonce qui ne correspond pas au plan réel. |
+| 7 | **Annonce du plan** | Le nombre de chapitres, puis le titre exact de chacun (« Ce mémoire est structuré en trois chapitres. Le premier… Le deuxième… Enfin, le troisième… »). | Annonce qui ne correspond pas au plan réel. |
 
-Longueur indicative : 1,5 à 2,5 pages. Un paragraphe par étape, pas de sous-titres dans l'introduction.
+Longueur indicative : environ 2 pages. Un paragraphe par étape, pas de sous-titres dans l'introduction.
 
-## 2. Cadre théorique (1.1) : formuler correctement
+Dans les mémoires validés, l'introduction compte souvent **8 paragraphes** : un paragraphe de **constat des difficultés** s'intercale entre la contextualisation et la problématique, et la motivation peut précéder l'objectif. Les deux ordres sont acceptés ; l'essentiel est que les 7 fonctions soient présentes.
+
+## 2. Problématique, objectifs, hypothèses (chapitre 1) : formuler correctement
 
 ### Problématique
 - Part d'un **constat observable** (ex. : « le pointage se fait sur feuille papier signée en début de cours ; les feuilles sont saisies à la main en fin de mois »).
@@ -40,32 +42,33 @@ Une bonne hypothèse est **testable** : on peut dire à la fin si elle est confi
 | « Si le système de l'établissement peut permettre d'identifier les étudiants » | « Si chaque étudiant dispose d'un QR code lié à son matricule, le pointage d'une classe de 40 étudiants peut se faire en moins de 5 minutes. » |
 | « Si le personnel peut mettre en vigueur ce genre de système » | « Supposons que l'interface soit utilisable sans formation : les enseignants l'adopteraient dès la première semaine. » |
 
-### Pertinence du sujet
-Intérêt **pratique** (pour la structure), **technique** (ce que le projet mobilise), **académique** (ce que l'étudiant apprend). Éviter la triple formule creuse « à la fois techniquement utile, institutionnellement nécessaire et académiquement formateur » : donner une raison concrète pour chacun.
+### Pertinence du sujet (facultatif)
+Demandée seulement dans le plan en parties du guide. Intérêt **pratique** (pour la structure), **technique** (ce que le projet mobilise), **académique** (ce que l'étudiant apprend). Éviter la triple formule creuse « à la fois techniquement utile, institutionnellement nécessaire et académiquement formateur » : donner une raison concrète pour chacun.
 
 ## 3. Le schéma d'enchaînement (développement)
 
-Modèle imposé pour chaque niveau :
+Modèle pour chaque niveau (plan en trois chapitres) :
 
 ```
-PARTIE I — titre
-  (petite introduction : annonce les titres des chapitres 1.1 et 1.2)
-  1.1 Chapitre
-    (petite introduction : annonce les titres des sections 1.1.1, 1.1.2, 1.1.3)
-    1.1.1 Section
-      (petite introduction : annonce les paragraphes)
-      (paragraphes : idée générale → arguments → exemples → connecteurs logiques)
-      (petite conclusion + transition vers 1.1.2)
-    …
-    1.1.3 Section
-      (petite conclusion de la section ET du chapitre + transition : titre du chapitre 1.2)
-  1.2 Chapitre …
-  Conclusion partielle n°1 + transition : titre de la partie II
+Chapitre 2 : titre
+  (introduction du chapitre : situe le chapitre, annonce ses sections dans l'ordre et en nombre exact)
+  2.1. Section
+    (une phrase d'annonce si la section a des sous-sections)
+    2.1.1. Sous-section
+      (paragraphes : idée générale → arguments → exemples tirés du cas réel → connecteurs logiques)
+    2.1.2. Sous-section …
+    (une phrase de bilan + une phrase de transition vers 2.2)
+  2.2. Section …
+  (bilan du chapitre + transition : annonce du chapitre 3)
 ```
+
+Avec le plan en parties du guide, la même logique s'applique un niveau au-dessus : introduction de partie, conclusion partielle en fin de partie.
 
 ### Doser les clôtures
 Le défaut le plus visible dans les travaux analysés est l'**empilement** :
-> « En résumé, cette section a permis de… En conclusion, ce chapitre a permis de… En somme, cette partie a permis de… »
+> « En résumé, cette section a permis de… En conclusion, ce chapitre a permis de… En somme… »
+
+Autre tic relevé dans des mémoires validés : « En définitive, cette section nous a permis de… » à la fin de **chaque** section.
 
 Règles :
 - **Une phrase** de conclusion de section, **une phrase** de transition. Pas un paragraphe.
@@ -81,12 +84,12 @@ Exemple :
 
 Ouverture possible : « Au terme de notre analyse… », « En définitive… ». Qualité première : **la concision** (1 à 1,5 page).
 
-1. **Récapitulation** : contexte, problématique, objectifs, puis les conclusions partielles n°1, n°2 et n°3.
+1. **Récapitulation** : contexte, problématique, objectif, puis la démarche (« Nous avons d'abord…, ensuite…, avant de… ») en reprenant le bilan de chaque chapitre.
 2. **Réponse claire à la question** posée dans l'introduction : démarche suivie, résultats obtenus (ce qui marche réellement), hypothèses confirmées ou infirmées, impact sur l'organisation le cas échéant.
 3. **Difficultés rencontrées et limites** : honnêtes et précises (ce qui n'a pas été fait, testé ou déployé). « L'application n'a pas encore été testée à grande échelle » vaut mieux que « les obstacles ont été surmontés ».
-4. **Ouverture** vers de nouvelles perspectives : améliorations concrètes et réalistes (module X, déploiement sur Y), pas « révolutionner le secteur ».
+4. **Ouverture** vers de nouvelles perspectives : améliorations concrètes et réalistes (module X, déploiement sur Y), éventuellement à court, moyen et long terme ; pas « révolutionner le secteur ».
 
 Vérifier : la conclusion ne mentionne **aucun contenu absent** du développement (ex. citer une étude de cas jamais traitée dans le corps).
 
-## 5. Conclusions partielles
-À la fin de chaque partie : 4 à 6 lignes qui rappellent ce que la partie a établi, puis une transition qui annonce le titre de la partie suivante. La conclusion générale reprendra ces trois conclusions partielles.
+## 5. Bilans de fin de chapitre
+À la fin de chaque chapitre : 4 à 6 lignes qui rappellent ce que le chapitre a établi (des faits, pas « ce chapitre nous a permis de présenter… »), puis une phrase qui annonce le chapitre suivant. La conclusion générale reprendra ces trois bilans. Dans le plan en parties du guide, ce sont les « conclusions partielles » de fin de partie.

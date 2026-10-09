@@ -39,7 +39,7 @@
 ## 5. Affirmations sans preuve
 | Générique | Réécriture honnête |
 |---|---|
-| « L'application a atteint les objectifs fixés. » | « Les fonctionnalités F1 à F4 sont opérationnelles et testées (§3.6.3). F5 (paiement) n'est pas encore intégrée. » |
+| « L'application a atteint les objectifs fixés. » | « Les fonctionnalités F1 à F4 sont opérationnelles et testées (§3.4). F5 (paiement) n'est pas encore intégrée. » |
 | « Les ventes ont augmenté significativement. » | « L'impact sur les ventes n'a pas pu être mesuré, l'application n'étant pas déployée. Une mesure sur trois mois est proposée en perspective. » |
 | « Les obstacles ont été surmontés grâce à une planification minutieuse. » | Nommer l'obstacle et ce qui a été fait : « La synchronisation hors ligne a été abandonnée faute de temps ; les données sont envoyées à la reconnexion. » |
 

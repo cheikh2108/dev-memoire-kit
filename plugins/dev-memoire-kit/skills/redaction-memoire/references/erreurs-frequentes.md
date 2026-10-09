@@ -1,6 +1,6 @@
 # Erreurs fréquentes : grille de relecture
 
-Grille construite à partir de l'analyse de six travaux d'étudiants L3 GLAR (TP d'évaluation : couverture, avant-propos, plan détaillé, introduction, développement, conclusion, bibliographie, webographie). Les exemples sont reformulés et anonymisés.
+Grille construite à partir de l'analyse de six travaux d'étudiants L3 GLAR (TP d'évaluation) et de mémoires complets récemment soutenus et validés (section D). Les exemples sont reformulés et anonymisés.
 
 ## A. Bloquant (le jury le verra)
 
@@ -24,7 +24,7 @@ Nombre d'entretiens, d'enquêtés, logiciel d'analyse (NVivo), analyse SWOT, éc
 - base de données MongoDB dans un paragraphe, PostgreSQL dans le suivant ;
 - « React.js » en architecture, « React Native » en implémentation ;
 - « Java Sprint Boot » (au lieu de Spring Boot), « Framework React-natif ».
-**Correction** : tableau unique des technologies (nom exact, version, rôle) en 3.6.1, et recherche dans tout le document de chaque nom de technologie pour vérifier la cohérence.
+**Correction** : tableau unique des technologies (nom exact, version, rôle) en 3.1, et recherche dans tout le document de chaque nom de technologie pour vérifier la cohérence.
 
 ### A5. Bibliographie douteuse
 - Nombre de pages manifestement faux pour des ouvrages connus (manuels de plusieurs centaines de pages indiqués à moins de 100 ou 250 pages) ;
@@ -78,7 +78,7 @@ Listes intégrées dans une phrase avec des deux-points en cascade, ou majuscule
 La présentation de l'école peut être commune, mais l'explication du sujet doit être propre au projet, factuelle et sans superlatifs.
 
 ## C. Checklist finale avant impression
-- [ ] 22 pages présentes et dans l'ordre ; pagination romaine/arabe correcte
+- [ ] Pages conventionnelles présentes et dans l'ordre du modèle ; pagination I… / 1… / i… correcte, même casse dans la table des matières, aucune page blanche numérotée
 - [ ] Sommaire, table des matières, listes des figures et tableaux générés automatiquement et à jour
 - [ ] Chaque figure et chaque tableau : numéro (chapitre.n), titre, source si emprunté, commentaire dans le texte
 - [ ] Glossaire alphabétique, chaque sigle du texte y figure
@@ -88,3 +88,40 @@ La présentation de l'école peut être commune, mais l'explication du sujet doi
 - [ ] Résumé et abstract relus, mots clés présents
 - [ ] Normes de mise en page appliquées (Times 12, 1,5, justifié, marges 3,5/2,5)
 - [ ] Relecture orthographique complète par une autre personne
+- [ ] Captures d'écran avec des données fictives, aucun mot de passe ni donnée personnelle réelle visible
+- [ ] Chaque code EF cité existe dans le tableau des exigences ; chaque écran du chapitre 3 renvoie à son EF
+
+## D. Défauts relevés dans des mémoires validés
+
+Même des mémoires soutenus et validés contiennent ces défauts. Le jury les relève et ils coûtent des points : les corriger avant le dépôt.
+
+**Structure et pagination**
+- Introduction de chapitre qui annonce « quatre sections » quand il y en a cinq ou six, ou qui les cite dans un autre ordre.
+- Folios faux dans la table des matières (romains en majuscules dans la table, minuscules en pied de page ; pages décalées) : mettre à jour les champs juste avant l'impression.
+- Page blanche numérotée entre le glossaire et la liste des figures (saut de section mal placé).
+- Figures d'annexe numérotées « Figure 0.1 » : la numérotation par chapitre est restée active hors chapitre.
+- Intitulés fautifs : « Etude l'existant », « Listes des tableaux », « Tables des matières », majuscules sans accent (« Ecran »).
+
+**Cohérence**
+- Un code EF cité au chapitre 3 qui n'existe pas dans le tableau des exigences ; codes EF dans le désordre ; fonctionnalités montrées sans exigence correspondante.
+- Problématique recopiée mot pour mot entre l'introduction et le chapitre 1, ou formulée de deux façons différentes.
+- Outil de modélisation déclaré (Draw.io, Visual Paradigm) différent de celui qui a visiblement produit les diagrammes.
+- Schéma d'architecture qui montre une couche absente du texte.
+- Classe appelée « Compte » dans le texte et « Personne » dans le diagramme.
+- Un acteur « Visiteur » non authentifié dont le cas d'utilisation inclut « S'authentifier ».
+- Scénarios alternatifs mal indexés (« 6a » pour une erreur à l'étape 5, « 7b » sans « 7a »).
+- Appels de sources « (4) » qui renvoient à la mauvaise entrée de la webographie ; entrées jamais appelées dans le texte.
+
+**Affirmations non prouvées**
+- « Testées avec succès », « les résultats démontrent la faisabilité » sans section de tests.
+- Exigences non fonctionnelles chiffrées (« < 2 s ») jamais mesurées.
+- Taux de réussite des tests présenté comme une « couverture » ; « approche TDD » revendiquée sans preuve ; un module à 33 % de réussite noyé dans une moyenne et conclu par « la robustesse de la solution ».
+- Contexte et chiffres du marché sans aucune source.
+
+**Présentation**
+- Captures contenant une adresse e-mail, un numéro de téléphone et un **mot de passe en clair** réels.
+- Diagramme de classes pivoté à 90° et illisible à l'impression.
+- Dix à treize logos d'outils numérotés comme figures.
+- Captures Google Forms brutes (boutons visibles) au lieu de graphiques refaits.
+- Commentaires d'écran agrammaticaux (« La figure ci-dessus illustre l'écran d'accueil affiche… »), anglicismes (« uploader »).
+- Fautes d'accord dans les pages personnelles (« n'a jamais cessée », « leurs soutien ») : les relire aussi, le jury les lit en premier.

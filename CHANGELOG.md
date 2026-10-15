@@ -1,5 +1,22 @@
 # Historique des versions
 
+## 1.7.0 — 15/10/2026
+Corrections issues de la relecture d'un brouillon complet rédigé avec le plugin.
+### Vérificateur (`verifier_memoire.py`)
+- Lit directement les PDF ; signale une police autre que Times New Roman (rendu LibreOffice).
+- Plan en parties reconnu (« Première partie ») et signalé comme ancien modèle ; la structure n'est plus analysée après la bibliographie (« I. Ouvrages » ne passe plus pour un chapitre).
+- Marqueurs `[À COMPLÉTER]` coupés sur plusieurs lignes détectés.
+- Nouveau contrôle « restes du modèle et notes de travail » (« Prénom NOM », « [Insérer… », « à retirer », consignes entre crochets…).
+- Tous les codes cités (UC-01, PAI-04…) contrôlés, pas seulement EF ; alerte si aucun tableau d'exigences.
+### Règles du skill
+- Marqueurs courts (3 à 8 mots) ; aucune note de travail dans le document ; identité du mémoire jamais laissée en marqueur.
+- Interdiction d'attribuer des décisions au directeur sans confirmation ; documents internes annexés ou non cités.
+- Section 1.4.3 Hypothèses de travail (facultative), revue en 3.4 ; une seule question centrale de problématique.
+- Variante en parties : emplacement des exigences et des tests ; table de migration vers le plan en trois chapitres.
+- UML : acteur Horloge pour les tâches planifiées, une étape par ligne dans les fiches, lisibilité ≥ 8 pt à l'impression.
+- Tests : captures réelles, thème clair, jamais recomposées ; webographie avec titre ; PDF exporté depuis Word.
+- README : commandes de mise à jour du plugin.
+
 ## 1.6.1 — 15/10/2026
 ### Corrections
 - Modèle Word : titres de sous-section (niveau 3) en taille 14 comme les autres titres, conformément au guide.

@@ -13,6 +13,7 @@ Chapitre 1 : Présentation générale                      (≈ 5 à 9 pages)
     1.4. Objectifs
          1.4.1. Objectif général
          1.4.2. Objectifs spécifiques        (les ÉTAPES du travail, pas les fonctionnalités)
+         1.4.3. Hypothèses de travail        (facultatif ; sinon dans l'introduction)
     1.5. Méthodologie
          1.5.1. Approche quantitative (questionnaire)
          1.5.2. Approche qualitative (entretien, observation)
@@ -90,7 +91,29 @@ III Mise en œuvre
 Conclusion générale
 ```
 
-Dans cette variante, la 2e partie numérote ses chapitres **2.3 / 2.4** (pas 2.1 / 2.2), puis **3.5 / 3.6**. Une version « mémoire d'étude » (Cadres conceptuel et organisationnel, Cadre analytique et recommandations) existe aussi, pour l'analyse d'une organisation plutôt qu'une réalisation.
+Dans cette variante, la 2e partie numérote ses chapitres **2.3 / 2.4** (pas 2.1 / 2.2), puis **3.5 / 3.6**. Le contenu reste le même que dans le plan en chapitres : les **acteurs, les exigences EF/ENF et la modélisation** vont en 2.4 (« Analyse du système »), les **écrans avec leurs EF et les tests** en 3.6 (« Implémentation ») ; la règle de traçabilité vaut quel que soit le plan. Une version « mémoire d'étude » (Cadres conceptuel et organisationnel, Cadre analytique et recommandations) existe aussi, pour l'analyse d'une organisation plutôt qu'une réalisation.
+
+## Migrer un brouillon du plan en parties vers les trois chapitres
+
+| Plan en parties | Plan en trois chapitres |
+|---|---|
+| Contexte (introduction, rappels sur le thème) | 1.2 Contexte |
+| 1.1.1 Problématique | 1.3 Problématique |
+| 1.1.2 Objectifs | 1.4.1 Objectif général, 1.4.2 Objectifs spécifiques |
+| 1.1.3 Hypothèses | 1.4.3 Hypothèses de travail (ou introduction) |
+| 1.1.4 Pertinence du sujet | motivation, dans l'introduction |
+| 1.2.1 Méthodologie de travail | 1.5 Méthodologie |
+| 1.2.2 Outils et langages | 3.1 Outils et technologies |
+| 1.2.3 Méthode de conception | introduction de 2.5 Modélisation |
+| 1.2.4 Méthode de développement | fin de 1.5, ou introduction de 3.1 |
+| 2.3 Rappels sur le thème (processus actuel) | 1.6.1 Processus actuel |
+| 2.4 État de l'art (solutions similaires, limites) | 1.6.2 Solutions similaires, 2.1 Analyse critique |
+| Acteurs, exigences, modélisation | 2.3 Acteurs, 2.4 Exigences, 2.5 Modélisation |
+| 3.5 Architecture / conception technique | 3.2 Architecture technique |
+| 3.6 Implémentation (écrans, tests) | 3.3 Présentation de la solution, 3.4 Tests |
+| Conclusions partielles n° 1, 2, 3 | bilans de fin de chapitre |
+
+Pages : supprimer garde et errata, déplacer résumé et abstract après les remerciements, sommaire après les listes, folios du corps 1, 2… (pas 01).
 
 ## Vérifications du plan
 

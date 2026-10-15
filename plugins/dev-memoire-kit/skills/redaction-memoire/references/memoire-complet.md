@@ -12,6 +12,7 @@ Procédure quand l'étudiant veut le mémoire entier (et pas une section). Le m�
 
 ## Étape 3 — Construire le registre de cohérence
 Avant d'écrire, fixer une fois pour toutes, et réutiliser partout à l'identique :
+- **l'identité du mémoire** : nom de l'étudiant, établissement, filière et option, titre exact, directeur et sa qualité, année académique (couverture, avant-propos, annexes : jamais en marqueur s'ils sont connus) ;
 - **la problématique** (une question) et **l'hypothèse** ;
 - **les objectifs spécifiques** = les étapes du travail (voir plus bas) ;
 - **les acteurs** (mêmes noms dans le texte, les tableaux et les diagrammes) ;
@@ -38,7 +39,8 @@ Chaque section suit son gabarit (`modeles-de-chapitres.md`) et le skill `anti-ge
    - les acteurs, les classes et la pile sont nommés de la même façon partout ;
    - l'introduction annonce les vrais titres de chapitres ; la conclusion répond à la problématique ;
    - les objectifs spécifiques sont des étapes et la conclusion dit lesquelles ont été atteintes.
-3. Livrer le .docx et la **liste des `[À COMPLÉTER]`** restants, regroupés par page, avec ce qu'il faut fournir pour chacun ; rappeler la mise à jour des champs (F9) et l'insertion des figures (diagrammes, captures).
+3. Vérifier qu'il ne reste **aucun texte du modèle** (consignes grises, « Prénom NOM », « [Insérer… », gabarits de bibliographie) ni **aucune note de travail** dans le document : le script les signale.
+4. Livrer le .docx et la **liste des `[À COMPLÉTER]`** restants, regroupés par page, avec ce qu'il faut fournir pour chacun ; rappeler la mise à jour des champs (F9) et l'insertion des figures (diagrammes, captures).
 
 ## Objectifs spécifiques : des étapes, pas des fonctionnalités
 

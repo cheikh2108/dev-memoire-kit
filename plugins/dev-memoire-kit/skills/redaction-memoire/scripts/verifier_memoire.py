@@ -5,7 +5,7 @@ Usage :
     python3 verifier_memoire.py mon_memoire.docx
     python3 verifier_memoire.py chapitre1.md --sans-structure
 
-Lit un fichier .docx, .md ou .txt (lecture seule) et affiche un rapport :
+Lit un fichier .docx, .pdf, .md ou .txt (lecture seule) et affiche un rapport :
   1. coquilles connues des modèles et erreurs de nom de technologie ;
   2. marqueurs [À COMPLÉTER] restants ;
   3. clôtures empilées (« En résumé… En conclusion… En somme… ») ;
@@ -22,6 +22,8 @@ Aucune dépendance externe : bibliothèque standard Python 3.8+.
 """
 import argparse
 import re
+import shutil
+import subprocess
 import sys
 import zipfile
 from xml.etree import ElementTree as ET
@@ -48,6 +50,21 @@ COQUILLES = [
 ]
 
 MARQUEURS = r"\[\s*(À|A) COMPL[ÉE]TER[^\]]*\]|\bTODO\b|\bXXX\b|\(titre\)|…{3,}|\.{6,}"
+# Marqueur éventuellement coupé sur plusieurs lignes (texte extrait d'un PDF)
+RX_MARQUEUR_LONG = re.compile(r"\[\s*(?:À|A) COMPL[ÉE]TER[^\]]{0,400}\]?", re.DOTALL)
+
+# Restes du modèle et notes de travail qui ne doivent pas rester dans le document
+RESTES = [
+    r"Pr[ée]nom NOM", r"NOM Pr[ée]nom", r"M\./Mme", r"\[Ins[ée]rer", r"\[autres membres", r"\[Qualit[ée]",
+    r"Grade / Sp[ée]cialit[ée]", r"supprimer cette mention", r"[àa] retirer", r"Titre de l[’']ouvrage",
+    r"\[Organisme\]", r"\[Titre de la page\]", r"Conseils d[’']utilisation", r"[ÀA] v[ée]rifier avant d[ée]p[ôo]t",
+    r"Format de l[’'][ée]cole", r"Consigne \(", r"^\[[A-ZÉÈÀ][^\]]{20,}\]?$",
+]
+RX_PARTIE = re.compile(r"^(?:(PREMI[ÈE]RE|DEUXI[ÈE]ME|TROISI[ÈE]ME|1re|2e|3e)\s+PARTIE|PARTIE\s+(?:[IVX]+|\d))\b", re.IGNORECASE)
+RX_FIN_CORPS = re.compile(r"^(Bibliographie|Webographie|R[ée]f[ée]rences bibliographiques|Annexes?)\s*$", re.IGNORECASE)
+# Codes d'exigences ou de règles (UC-01, PAI-04…) ; préfixes qui ne sont pas des codes de spécification
+RX_CODE = re.compile(r"\b([A-Z]{2,4})-(\d{1,3})\b")
+PREFIXES_IGNORES = {"UTF", "ISO", "SHA", "MD", "TLS", "SSL", "IPV", "EF", "ENF", "COVID", "RGPH", "CAN", "RFC", "AES", "RSA", "GPT", "HS", "ES", "MP"}
 
 CLOTURES = (
     r"^(En r[ée]sum[ée]|En conclusion|En somme|En d[ée]finitive|En bref|Pour conclure|"
@@ -125,8 +142,8 @@ class _Chapitre:
 
 
 RX_CHAPITRE = _Chapitre()
-RX_SECTION = re.compile(r"^(\d{1,2})\.(\d{1,2})\.?\s+[A-ZÉÈÀÂÎÔÙÇa-zé]")          # 2.3 ou 2.3. Titre
-RX_SOUS_SECTION = re.compile(r"^(\d{1,2})\.(\d{1,2})\.(\d{1,2})\.?\s+[A-ZÉÈÀÂÎÔÙÇa-zé]")
+RX_SECTION = re.compile(r"^(\d{1,2})\.(\d{1,2})\.?\s+[A-ZÉÈÀÂÎÔÙÇ]")          # 2.3 ou 2.3. Titre
+RX_SOUS_SECTION = re.compile(r"^(\d{1,2})\.(\d{1,2})\.(\d{1,2})\.?\s+[A-ZÉÈÀÂÎÔÙÇ]")
 RX_LIGNE_TABLE = re.compile(r"([.…]{3,}|…|\t)\s*[\dIVXLivxl]+\s*$")  # entrée de sommaire avec n° de page
 RX_ANNONCE = re.compile(r"(?:s[’']articule|est structuré|s[’']organise|se décline)[^.]{0,40}?\b(" + "|".join(NOMBRES) + r"|\d)\s+(?:sections|parties principales|points)", re.IGNORECASE)
 RX_EF = re.compile(r"\bEF-?(\d{1,3})\b")
@@ -158,9 +175,26 @@ def lire_texte(chemin):
     return [re.sub(r"^#+\s*|\*\*", "", l).strip() for l in lignes if l.strip()]
 
 
+def lire_pdf(chemin):
+    if not shutil.which("pdftotext"):
+        raise OSError("pdftotext introuvable : installer poppler-utils, ou fournir le .docx")
+    sortie = subprocess.run(["pdftotext", chemin, "-"], capture_output=True, text=True, check=True).stdout
+    return [re.sub(r"^#+\s*|\*\*", "", l).strip() for l in sortie.splitlines() if l.strip()]
+
+
+def polices_pdf(chemin):
+    """Noms des polices intégrées au PDF (vide si pdffonts est absent)."""
+    if not shutil.which("pdffonts"):
+        return []
+    sortie = subprocess.run(["pdffonts", chemin], capture_output=True, text=True).stdout.splitlines()[2:]
+    return [l.split()[0] for l in sortie if l.strip()]
+
+
 def lire(chemin):
     if chemin.lower().endswith(".docx"):
         return lire_docx(chemin)
+    if chemin.lower().endswith(".pdf"):
+        return lire_pdf(chemin)
     return lire_texte(chemin)
 
 # --- Analyse -----------------------------------------------------------------
@@ -190,8 +224,30 @@ def analyser(paragraphes, structure=True):
                 rapport["coquilles"].append((i, conseil, extrait(p, m.start(), m.end())))
 
     # Les points de conduite des sommaires et listes (« Titre ....... 12 ») ne sont pas des trous
-    rapport["marqueurs"] = [(i, extrait(p, m.start(), m.end())) for i, p, m in chercher(paragraphes, MARQUEURS, 0)
-                            if not RX_LIGNE_TABLE.search(p)]
+    marqueurs = [(i, extrait(p, m.start(), m.end())) for i, p, m in chercher(paragraphes, MARQUEURS, 0)
+                 if not RX_LIGNE_TABLE.search(p)]
+    # Marqueurs [À COMPLÉTER …] coupés sur plusieurs lignes : recherche sur le texte entier
+    deja = {i for i, _ in marqueurs}
+    texte_entier, debuts, pos = "", [], 0
+    for p in paragraphes:
+        debuts.append(pos)
+        texte_entier += p + "\n"
+        pos += len(p) + 1
+    import bisect
+    for m in RX_MARQUEUR_LONG.finditer(texte_entier):
+        i = bisect.bisect_right(debuts, m.start())
+        if i not in deja:
+            deja.add(i)
+            marqueurs.append((i, texte_entier[m.start():m.start() + 110].replace("\n", " ") + "…"))
+    rapport["marqueurs"] = sorted(marqueurs)
+
+    restes = []
+    for motif in RESTES:
+        for i, p, m in chercher(paragraphes, motif):
+            if not RX_LIGNE_TABLE.search(p) and i not in deja:
+                deja.add(i)
+                restes.append((i, extrait(p, m.start(), m.end())))
+    rapport["restes"] = sorted(restes)
 
     # Clôtures : phrases de clôture dans des paragraphes consécutifs ou plusieurs dans un même paragraphe
     rx_clo = re.compile(CLOTURES, re.IGNORECASE)
@@ -230,11 +286,24 @@ def analyser(paragraphes, structure=True):
     # Numérotation : plan en chapitres (pratique validée) ou en parties (guide)
     numerotation = []
     # Exclure les entrées de sommaire / table des matières (y compris un titre coupé sur deux lignes)
+    # La structure s'analyse jusqu'à la bibliographie (sinon « I. Ouvrages » passe pour un chapitre)
+    fin_corps = len(paragraphes) + 1
+    vu_intro = False
+    for i, p in enumerate(paragraphes, 1):
+        if RX_LIGNE_TABLE.search(p):
+            continue
+        if re.match(r"^introduction g[ée]n[ée]rale\s*$", p, re.IGNORECASE):
+            vu_intro = True
+        elif vu_intro and RX_FIN_CORPS.match(p):
+            fin_corps = i
+            break
     corps = [(i, p) for i, p in enumerate(paragraphes, 1)
-             if len(p) < 140 and not RX_LIGNE_TABLE.search(p)
+             if i < fin_corps and len(p) < 140 and not RX_LIGNE_TABLE.search(p)
              and not (i < len(paragraphes) and RX_LIGNE_TABLE.search(paragraphes[i]) and len(paragraphes[i]) < 140
                       and not RX_SECTION.match(paragraphes[i]) and not RX_CHAPITRE.match(paragraphes[i]))]
-    plan_chapitres = any(RX_CHAPITRE.match(p) for _, p in corps)
+    plan_parties = any(RX_PARTIE.match(p) for _, p in corps)
+    plan_chapitres = (not plan_parties) and any(RX_CHAPITRE.match(p) for _, p in corps)
+    rapport["plan_parties"] = plan_parties
     chapitre_courant = None
     sections_par_chapitre = {}
     for i, p in corps:
@@ -303,6 +372,24 @@ def analyser(paragraphes, structure=True):
     rapport["ef_desordre"] = ordre_def != sorted(ordre_def) and len(ordre_def) > 1
     rapport["ef_ordre"] = ordre_def
 
+    # Autres familles de codes (UC-01, PAI-04…) : cités mais jamais définis dans un tableau
+    def_codes, cit_codes = set(), {}
+    for i, p in enumerate(paragraphes, 1):
+        m = re.match(r"^\|?\s*([A-Z]{2,4})-(\d{1,3})\s*(\||:|$)", p)
+        if m:
+            def_codes.add((m.group(1), int(m.group(2))))
+        for mc in RX_CODE.finditer(p):
+            if mc.group(1) not in PREFIXES_IGNORES:
+                cit_codes.setdefault(mc.group(1), {}).setdefault(int(mc.group(2)), i)
+    codes_orphelins = []
+    for prefixe, nums in sorted(cit_codes.items()):
+        non_def = {n: i for n, i in nums.items() if (prefixe, n) not in def_codes}
+        if len(nums) >= 2 and non_def:
+            codes_orphelins.append((prefixe, len(nums), len(non_def), min(non_def.values())))
+    rapport["codes_orphelins"] = codes_orphelins
+    rapport["sans_exigences"] = structure and not definis and not any(
+        re.match(r"^\|?\s*ENF-?\d{1,3}\s*(\||$)", p) for p in paragraphes)
+
     if structure:
         tout = "\n".join(paragraphes).lower()
         rapport["pages_absentes"] = [pg for pg in PAGES if pg.lower() not in tout]
@@ -354,11 +441,25 @@ def afficher(rapport, chemin):
             bloquants += len(cas)
         print()
 
+    if rapport.get("plan_parties"):
+        titre("PLAN EN PARTIES (information)")
+        print("  Le document suit le plan en parties (variante du guide ou ancien modèle du plugin).")
+        print("  Le modèle actuel utilise trois chapitres : voir references/plan-type.md pour la correspondance.\n")
+
     if rapport["marqueurs"]:
-        titre("MARQUEURS / TROUS RESTANTS (bloquant avant dépôt)")
+        titre(f"MARQUEURS / TROUS RESTANTS : {len(rapport['marqueurs'])} (bloquant avant dépôt)")
         for i, ex in rapport["marqueurs"]:
             print(f"  §{i}  {ex}")
             bloquants += 1
+        print()
+
+    if rapport["restes"]:
+        titre(f"RESTES DU MODÈLE ET NOTES DE TRAVAIL : {len(rapport['restes'])} (bloquant avant dépôt)")
+        for i, ex in rapport["restes"][:25]:
+            print(f"  §{i}  {ex}")
+        if len(rapport["restes"]) > 25:
+            print(f"  … et {len(rapport['restes']) - 25} autre(s)")
+        bloquants += len(rapport["restes"])
         print()
 
     if rapport["numerotation"]:
@@ -375,6 +476,16 @@ def afficher(rapport, chemin):
                 print(f"  §{i}  « {annonce} » annoncées alors que le mémoire est organisé en {reel}")
             else:
                 print(f"  §{i}  chapitre {chap} : {annonce} sections annoncées, {reel} sections réelles")
+            bloquants += 1
+        print()
+
+    if rapport["codes_orphelins"] or rapport["sans_exigences"]:
+        titre("CODES CITÉS SANS DÉFINITION / EXIGENCES ABSENTES (bloquant)")
+        for prefixe, total, non_def, premier in rapport["codes_orphelins"]:
+            print(f"  {prefixe}-xx : {total} codes cités, {non_def} jamais définis dans un tableau (premier au §{premier})")
+            bloquants += 1
+        if rapport["sans_exigences"]:
+            print("  aucun tableau d'exigences fonctionnelles (EF01…) ni non fonctionnelles (ENF01…) trouvé")
             bloquants += 1
         print()
 
@@ -428,7 +539,7 @@ def afficher(rapport, chemin):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Vérifie un mémoire (.docx, .md, .txt).")
+    ap = argparse.ArgumentParser(description="Vérifie un mémoire (.docx, .pdf, .md, .txt).")
     ap.add_argument("fichier")
     ap.add_argument("--sans-structure", action="store_true",
                     help="ne pas signaler les pages conventionnelles absentes (chapitre isolé)")
@@ -442,6 +553,12 @@ def main():
         print("Aucun texte trouvé dans le fichier.", file=sys.stderr)
         return 2
     afficher(analyser(paragraphes, structure=not args.sans_structure), args.fichier)
+    if args.fichier.lower().endswith(".pdf"):
+        polices = polices_pdf(args.fichier)
+        if polices and not any("Times" in nom for nom in polices):
+            print("\n--- POLICE DU PDF")
+            print(f"  Times New Roman n'est pas intégrée ({', '.join(sorted(set(p.split('+')[-1] for p in polices))[:4])}).")
+            print("  Exporter le PDF depuis Word avec Times New Roman (un rendu LibreOffice la remplace souvent par Liberation Serif).")
     return 0
 
 

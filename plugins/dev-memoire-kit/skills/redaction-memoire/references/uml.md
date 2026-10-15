@@ -49,7 +49,7 @@ La modélisation est la partie où les mémoires de licence sont le plus souvent
 ### 4.1 Éléments
 | Élément | Notation | Règle |
 |---|---|---|
-| Acteur | Bonhomme (humain) ou rectangle « actor » (système externe) | Placé **hors** du cadre du système. Un rôle, pas une personne. |
+| Acteur | Bonhomme (humain) ou rectangle « actor » (système externe) | Placé **hors** du cadre du système. Un rôle, pas une personne. Une tâche planifiée (relance, rapprochement de nuit) est déclenchée par un acteur **Horloge** (`<<temps>>`), externe ; jamais un « planificateur, système interne ». |
 | Cas d'utilisation | Ovale, **verbe à l'infinitif + complément** | « Pointer un étudiant », pas « Pointage » ni « Gestion ». |
 | Système | Rectangle qui entoure les cas, avec le nom de l'application | Délimite ce qui est dans le périmètre. |
 | Association | Trait plein acteur — cas | L'acteur participe au cas. |
@@ -94,6 +94,8 @@ Règles de gestion : un étudiant arrivé plus de 15 min après le début est ma
 ```
 
 Variante acceptée (format « Cockburn ») : enchaînements alternatifs codés **A1, A2** et d'erreur **E1** (« L'enchaînement A1 démarre au point 4 du scénario nominal »). Choisir **un** format pour tout le mémoire et vérifier chaque point de départ.
+
+Dans la cellule « Scénario nominal », **une étape par ligne**, en alternance acteur / système ; scénarios alternatifs **triés par indice** (2a avant 4a).
 
 Dans le mémoire, cette description se présente en **tableau à deux colonnes** (rubrique en gras | contenu), avec une légende au-dessus (`Tableau 2.10 : Description du cas d'utilisation « Pointer un étudiant »`) et les rubriques dans cet ordre : Nom, Acteur(s), Objectif, Préconditions, Scénario nominal, Scénarios alternatifs, Scénarios d'erreur, Postconditions (modèle complet : `modeles-de-chapitres.md`, §2.5).
 
@@ -241,6 +243,9 @@ Même règle qu'en UML : éviter `(1,1) — (1,1)`, signe de deux entités à fu
 ---
 
 ## 10. Outils
+
+**Lisibilité à l'impression** : exporter en SVG ou en PNG à 300 dpi, insérer en pleine largeur ; test : à 100 % sur une page A4, le plus petit texte du diagramme mesure **au moins 8 pt**. Au-delà d'une dizaine de classes, un diagramme par paquetage (ou une page en paysage).
+
 | Outil | Avantages | Remarques |
 |---|---|---|
 | **PlantUML** | Diagrammes en texte (versionnés avec le code), génération par l'IA facile | Rendu via le site plantuml.com, l'extension VS Code ou un serveur local |

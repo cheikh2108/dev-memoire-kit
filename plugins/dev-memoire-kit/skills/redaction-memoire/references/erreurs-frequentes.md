@@ -68,7 +68,7 @@ Sujet de réalisation (« concevoir un système… ») avec une problématique p
 
 ### B6. Sources faibles en webographie
 Liens YouTube sans titre, page d'accueil de github.com, w3schools pour justifier un choix d'architecture.
-→ Documentation officielle, articles de référence ; chaque lien avec date et heure de consultation.
+→ Documentation officielle, articles de référence ; chaque entrée avec organisme ou auteur, **titre de la page**, date de consultation et URL (format : `22-pages-conventionnelles.md`, §18). Une statistique se cite à sa source officielle (ANSD, BCEAO, ministère), pas à l'article de presse qui la reprend.
 
 ### B7. Énumérations mal ponctuées
 Listes intégrées dans une phrase avec des deux-points en cascade, ou majuscules après point-virgule.

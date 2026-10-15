@@ -23,6 +23,14 @@ claude plugin marketplace add cheikh2108/dev-memoire-kit
 claude plugin install dev-memoire-kit@dev-memoire-kit
 ```
 
+### Mettre à jour
+Les nouvelles versions du kit ne s'installent pas toutes seules :
+```
+claude plugin marketplace update dev-memoire-kit
+claude plugin update dev-memoire-kit@dev-memoire-kit
+```
+Puis redémarrer Claude Code. `claude plugin list` affiche la version installée (comparer avec le CHANGELOG).
+
 ### En local (avant publication)
 ```
 claude plugin marketplace add ./dev-memoire-kit

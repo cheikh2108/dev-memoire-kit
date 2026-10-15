@@ -33,7 +33,11 @@ Le jury évalue deux choses : le document écrit et la défense orale. Dans le d
 - les diagrammes et captures d'écran réellement disponibles ;
 - les sources réellement consultées.
 
-Si une information manque, **laisser un marqueur visible** `[À COMPLÉTER : nombre de personnes interrogées]` plutôt que d'inventer. Ne jamais fabriquer : statistiques, résultats de tests, nombre d'enquêtés, logiciels d'analyse utilisés, références bibliographiques, nombre de pages d'un ouvrage.
+Si une information manque, **laisser un marqueur visible** `[À COMPLÉTER : nombre de personnes interrogées]` plutôt que d'inventer. Ne jamais fabriquer : statistiques, résultats de tests, nombre d'enquêtés, logiciels d'analyse utilisés, références bibliographiques, nombre de pages d'un ouvrage, **décisions, validations ou avis attribués au directeur de mémoire, à l'encadreur ou à une structure** (« retenu avec le directeur ») sans confirmation de l'étudiant.
+
+**Forme des marqueurs** : un marqueur nomme l'objet manquant en 3 à 8 mots, `[À COMPLÉTER : nombre d'entretiens]`, jamais une consigne de plusieurs lignes. **Aucune note de travail dans le document** : pas de conseil, de « à vérifier avant dépôt », de « à retirer », de rappel de format ; tout cela va dans la liste des points à compléter, livrée à part. Les informations déjà connues (nom, établissement, filière, titre, directeur) sont écrites, jamais laissées en marqueur.
+
+**Documents internes** (rapport de présentation, spécification, audit, cahier des charges) : soit annexés, soit cités en bibliographie (rubrique Rapports), soit pas mentionnés. Le mémoire décrit le système livré, pas l'historique de ses versions (« écart A6 de l'audit »).
 
 **Écrire section par section**, jamais tout le mémoire d'un bloc. Pour chaque section : idée générale → arguments → exemples tirés du cas réel → connecteurs logiques.
 
@@ -56,7 +60,7 @@ Dès qu'il faut produire le mémoire (ou une partie) sous forme de fichier Word,
 3. **Conserver les pages conventionnelles dans l'ordre du modèle** (`references/22-pages-conventionnelles.md`) : ne pas en supprimer, renommer ni déplacer. Une page dont le contenu manque garde son titre et un marqueur `[À COMPLÉTER : …]`.
 4. **Remplacer les consignes grises** par le texte de l'étudiant et supprimer celles qui restent une fois la page remplie.
 5. **Garder les styles du modèle** (Titre 1/2/3, Normal, légendes, note de bas de page) : sommaire, table des matières et listes des figures et tableaux en dépendent. Rappeler à l'étudiant de mettre à jour les champs (F9) à l'ouverture.
-6. Si l'étudiant a **déjà son propre fichier**, travailler dedans, mais vérifier qu'il contient les pages conventionnelles dans l'ordre et signaler celles qui manquent.
+6. Si l'étudiant a **déjà son propre fichier**, travailler dedans, mais vérifier qu'il contient les pages conventionnelles dans l'ordre et signaler celles qui manquent. S'il suit l'**ancien plan en parties** (page de garde, résumé et errata en fin, folios « 01 », « Conclusion partielle n° 1 »), le signaler et proposer la migration vers le plan en trois chapitres avec la table de correspondance de `references/plan-type.md`, sans réécrire le contenu.
 
 Quand la demande porte sur un texte isolé (une introduction, une section), le rendre dans la conversation en indiquant **à quel endroit du modèle** il se place.
 

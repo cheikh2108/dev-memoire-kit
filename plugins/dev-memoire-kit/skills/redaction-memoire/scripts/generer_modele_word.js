@@ -194,8 +194,8 @@ function couverture() {
     columnWidths: [LARGEUR_TEXTE / 2, LARGEUR_TEXTE / 2],
     borders: { ...bordures0, insideHorizontal: sansBordure, insideVertical: sansBordure },
     rows: [new TableRow({ children: [
-      cellule([["Présenté et soutenu par :", { bold: true, underline: {} }], ["M./Mme Prénom NOM", {}], ["[autres membres du groupe]", { italics: true, color: GRIS }]], AlignmentType.LEFT),
-      cellule([["Sous la direction de :", { bold: true, underline: {} }], ["M./Mme Prénom NOM", {}], ["[Qualité : Ingénieur logiciel…]", { bold: true }]], AlignmentType.RIGHT),
+      cellule([["Présenté et soutenu par :", { bold: true, underline: {} }], ["[M. ou Mme Prénom NOM de l'étudiant]", { italics: true, color: GRIS }], ["[autres membres du groupe, ou supprimer]", { italics: true, color: GRIS }]], AlignmentType.LEFT),
+      cellule([["Sous la direction de :", { bold: true, underline: {} }], ["[M. ou Mme Prénom NOM du directeur]", { italics: true, color: GRIS }], ["[Qualité : Ingénieur logiciel…]", { bold: true, italics: true, color: GRIS }]], AlignmentType.RIGHT),
     ] })],
   }));
   out.push(centre(ECOLE.annee, { bold: true }, { spacing: { before: 600, line: 276 } }));
@@ -284,7 +284,7 @@ const corps = [
 
   // ------------------------------------------------------------ Chapitre 1
   h1("Chapitre 1 : Présentation générale"),
-  consigne("Introduction du chapitre : le situer et annoncer ses sections dans l'ordre et en nombre exact (« Il s'articule autour de six sections… »)."),
+  consigne("Introduction du chapitre : le situer et annoncer ses sections dans l'ordre et en nombre exact (« Il s'articule autour de six sections… »). Les marqueurs [À COMPLÉTER : …] nomment l'objet manquant en quelques mots ; aucune note de travail ne reste dans le document."),
   h2("1.1. Présentation de la structure d'accueil"),
   consigne("Si le projet est mené pour une structure : statut et texte de création, rattachement, missions, service concerné par le projet. Figure possible avec sa source. Sinon, supprimer cette section et renuméroter."),
   h2("1.2. Contexte"),
@@ -302,6 +302,8 @@ const corps = [
   puce(" il s'agit de modéliser le système avec UML ;", "Modélisation :"),
   puce(" il s'agit de développer [la plateforme / l'application] ;", "Développement :"),
   puce(" il s'agit de vérifier que la solution répond aux exigences.", "Tests et validation :"),
+  h3("1.4.3. Hypothèses de travail"),
+  consigne("Facultatif (sinon dans l'introduction). Une ou deux hypothèses vérifiables « Si…, alors… », avec le critère qui permettra de conclure ; elles seront revues en 3.4."),
   h2("1.5. Méthodologie"),
   h3("1.5.1. Approche quantitative"),
   consigne("Ce qui a été fait : questionnaire (outil), nombre de réponses exploitables, période, diffusion, profil et biais des répondants, axes. Renvoi : (voir Annexe A)."),

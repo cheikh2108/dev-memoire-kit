@@ -54,6 +54,9 @@ Deux paragraphes de constat (les difficultés précises du cas, si possible chif
   - développer le prototype ;
   - tester et valider la solution.
 
+### 1.4.3 Hypothèses de travail (facultatif)
+Une ou deux hypothèses vérifiables (« Si…, alors… », avec le critère qui permettra de conclure). Elles sont revues en 3.4 à la lumière des tests et la conclusion dit si elles sont confirmées, **dans quelles conditions** (« confirmée en environnement d'essai »).
+
 ### 1.5 Méthodologie
 - **1.5.1 Approche quantitative** : outil (questionnaire en ligne, par exemple Google Forms), **nombre de réponses exploitables**, période de collecte, mode de diffusion, profil des répondants, axes du questionnaire, renvoi « (voir Annexe A) ».
 - **1.5.2 Approche qualitative** : entretien(s) (interlocuteur désigné par sa **fonction**, date, renvoi au guide en annexe), observation directe, analyse comparative de solutions existantes.
@@ -193,7 +196,9 @@ Chaque outil important peut ensuite avoir un paragraphe de 3 à 5 lignes : ce qu
 - Écrans secondaires en Annexe C, appelés dans le texte (« voir Annexe C.2 »).
 
 ### 3.4 Tests et validation
-Section **obligatoire** : sans elle, « testé avec succès » ou « les résultats démontrent… » ne sont pas défendables (⚠️ absente dans un mémoire validé, qui l'affirmait pourtant).
+Section **obligatoire** : sans elle, « testé avec succès » ou « les résultats démontrent… » ne sont pas défendables (⚠️ absente dans un mémoire validé, qui l'affirmait pourtant). Revoir ici chaque hypothèse de travail : quel test la confirme, et dans quelles conditions.
+
+Preuves : résultats présentés en **tableau** ou par une **capture réelle, en thème clair, datée**. Ne jamais générer, recomposer ni annoter une capture ou une sortie de terminal.
 
 Tests automatisés, s'il y en a :
 

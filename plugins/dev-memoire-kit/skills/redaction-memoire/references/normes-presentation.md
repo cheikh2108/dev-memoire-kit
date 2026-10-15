@@ -15,6 +15,8 @@
 
 Un modèle Word où tout est déjà réglé est fourni : `../assets/modele-memoire.docx` (pages conventionnelles dans l'ordre, plan en trois chapitres, tableaux gabarits, consignes en gris à supprimer, sommaire, table des matières et listes des figures et tableaux à mettre à jour avec F9).
 
+**PDF final** : l'exporter depuis Word, Times New Roman intégrée. Un export LibreOffice sans la police la remplace par Liberation Serif ; vérifier avec `pdffonts memoire.pdf` (le script de vérification le signale).
+
 Conseils Word :
 - Définir ces réglages dans les **styles** (Normal, Titre 1/2/3, Note de bas de page) plutôt qu'à la main paragraphe par paragraphe.
 - Utiliser des **légendes** (Références > Insérer une légende) pour chaque figure et tableau : `Figure 3.2 : Architecture technique de la plateforme`.

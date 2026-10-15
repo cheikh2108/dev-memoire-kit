@@ -512,7 +512,7 @@ const doc = new Document({
         run: { size: 28, bold: true },
         paragraph: { alignment: AlignmentType.LEFT, indent: { firstLine: 0 }, spacing: { before: 240, after: 120 }, keepNext: true, outlineLevel: 1 } },
       { id: "Heading3", name: "Heading 3", basedOn: "Normal", next: "Normal", quickFormat: true,
-        run: { size: 26, bold: true },
+        run: { size: 28, bold: true },
         paragraph: { alignment: AlignmentType.LEFT, indent: { firstLine: 0 }, spacing: { before: 200, after: 120 }, keepNext: true, outlineLevel: 2 } },
       { id: "Intertitre", name: "Intertitre (niveau 4)", basedOn: "Normal", next: "Normal", quickFormat: true,
         run: { bold: true }, paragraph: { indent: { firstLine: 0 }, spacing: { before: 160, after: 80 }, keepNext: true } },

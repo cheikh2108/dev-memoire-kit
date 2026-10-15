@@ -1,5 +1,9 @@
 # Historique des versions
 
+## 1.6.1 — 15/10/2026
+### Corrections
+- Modèle Word : titres de sous-section (niveau 3) en taille 14 comme les autres titres, conformément au guide.
+
 ## 1.6.0 — 09/10/2026
 ### Ajouts
 - **redaction-memoire**, à partir d'un troisième mémoire validé (anonymisé) :

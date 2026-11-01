@@ -2,9 +2,23 @@
 
 La modélisation est la partie où les mémoires de licence sont le plus souvent faibles : diagrammes recopiés d'Internet, définis au lieu d'être montrés, incohérents avec la base de données réelle. Ce guide donne une **méthode pas à pas**, puis le détail de chaque diagramme, et la correspondance avec la base de données. Un exemple complet en PlantUML sur un sujet réel (pointage des étudiants) est dans `assets/uml-exemple-pointage.md`.
 
+**Norme de référence : UML 2.5.1** (Object Management Group, *OMG Unified Modeling Language Specification*, version 2.5.1, formal/2017-12-05, décembre 2017), la version en vigueur. Les notations de ce guide la suivent. À citer en webographie **seulement si l'étudiant l'a consultée** :
+`Object Management Group. *OMG Unified Modeling Language (OMG UML), Version 2.5.1*. [En ligne]. [Consulté le JJ mois AAAA]. https://www.omg.org/spec/UML/2.5.1/PDF`
+(La norme ISO/IEC 19505:2012 correspond à la version antérieure, UML 2.4.1.)
+
 ---
 
 ## 1. Principes
+
+### Les 14 diagrammes d'UML 2.5
+| Famille | Diagrammes |
+|---|---|
+| Structure | classes, objets, paquetages, composants, structure composite, déploiement, profils |
+| Comportement | cas d'utilisation, activité, états-transitions (machine à états) |
+| Interaction (comportement) | séquence, communication, vue d'ensemble des interactions, temps |
+
+La norme présente cette classification à titre indicatif et ne fixe pas de frontières strictes entre les diagrammes. Un mémoire de licence n'en utilise que 4 à 6 (§2) : savoir dire au jury pourquoi les autres ne sont pas utiles au projet.
+
 
 1. **Un diagramme sert à montrer une décision**, pas à remplir une section. Chaque diagramme du mémoire doit répondre à une question : *qui fait quoi ?* (cas d'utilisation), *quelles données et quels liens ?* (classes), *dans quel ordre ?* (séquence, activité), *où ça tourne ?* (déploiement).
 2. **Modéliser le système réel**, pas un système idéal : les diagrammes doivent correspondre au code et à la base livrés. Le jury compare.
@@ -55,7 +69,7 @@ La modélisation est la partie où les mémoires de licence sont le plus souvent
 | Association | Trait plein acteur — cas | L'acteur participe au cas. |
 | Généralisation d'acteurs | Flèche à triangle creux de l'acteur spécialisé vers le général | « Administrateur » hérite des cas d'« Utilisateur ». |
 | `<<include>>` | Flèche pointillée **du cas de base vers le cas inclus** | Le cas inclus est **toujours** exécuté. |
-| `<<extend>>` | Flèche pointillée **du cas d'extension vers le cas de base** | Le cas d'extension est **optionnel**, sous condition. |
+| `<<extend>>` | Flèche pointillée **du cas d'extension vers le cas de base** | Le cas d'extension est **optionnel**, sous condition. La norme permet de préciser, dans une **note** attachée à la flèche, la **condition** et le **point d'extension** (`Condition : {code promo saisi}` · `extension point : Paiement`), le point d'extension étant listé dans le cas de base (compartiment *extension points*). |
 
 ### 4.2 `include` ou `extend` ? (la question favorite du jury)
 - **include** = « fait toujours partie de ». *Valider une commande* inclut *Calculer le montant*. Sans lui, le cas de base est incomplet.
@@ -126,7 +140,7 @@ Toujours lire une association **dans les deux sens** :
 La multiplicité s'écrit **du côté de la classe qu'elle compte**. C'est l'erreur la plus fréquente, et le piège classique quand on vient de Merise, où les cardinalités se placent de l'autre côté (voir §8).
 
 ### 5.3 Agrégation, composition ou simple association ?
-- Doute ? → **simple association**. C'est presque toujours suffisant en licence.
+- Doute ? → **simple association**. C'est presque toujours suffisant en licence. Argument à donner au jury : la norme UML 2.5.1 indique elle-même que la sémantique précise de l'agrégation simple (losange creux) **n'est pas définie** et varie selon les domaines ; seule la composition a un sens strict (une partie appartient à un seul composite à la fois et disparaît avec lui).
 - Composition seulement si la partie **ne peut pas exister sans le tout** et **lui appartient à un seul** (ligne de facture, réponse d'un questionnaire).
 - Ne jamais mettre de losange des deux côtés.
 
@@ -150,13 +164,18 @@ La multiplicité s'écrit **du côté de la classe qu'elle compte**. C'est l'err
 | Ligne de vie | Rectangle en haut + trait vertical pointillé | Un acteur ou un objet (`:SeanceController`) |
 | Message synchrone | Flèche pleine à pointe **pleine** | L'appelant attend la réponse |
 | Message asynchrone | Flèche pleine à pointe **ouverte** | Envoi sans attendre (notification, file de messages) |
-| Retour | Flèche **pointillée** | Réponse ou valeur retournée |
+| Retour (réponse) | Flèche **pointillée** à pointe ouverte | Réponse ou valeur retournée |
 | Activation | Rectangle étroit sur la ligne de vie | Période où l'objet travaille |
-| Création / destruction | Message `<<create>>` / croix en bas de la ligne | Objet créé ou détruit pendant le scénario |
+| Création | Flèche **pointillée** à pointe ouverte qui arrive sur la **tête** de la ligne de vie créée (placée plus bas que les autres) | Objet créé pendant le scénario. Le stéréotype `<<create>>` n'est pas requis par la norme |
+| Destruction | Croix (×) en bas de la ligne de vie | Objet détruit pendant le scénario |
 | Fragment `alt` | Cadre avec conditions `[si…]` / `[sinon]` | Alternative |
 | Fragment `opt` | Cadre avec une condition | Option (sans sinon) |
 | Fragment `loop` | Cadre `loop [pour chaque étudiant]` | Répétition |
-| Fragment `ref` | Cadre qui renvoie à une autre séquence | Réutiliser « S'authentifier » sans le redessiner |
+| Fragment `par` | Cadre découpé en zones exécutées en parallèle | Envoi d'un SMS et d'un e-mail en même temps |
+| Fragment `break` | Cadre avec une condition : si elle est vraie, son contenu s'exécute puis le scénario s'arrête | Abandon après trois échecs d'authentification |
+| Fragment `ref` | Cadre qui renvoie à une autre séquence (*interaction use*) | Réutiliser « S'authentifier » sans le redessiner |
+
+La norme définit aussi `seq`, `strict`, `neg`, `critical`, `ignore`, `consider` et `assert` : rarement utiles en licence. Les conditions (*gardes*) s'écrivent entre crochets en tête de zone : `[solde suffisant]`.
 
 ### 6.2 Méthode
 1. Partir de la **description textuelle** du cas (§4.4) : un pas du scénario = un ou deux messages.
@@ -281,7 +300,9 @@ Puis **vérifier chaque élément** contre le code : un diagramme généré est 
 
 ## 12. Questions du jury sur la modélisation (à préparer)
 - Différence entre `include` et `extend` ? Donnez un exemple tiré de votre diagramme.
-- Différence entre agrégation et composition ? Pourquoi ce choix ici ?
+- Différence entre agrégation et composition ? Pourquoi ce choix ici ? (Réponse attendue : la composition implique l'appartenance exclusive et la disparition avec le tout ; la norme ne donne pas de sens précis à l'agrégation simple.)
+- Quelle version d'UML avez-vous suivie ? (UML 2.5.1, OMG, 2017.)
+- Pourquoi ces diagrammes et pas les autres parmi les 14 d'UML ?
 - Que signifie cette multiplicité ? Lisez l'association dans les deux sens.
 - Comment cette association a-t-elle été traduite dans la base ? Montrez la table.
 - Pourquoi avoir choisi UML plutôt que Merise (ou les deux) ?

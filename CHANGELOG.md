@@ -1,5 +1,17 @@
 # Historique des versions
 
+## 1.8.0 — 01/11/2026
+### Modifications
+- **redaction-memoire** (`uml.md`) aligné sur la norme **UML 2.5.1** (OMG, formal/2017-12-05) :
+  - référence de la norme et format de citation en webographie ;
+  - les 14 diagrammes d'UML 2.5 par famille, et la question « pourquoi ces diagrammes ? » ;
+  - message de création noté selon la norme (flèche pointillée vers la tête de la nouvelle ligne de vie) ;
+  - fragments `par` et `break`, liste des autres opérateurs ;
+  - condition et point d'extension d'un `extend` ;
+  - sémantique de l'agrégation (non définie par la norme) comme argument pour la simple association ;
+  - nouvelles questions du jury.
+- Exemple « pointage » : diagramme de séquence corrigé (création de `p:Presence`) et redessiné.
+
 ## 1.7.0 — 15/10/2026
 Corrections issues de la relecture d'un brouillon complet rédigé avec le plugin.
 ### Vérificateur (`verifier_memoire.py`)

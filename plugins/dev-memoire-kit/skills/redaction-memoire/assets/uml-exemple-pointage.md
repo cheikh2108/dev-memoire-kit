@@ -219,12 +219,13 @@ else étudiant inscrit
     C --> V : info("Déjà pointé à 08:12")
   else première fois
     C -> C : statut = (heure > début + 15 min) ? RETARD : PRESENT
-    C -> P : <<create>> enregistrer(idEtudiant, idSeance, heure, statut)
-    activate P
-    P -> DB : INSERT presence
-    DB --> P : ok
-    P --> C : presence
-    deactivate P
+    create participant "p:Presence" as NP
+    C -->> NP : créer(idEtudiant, idSeance, heure, statut)
+    activate NP
+    NP -> DB : INSERT presence
+    DB --> NP : ok
+    NP --> C : p
+    deactivate NP
     C --> V : confirmation(nom, statut)
   end
 end

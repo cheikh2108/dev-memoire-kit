@@ -37,7 +37,7 @@ Le rythme général : **tout est arrivé en 0,6 s environ**, puis l'écran est i
 | Interrupteurs d'accès client | clic | pastille blanche qui glisse (`layout`) | 0,25 s | `EASE` | — |
 | Cases de la revue | clic | échelle 0,8 → 1 à l'activation | 0,2 s | défaut | — |
 | Humeurs | appui | échelle 0,9 pendant l'appui, fond noir une fois choisie | — | — | — |
-| Toast | action (déplacement d'une tâche) | opacité 0 → 1, y 24 → 0 px, entrée et sortie | 0,35 s | `EASE` | disparaît après 2,6 s |
+| Toast | action (déplacement d'une tâche) | opacité 0 → 1, y 24 → 0 px, entrée et sortie | 0,35 s | `EASE` | disparaît après 3 s |
 
 Dans la vidéo de présentation, les vues défilent toutes les **1,75 s** : c'est un rythme de démo (`defilementAuto`), pas un comportement de produit. En usage réel, la vue change au clic.
 

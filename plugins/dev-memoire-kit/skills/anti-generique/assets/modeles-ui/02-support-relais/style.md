@@ -13,6 +13,8 @@
 | `--accent` | `#F2DA1B` | Courbe, surligneur, délais urgents, compteurs d'onglet |
 | `--accent-texte` | `#3A3300` | Texte posé sur l'accent |
 | `--sombre` | `#141414` | Onglet actif, bouton principal, toast |
+| `--vert` / `--vert-texte` | `#E3F0DF` / `#3F6B3A` | Délai couvert (≤ 30 min), « Couvert · X est en ligne » |
+| (blocs gris) | `#EBEBE7` / `#EDEDEA` | Pastille de gain, segments, tuiles de contexte, bloc compte à rebours |
 
 L'accent n'est **jamais** une couleur de texte sur fond clair (illisible) : il est toujours un fond ou un trait.
 
@@ -32,12 +34,12 @@ Grotesque neutre (Geist, Inter Tight).
 
 | Rôle | Taille | Graisse | Autre |
 |---|---|---|---|
-| Indicateur géant | 44 px | 400 | chasse −0,04 em, interlignage 1 |
-| Exposant d'unité | 16 px | 400 | `--muet` |
-| Score du carrousel | 40 px | 400 | voisins réduits à 62 % |
+| Indicateur géant | 46 px | 400 | chasse −0,045 em, interlignage 1 |
+| Exposant d'unité | 17 px | 400 | `--muet` |
+| Score du carrousel | 42 px | 400 | voisins réduits à 62 % |
 | Titre de vue | 22 px | 500 | chasse −0,02 em |
 | Marque | 20 px | 700 | minuscules, chasse −0,04 em |
-| Texte | 13 px | 400 | |
+| Texte | 12 px | 400 | |
 | Libellés, axe | 10–11 px | 400 | |
 
 ## Espacements

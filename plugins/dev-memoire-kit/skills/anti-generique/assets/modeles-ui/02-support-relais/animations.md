@@ -25,7 +25,14 @@ const D = { carte: 0.45, revelation: 0.95, barre: 0.4 };
 | Lignes de la boîte | montage | opacité 0 → 1, y 6 → 0 px | 0,3 s | `EASE` | 0,15 s + 40 ms × ligne |
 | Panneau de détail | changement de conversation | sortie x → −6 px, entrée x 12 → 0 px | 0,3 s | `EASE` | `mode="wait"` |
 | Compte à rebours | changement de conversation | `strokeDashoffset` → part restante | 0,7 s | `EASE` | — |
-| Toast | attribution | opacité, y 24 → 0 px, entrée et sortie | 0,35 s | `EASE` | disparaît après 2,6 s |
+| Courbe (changement de série) | P25 / Médiane / P75 | attribut `d` du tracé interpolé | 0,5 s | `EASE` | — |
+| Bande jaune du graphique | survol d'une tranche | position x | 0,2 s | `EASE` | — |
+| Triangle du score | clic sur un mois | position partagée (`layoutId`) | 0,35 s | `EASE` | — |
+| Anneau d'attente | permanent tant que le délai court | rotation 360° en boucle, linéaire | 1,6 s par tour | linéaire | — |
+| Statut d'agent | clic En ligne / Absent / Hors ligne | pastille blanche partagée (`layoutId` par ligne) ; charge et disponibilité recalculées | 0,25 s | `EASE` | — |
+| Histogrammes (annuel, horaire, planning) | montage | `scaleY` 0 → 1, ancrés en bas | 0,4 s | `EASE` | 250 ms + 20 ms × barre |
+| Fiche client | changement de client | sortie opacité, entrée y 8 → 0 px | 0,35 s | `EASE` | `mode="wait"` |
+| Toast | attribution | opacité, y 24 → 0 px, entrée et sortie | 0,35 s | `EASE` | disparaît après 3 s |
 
 ## Points à retenir
 

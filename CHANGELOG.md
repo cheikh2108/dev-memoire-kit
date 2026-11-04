@@ -1,5 +1,9 @@
 # Historique des versions
 
+## 1.14.0 — 04/11/2026
+### Ajouts
+- **anti-generique**, modèle d'interface 06 « Kàddu » : landing e-commerce d'électronique (héros bleu profond avec mot géant condensé derrière le produit, bloc « haut de gamme » à filet vertical, barre de garanties, rail de catégories qui déborde du cadre avec boutons de défilement, bannière bleu glacier, rangée de marques, pied de page noir arrondi) ; produits en SVG, marques inventées, animations signalées comme ajouts (référence fixe).
+
 ## 1.13.0 — 04/11/2026
 ### Ajouts
 - **anti-generique**, modèle d'interface 05 « Maison Éclat » : landing page de joaillerie (héros vert nuit avec halo et mot géant en serif derrière le produit, séquence d'ouverture minutée d'après la vidéo, cartes en verre fumé, séparateurs en chaîne d'or en CSS, grille de créations, carte Nouveautés, collections, pied de page avec abonnement et logo calligraphié) ; bijoux dessinés en SVG, aucune photo ni nom de marque tiers.

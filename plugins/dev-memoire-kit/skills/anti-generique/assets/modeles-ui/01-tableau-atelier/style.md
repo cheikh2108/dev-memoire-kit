@@ -5,8 +5,11 @@
 | Token | Valeur | Usage |
 |---|---|---|
 | `--fond` | `#F3F2F0` | Fond de page (gris chaud, jamais blanc pur) |
-| `--carte` | `#FFFFFF` | Cartes, champ de recherche, cercle de date |
-| `--sous` | `#F7F6F4` | Sous-cartes, fond des pastilles neutres, piste des barres |
+| `--carte` | `#F8F7F5` | Cartes (à peine plus claires que le fond) |
+| `--blanc` | `#FFFFFF` | Sous-cartes « blanches », boutons ronds, sélecteurs, cercle de date, puces, cases |
+| (sous-carte grise) | `--fond` | Sous-cartes posées dans une carte (« Reste cette semaine ») |
+| `--anthracite` | `#2E2C2A` | Piste des jauges sur disque noir |
+| `--accent-pale` | `#FBEDE8` | Fond des icônes corail rondes, pastille « À risque », statut « Corrections demandées » |
 | `--encre` | `#141414` | Texte principal, chiffres |
 | `--muet` | `#9B9893` | Libellés, texte secondaire |
 | (ligne 2 d'accueil) | `#B9B6B0` | Seconde ligne de la phrase d'accueil |
@@ -17,6 +20,10 @@
 
 Règle : l'accent couvre **moins de 5 %** de la surface. Les états « normaux » sont en noir ou gris ; seul ce qui demande une action est en corail.
 
+## Jauge sur disque noir
+
+Disque `--sombre` avec liseré blanc de 3 px ; piste `--anthracite` de 9 px ; arc `--accent` de 9 px, bouts arrondis, départ à midi ; pourcentage blanc 20 px, deux lignes grises de 8 px. Elle remplace toute jauge blanche : c'est la pièce la plus reconnaissable du modèle.
+
 ## Forme
 
 | Élément | Valeur |
@@ -25,6 +32,8 @@ Règle : l'accent couvre **moins de 5 %** de la surface. Les états « normaux �
 | Rayon des sous-cartes | 18 px |
 | Conteneur général | 32 px |
 | Boutons, pastilles, recherche, rail | 999 px (pilule) |
+| Boutons ronds | 36 px ; 72 px pour le jour et l'historique ; 28 px dans les cartes |
+| Carte « Accès client » | cercle de 104 px |
 | Ombre des cartes | `0 1px 2px rgba(20,20,20,.04), 0 10px 30px rgba(20,20,20,.05)` |
 | Ombre du bouton accent | `0 6px 16px rgba(226,85,63,.3)` |
 | Bordures | aucune sur les cartes ; 1 px `--trait` pour séparer des lignes de liste |

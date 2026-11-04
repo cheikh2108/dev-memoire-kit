@@ -28,6 +28,15 @@ Le rythme général : **tout est arrivé en 0,6 s environ**, puis l'écran est i
 | Barres de planning | montage | largeur 0 → % | 0,6 s | `EASE` | 200 ms + 40 ms × ligne |
 | Indicateur de vue active (rail) | clic | position partagée (`layoutId`) | 0,35 s | `EASE` | — |
 | Bouton principal | survol / appui | y −1 px / échelle 0,97 | défaut | — | — |
+| Disques « projets livrés » | montage | échelle 0,6 → 1, opacité 0 → 1, du plus grand au plus petit | 0,6 s | `EASE` | 250 ms + 80 ms × disque |
+| Sphère du budget | montage | échelle 0,7 → 1, opacité 0 → 1 | 0,7 s | `EASE` | 250 ms |
+| Bâtons d'activité | montage | `scaleY` 0 → 1, ancrés en bas | 0,4 s | `EASE` | 350 ms + 30 ms × bâton |
+| Trait S45 | montage | `scaleY` 0 → 1, ancré en haut | 0,6 s | `EASE` | 350 ms |
+| Lignes du tableau des projets | montage, changement d'onglet | opacité, y 6 → 0 px ; réordonnancement par `layout` | 0,3 s | `EASE` | 150 ms + 30 ms × ligne |
+| Puces du planning | glisser | déplacement libre, retour à l'origine au lâcher (`dragSnapToOrigin`) ; survol y −1 px | ressort par défaut | — | — |
+| Interrupteurs d'accès client | clic | pastille blanche qui glisse (`layout`) | 0,25 s | `EASE` | — |
+| Cases de la revue | clic | échelle 0,8 → 1 à l'activation | 0,2 s | défaut | — |
+| Humeurs | appui | échelle 0,9 pendant l'appui, fond noir une fois choisie | — | — | — |
 | Toast | action (déplacement d'une tâche) | opacité 0 → 1, y 24 → 0 px, entrée et sortie | 0,35 s | `EASE` | disparaît après 2,6 s |
 
 Dans la vidéo de présentation, les vues défilent toutes les **1,75 s** : c'est un rythme de démo (`defilementAuto`), pas un comportement de produit. En usage réel, la vue change au clic.

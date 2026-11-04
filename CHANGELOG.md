@@ -1,5 +1,10 @@
 # Historique des versions
 
+## 1.13.0 — 04/11/2026
+### Ajouts
+- **anti-generique**, modèle d'interface 05 « Maison Éclat » : landing page de joaillerie (héros vert nuit avec halo et mot géant en serif derrière le produit, séquence d'ouverture minutée d'après la vidéo, cartes en verre fumé, séparateurs en chaîne d'or en CSS, grille de créations, carte Nouveautés, collections, pied de page avec abonnement et logo calligraphié) ; bijoux dessinés en SVG, aucune photo ni nom de marque tiers.
+- Règle des modèles : ne reprendre ni photos ni noms de collections déposés.
+
 ## 1.12.0 — 04/11/2026
 ### Ajouts
 - **anti-generique**, modèle d'interface 04 « Kër » : barre latérale de maison connectée (rail de 76 px qui se déplie en verre dépoli, pilule active noire et pilule de survol qui glissent, pièces en accordéon, fenêtre de détail noire alignée sur l'entrée active avec compteur et graphique hachuré, raccourci ⌘K), avec relevé élément par élément, fiches style et animations.

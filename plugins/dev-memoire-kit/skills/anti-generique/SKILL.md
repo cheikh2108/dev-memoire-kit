@@ -37,7 +37,7 @@ S'il manque une information, laisser un marqueur `[À COMPLÉTER : …]` ou pose
 
 ## Interfaces : partir d'un modèle
 
-Pour un tableau de bord, un écran d'application ou une interface animée, **ne pas partir de zéro** : ouvrir `assets/modeles-ui/README.md`, choisir le modèle le plus proche, puis l'adapter (données réelles du projet, libellés, accent de la marque) en gardant sa structure, ses tokens et ses durées d'animation. Si aucun modèle ne convient, le dire et appliquer seulement les règles de mouvement communes du même fichier.
+Pour un tableau de bord, une barre latérale, un site vitrine, un écran d'application ou une interface animée, **ne pas partir de zéro** : ouvrir `assets/modeles-ui/README.md`, choisir le modèle le plus proche, puis l'adapter (données réelles du projet, libellés, accent de la marque) en gardant sa structure, ses tokens et ses durées d'animation. Si aucun modèle ne convient, le dire et appliquer seulement les règles de mouvement communes du même fichier.
 
 ## Procédure de réécriture (texte)
 

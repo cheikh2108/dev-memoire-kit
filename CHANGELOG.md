@@ -1,5 +1,9 @@
 # Historique des versions
 
+## 1.16.0 — 04/11/2026
+### Ajouts
+- **anti-generique**, modèle d'interface 08 « Onglets en verre » : quatre barres de navigation basses en verre, utilisables séparément (trait néon qui se soulève en cloche sous l'onglet actif avec champ de recherche, projecteur et cône de lumière, pastille posée dans un creux qui suit l'onglet, goutte liquide qui se détache et retombe grâce à un filtre SVG « gluant »), formes recalculées à chaque image, durées relevées sur la vidéo, décor de salon dessiné en CSS.
+
 ## 1.15.0 — 04/11/2026
 ### Ajouts
 - **anti-generique**, modèle d'interface 07 « Leeral » : page d'accueil e-commerce claire et multi-rayons (héros blanc avec disque gris et bulles, mosaïque « nos choix » 4 × 3, rail de nouveautés à pastilles de couleur et anneau partagé, bannière bleu acier pleine largeur à mot fantôme et diaporama, catégories à hauteurs variées alignées en bas, promotions bord à bord, tendances 3 × 2, grande carte de fête, bonnes affaires, bannière beige, gamme, pied de page avec lettre d'information) ; tous les produits en SVG, noms inventés, prix en francs CFA.

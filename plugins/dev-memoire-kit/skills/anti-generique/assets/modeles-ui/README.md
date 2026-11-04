@@ -22,6 +22,7 @@ Dès qu'on demande un tableau de bord, une barre latérale ou une navigation, un
 | 05 | [Vitrine « Maison Éclat »](05-vitrine-joaillerie/README.md) | **Landing page** de marque premium (joaillerie, parfum, horlogerie, mode) | Héros vert nuit avec mot géant en serif derrière le produit, séquence d'ouverture minutée, cartes en verre, chaînes d'or, grilles de créations | React + `motion` |
 | 06 | [Boutique « Kàddu »](06-boutique-audio/README.md) | **Landing e-commerce** d'un rayon (audio, téléphonie, électroménager) | Héros bleu saturé avec mot géant condensé derrière le produit, barre de garanties, rail de catégories qui déborde, bannière, rangée de marques, pied de page noir | React + `motion` |
 | 07 | [Boutique « Leeral »](07-boutique-tech/README.md) | **Page d'accueil e-commerce** claire, multi-rayons (téléphones, audio, écrans) | Héros blanc avec disque et bulles, mosaïque 4 × 3, rail de produits à pastilles de couleur, bannière pleine largeur à mot fantôme, catégories à hauteurs variées, une seule grammaire de cartes | React + `motion` |
+| 08 | [Onglets en verre](08-onglets-verre/README.md) | **Composant** : barre de navigation basse (application mobile) | 4 variantes : trait néon en cloche + champ de recherche, projecteur et cône de lumière, pastille dans un creux qui suit l'onglet, goutte liquide (filtre « gluant ») | React + `motion` |
 
 ## Règles de mouvement communes
 

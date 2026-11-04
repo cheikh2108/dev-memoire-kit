@@ -21,6 +21,7 @@ Dès qu'on demande un tableau de bord, une barre latérale ou une navigation, un
 | 04 | [Barre latérale « Kër »](04-barre-laterale-maison/README.md) | **Composant** : navigation latérale repliable (maison connectée, IoT, bâtiment) | Rail qui se déplie en verre dépoli, pilule active noire qui glisse, accordéon, fenêtre de détail noire avec compteur et graphique | React + `motion` |
 | 05 | [Vitrine « Maison Éclat »](05-vitrine-joaillerie/README.md) | **Landing page** de marque premium (joaillerie, parfum, horlogerie, mode) | Héros vert nuit avec mot géant en serif derrière le produit, séquence d'ouverture minutée, cartes en verre, chaînes d'or, grilles de créations | React + `motion` |
 | 06 | [Boutique « Kàddu »](06-boutique-audio/README.md) | **Landing e-commerce** d'un rayon (audio, téléphonie, électroménager) | Héros bleu saturé avec mot géant condensé derrière le produit, barre de garanties, rail de catégories qui déborde, bannière, rangée de marques, pied de page noir | React + `motion` |
+| 07 | [Boutique « Leeral »](07-boutique-tech/README.md) | **Page d'accueil e-commerce** claire, multi-rayons (téléphones, audio, écrans) | Héros blanc avec disque et bulles, mosaïque 4 × 3, rail de produits à pastilles de couleur, bannière pleine largeur à mot fantôme, catégories à hauteurs variées, une seule grammaire de cartes | React + `motion` |
 
 ## Règles de mouvement communes
 

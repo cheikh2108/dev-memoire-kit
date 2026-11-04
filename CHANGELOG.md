@@ -1,5 +1,9 @@
 # Historique des versions
 
+## 1.15.0 — 04/11/2026
+### Ajouts
+- **anti-generique**, modèle d'interface 07 « Leeral » : page d'accueil e-commerce claire et multi-rayons (héros blanc avec disque gris et bulles, mosaïque « nos choix » 4 × 3, rail de nouveautés à pastilles de couleur et anneau partagé, bannière bleu acier pleine largeur à mot fantôme et diaporama, catégories à hauteurs variées alignées en bas, promotions bord à bord, tendances 3 × 2, grande carte de fête, bonnes affaires, bannière beige, gamme, pied de page avec lettre d'information) ; tous les produits en SVG, noms inventés, prix en francs CFA.
+
 ## 1.14.0 — 04/11/2026
 ### Ajouts
 - **anti-generique**, modèle d'interface 06 « Kàddu » : landing e-commerce d'électronique (héros bleu profond avec mot géant condensé derrière le produit, bloc « haut de gamme » à filet vertical, barre de garanties, rail de catégories qui déborde du cadre avec boutons de défilement, bannière bleu glacier, rangée de marques, pied de page noir arrondi) ; produits en SVG, marques inventées, animations signalées comme ajouts (référence fixe).

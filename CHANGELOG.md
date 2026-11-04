@@ -1,5 +1,9 @@
 # Historique des versions
 
+## 1.12.0 — 04/11/2026
+### Ajouts
+- **anti-generique**, modèle d'interface 04 « Kër » : barre latérale de maison connectée (rail de 76 px qui se déplie en verre dépoli, pilule active noire et pilule de survol qui glissent, pièces en accordéon, fenêtre de détail noire alignée sur l'entrée active avec compteur et graphique hachuré, raccourci ⌘K), avec relevé élément par élément, fiches style et animations.
+
 ## 1.11.0 — 04/11/2026
 ### Modifications
 - **Modèles d'interface refaits à l'identique de leurs références**, vue par vue, avec un relevé élément par élément dans chaque `README.md` :

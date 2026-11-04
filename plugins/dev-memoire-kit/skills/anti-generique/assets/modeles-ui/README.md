@@ -4,7 +4,7 @@ Bibliothèque de modèles d'écrans animés, reconstruits à partir de référen
 
 ## Quand s'en servir
 
-Dès qu'on demande un tableau de bord, un écran d'application, une landing page ou un composant animé : **partir du modèle le plus proche et l'adapter**, plutôt que de générer une interface de zéro (qui retombe sur la carte blanche à ombre grise, le dégradé violet et les animations au hasard).
+Dès qu'on demande un tableau de bord, une barre latérale ou une navigation, un écran d'application, une landing page ou un composant animé : **partir du modèle le plus proche et l'adapter**, plutôt que de générer une interface de zéro (qui retombe sur la carte blanche à ombre grise, le dégradé violet et les animations au hasard).
 
 1. Choisir le modèle dans le tableau ci-dessous selon le **type d'écran** et l'**usage**.
 2. Lire son `README.md` (quand le choisir, structure, ce qu'il faut adapter), puis `style.md` et `animations.md`.
@@ -18,6 +18,7 @@ Dès qu'on demande un tableau de bord, un écran d'application, une landing page
 | 01 | [Tableau « Atelier »](01-tableau-atelier/README.md) | Tableau de bord clair, pilotage d'équipe | Phrase d'accueil qui change par vue, grille de cartes arrondies, accent unique, jauge et compteurs, cascade d'entrée | React + `motion` |
 | 02 | [Support « Relais »](02-support-relais/README.md) | Tableau de bord de service avec délais (support, tickets, réclamations) | Indicateurs géants à exposant, graphique pleine largeur révélé par découpe, boîte de réception avec délais SLA, accent jaune surligneur | React + `motion` |
 | 03 | [Parking « Plateau » en 3D](03-parking-3d/README.md) | Exploitation d'un lieu physique (parking, entrepôt, salles) | Maquette 3D cliquable, caméra bornée avec amorti, vue éclatée, isolement de niveau, panneau de détail | React + `three` + `motion` |
+| 04 | [Barre latérale « Kër »](04-barre-laterale-maison/README.md) | **Composant** : navigation latérale repliable (maison connectée, IoT, bâtiment) | Rail qui se déplie en verre dépoli, pilule active noire qui glisse, accordéon, fenêtre de détail noire avec compteur et graphique | React + `motion` |
 
 ## Règles de mouvement communes
 

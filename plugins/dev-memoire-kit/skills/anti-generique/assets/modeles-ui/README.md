@@ -29,4 +29,12 @@ Dès qu'on demande un tableau de bord, un écran d'application, une landing page
 
 ## Ajouter un modèle
 
+**Être strict sur les détails.** Avant d'écrire une ligne de code, faire le **relevé complet** de la vidéo :
+1. Extraire une planche (une image par seconde) pour repérer **toutes les vues** et les moments de transition ; puis des images pleine résolution de chaque vue, moitié haute et moitié basse.
+2. Lister, carte par carte, **chaque élément visible** : boutons, icônes, compteurs, pastilles, légendes, sélecteurs, textes d'aide, états actifs. Ce relevé va dans le `README.md` du modèle (section « Relevé élément par élément »).
+3. Reconstruire tout le relevé, puis comparer côte à côte le rendu et la vidéo, vue par vue ; corriger chaque écart (taille, couleur, alignement, élément manquant).
+4. Vérifier la **cohérence des chiffres** : un même compte (places libres, conversations, heures) doit être identique partout où il apparaît ; le calculer depuis les données plutôt que l'écrire à la main.
+5. Compiler en TypeScript strict et rendre chaque vue dans un navigateur, sans erreur dans la console.
+
+
 Un dossier `NN-nom/` avec `README.md`, `style.md`, `animations.md`, `exemple.tsx` et une capture du rendu. Les mesures viennent de la vidéo (images extraites avec `ffmpeg`, écart entre images pour dater les transitions). Ne jamais copier le logo, le nom, les textes ou le code source d'un produit tiers : seulement les principes, sous un nom et des données inventés.

@@ -33,13 +33,24 @@ actuel += (cible - actuel) * k;
 
 | Élément | Déclencheur | Ce qui change | Durée perçue |
 |---|---|---|---|
-| Caméra : vue générale | « Tous » | inclinaison 0,48, distance 50, cible au centre | ≈ 0,5 s |
-| Caméra : niveau | segment N1/N2/N3 | inclinaison 0,99, distance 42, cible au niveau | ≈ 0,5 s |
-| Caméra : place | clic sur une place | inclinaison 0,87, distance 30, cible sur la place | ≈ 0,5 s |
+| Caméra : vue générale | « Tous » | inclinaison 0,48, distance 72, cible au centre | ≈ 0,5 s |
+| Caméra : niveau | segment N1/N2/N3 | inclinaison 0,99, distance 62, cible au niveau | ≈ 0,5 s |
+| Caméra : place | clic sur une place | inclinaison 0,87, distance 36, cible sur la place | ≈ 0,5 s |
 | Rotation libre | glisser | azimut (±0,7) et inclinaison (0,38 à 1,25), puis amorti | suit le doigt |
-| Vue éclatée | « Éclater » | chaque niveau monte de `n × ECART_ECLATE`, caméra recule (distance 62) | ≈ 0,5 s |
+| Vue éclatée | « Éclater » | chaque niveau monte de `n × ECART_ECLATE`, caméra recule (distance 88) | ≈ 0,5 s |
 | Isolement d'un niveau | segment de niveau | niveaux du dessus : +`LEVEE` en hauteur, opacité → 15 % puis masqués | ≈ 0,5 s |
 | Place choisie | clic | couleur → bleu (immédiat), panneau de détail entre (x 10 → 0, 0,3 s) | 0,3 s |
+| Étiquette de la place | à chaque image | position HTML recalculée par projection 3D → écran ; masquée sans place choisie | continue | — | — |
+| Boutons tourner / recentrer | clic | azimut ±0,35 rad (borné) ou retour à l'azimut et à l'inclinaison de départ | ≈ 0,5 s | amorti | — |
+| Démonstration guidée | minuterie | étape suivante toutes les 2,2 s ; intitulé en fondu (y 4 → 0 px) ; segment de progression qui change de couleur | 0,25 s / 0,3 s | — | — |
+| Indicateur du menu latéral | clic | fond marine partagé (`layoutId`) | 0,3 s | `EASE` | — |
+| Courbe d'occupation | montage | tracé `pathLength` 0 → 1, puis aire en fondu | 0,9 s puis 0,5 s | `EASE` | 0,2 s / 0,6 s |
+| Barres groupées | montage | `scaleY` 0 → 1, ancrées en bas, la moyenne avant le jour | 0,4 s | `EASE` | 0,2 s + 30 ms × paire |
+| Anneau par niveau | montage | chaque segment se déroule à sa place (`strokeDashoffset`) | 0,8 s | `EASE` | 0,2 s + 0,1 s × segment |
+| Blocs de la chronologie | montage | `scaleX` 0 → 1, ancrés à gauche | 0,5 s | `EASE` | 0,2 s + 20 ms × ligne |
+| Trait de l'heure courante | montage | `scaleY` 0 → 1, depuis le haut | 0,6 s | `EASE` | 0,3 s |
+| Bulle des recettes | survol d'une heure | position `left` | 0,2 s | `EASE` | — |
+| Lignes de sessions | montage, filtre de niveau | opacité, y 6 → 0 px ; réordonnancement par `layout` | 0,3 s | `EASE` | 0,15 s + 30 ms × ligne |
 | Cartes de l'interface | montage | opacité 0 → 1, y 10 → 0 px, 50 ms de décalage | 0,45 s |
 | Remplissage (barre latérale) | montage | largeur 0 → % | 0,8 s |
 

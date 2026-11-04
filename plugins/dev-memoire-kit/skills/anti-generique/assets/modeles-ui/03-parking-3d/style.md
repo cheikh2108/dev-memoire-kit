@@ -11,6 +11,12 @@
 | `--muet` | `#8A909C` | Libellés |
 | `--marine` | `#1E2A44` | Menu actif, logo, bouton principal, bouton « Éclater » actif |
 | `--bleu` | `#3B6FE0` | Place choisie (scène), barre de remplissage, état occupé dans le panneau |
+| `--bleu-pale` | `#C9D6F5` | Seconde série des barres groupées (moyenne, départs) |
+| `--vert` / `--vert-texte` | `#E3F2E8` / `#2F7A4C` | Tendance favorable, « Parti », « Arrivé », « En vigueur » |
+| `--ambre` / `--ambre-texte` | `#FBF0D2` / `#9A6A0B` | Places tenues, « Au plafond », tendance à surveiller |
+| `--rouge` / `--rouge-texte` | `#FBE4E1` / `#B5412F` | Retard, baisse |
+| (bandeau de constat) | `#EEF2FB`, bordure `#DCE4F7` | Constat en tête de la vue Sessions |
+| (objectif) | `#F0A93B` en tirets | Ligne d'objectif des graphiques |
 
 ## Scène 3D
 
@@ -33,4 +39,6 @@ Lumières : hémisphérique (ciel blanc, sol `#D8DBE2`, intensité 2,2) + direct
 - Conteneur 24 px, cartes 18 px avec bordure 1 px (pas d'ombre), toile 12 px, boutons et segments 10 px.
 - Grotesque neutre (Geist, Inter Tight) ; valeurs 26 px graisse 600 ; titre de page 22 px graisse 600 ; libellés 11 px.
 - Plaque d'immatriculation en police à chasse fixe, graisse 600, espacement 0,06 em, cadre blanc.
-- Barre latérale de 220 px ; panneau de détail de 280 px ; toile de 330 px de haut.
+- Barre latérale de 230 px ; panneau de droite de 290 px ; toile de 340 px de haut.
+- Indicateurs : 4 cartes en grille, carré d'icône de 20 px (28 px dans les titres de carte), pastille de tendance de 10 px.
+- Chiffres « techniques » (heures, plaques, factures, créneaux) en police à chasse fixe.

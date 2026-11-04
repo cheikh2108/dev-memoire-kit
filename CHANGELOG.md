@@ -1,5 +1,13 @@
 # Historique des versions
 
+## 1.11.0 — 04/11/2026
+### Modifications
+- **Modèles d'interface refaits à l'identique de leurs références**, vue par vue, avec un relevé élément par élément dans chaque `README.md` :
+  - 01 « Atelier » : 4 vues (vue d'ensemble, projets, capacité de l'équipe, revues clients), coquille complète (menu, création, recherche, historique, partage), jauges sur disque noir, disques concentriques, sphère de budget, planning à puces déplaçables, interrupteurs d'accès client, cases de revue.
+  - 02 « Relais » : 4 vues (service, boîte de réception, fiche client, performance de l'équipe), bascule P25 / médiane / P75, contexte client, brouillon de réponse, statuts d'agents, planning horaire.
+  - 03 « Parking Plateau » : 4 vues (garage, sessions, réservations, recettes), barre latérale complète, démonstration guidée sur la maquette 3D, étiquette flottante, plan des places, quatre graphiques, chronologie des réservations, tarif ; 96 places et indicateurs calculés depuis les données.
+- Procédure « Ajouter un modèle » : relevé complet de la vidéo, comparaison côte à côte, cohérence des chiffres.
+
 ## 1.10.0 — 04/11/2026
 ### Ajouts
 - **anti-generique**, modèles d'interface :

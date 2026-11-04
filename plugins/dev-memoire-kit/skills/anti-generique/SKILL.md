@@ -1,6 +1,6 @@
 ---
 name: anti-generique
-description: Détecter et réécrire le contenu qui « sonne IA » ou générique (texte, code, interfaces, prompts). À utiliser quand on produit ou relit un texte de mémoire, de rapport, de README, une interface ou un écran, du code généré par IA, ou quand l'utilisateur demande un résultat « moins générique », « plus humain », « plus concret », ou un bon prompt.
+description: Détecter et réécrire le contenu qui « sonne IA » ou générique (texte, code, interfaces, prompts). À utiliser quand on produit ou relit un texte de mémoire, de rapport, de README, une interface ou un écran, du code généré par IA, ou quand l'utilisateur demande un résultat « moins générique », « plus humain », « plus concret », ou un bon prompt. À utiliser aussi pour construire un tableau de bord, un écran d'application ou une interface animée : partir des modèles d'interface fournis et les adapter.
 ---
 
 # Anti-générique
@@ -30,9 +30,14 @@ S'il manque une information, laisser un marqueur `[À COMPLÉTER : …]` ou pose
 | DESIGN.md (système visuel pour l'IA) | `references/design-md.md` + `assets/design-md/modele-DESIGN.md` (modèle) + `assets/design-md/exemple-paperflow.md` (exemple réel) | Fixer couleurs, typo, rayons et interdits d'un projet avant de générer des écrans |
 | Bibliothèques UI (graphiques Bklit UI…) et catalogues de skills design | `references/bibliotheques-ui.md` | Choisir une bibliothèque de graphiques ou de composants, thémer avec des tokens |
 | Recréer une UI depuis une image | `references/reproduction-ui.md` | L'utilisateur fournit une capture ou une maquette à reproduire |
+| **Modèles d'interface animés** (tableaux de bord, écrans) | `assets/modeles-ui/README.md` puis le dossier du modèle (`README.md`, `style.md`, `animations.md`, `exemple.tsx`) | Toute demande de tableau de bord, d'écran ou d'interface animée : partir du modèle le plus proche et l'adapter |
 | Prompts | `references/prompts.md` | Écrire un prompt efficace, bibliothèque par usage |
 | Prompts prêts à l'emploi | `assets/prompts/image-vers-interface.md`, `assets/prompts/integration-composant.md`, `assets/prompts/spec-reconstruction-site.md` | Image → interface React ; intégrer un composant shadcn copié en ligne ; recréer un site complet section par section |
 | Prompts réels de l'équipe | `assets/prompts/bibliotheque-equipe.md` | Audit, débogage avec test, déploiement, CORS, seeders sénégalais, migration de palette ; tenir une bibliothèque de prompts |
+
+## Interfaces : partir d'un modèle
+
+Pour un tableau de bord, un écran d'application ou une interface animée, **ne pas partir de zéro** : ouvrir `assets/modeles-ui/README.md`, choisir le modèle le plus proche, puis l'adapter (données réelles du projet, libellés, accent de la marque) en gardant sa structure, ses tokens et ses durées d'animation. Si aucun modèle ne convient, le dire et appliquer seulement les règles de mouvement communes du même fichier.
 
 ## Procédure de réécriture (texte)
 

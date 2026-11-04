@@ -6,7 +6,7 @@ Skills pour Claude (Claude Code et claude.ai) destinés aux étudiants et aux d�
 |---|---|
 | **redaction-memoire** | Rédiger un mémoire de fin de cycle en informatique selon les normes d'une école d'informatique (licence GLAR) : plan en trois chapitres calqué sur des mémoires récemment validés (gabarits de chaque chapitre : exigences EF/ENF, fiche de cas d'utilisation, présentation des écrans, tests), pages conventionnelles dans l'ordre, introduction en 7 étapes, conclusion en 4 points, bibliographie, questionnaire, **modélisation UML / Merise** (méthode, notation, passage à la base, exemple complet), soutenance. Inclut un **script de vérification** des brouillons. |
 | **bonnes-pratiques-dev** | Architecture (monolithe modulaire, Clean, hexagonale, DDD), base de données, front-end React/Next.js/Vue, Git, **sécurité** (OWASP Top 10:2025, multi-tenant, pentest par agents IA avec Strix), revue de code, **mise en production** et gestion d'incidents, ADR et postmortem. |
-| **anti-generique** | Repérer et réécrire ce qui « sonne IA » : texte, code, interfaces, diapositives. Format **DESIGN.md**, références visuelles commentées, règles de la communauté (Taste, UI Skills, Vercel Guidelines…), bibliothèque de prompts réels de l'équipe. |
+| **anti-generique** | Repérer et réécrire ce qui « sonne IA » : texte, code, interfaces, diapositives. Format **DESIGN.md**, références visuelles commentées, règles de la communauté (Taste, UI Skills, Vercel Guidelines…), bibliothèque de prompts réels de l'équipe, **modèles d'interface animés** (tableaux de bord) à adapter. |
 
 Les trois skills se complètent : pendant la rédaction, `anti-generique` évite le texte creux ; pour la partie Mise en œuvre, `bonnes-pratiques-dev` garde le code, l'architecture et les schémas défendables.
 
@@ -73,6 +73,7 @@ Installation : `/plugin install <nom>@dev-memoire-kit`, par exemple `/plugin ins
 - « Prépare ma fiche technique de soutenance à partir de mon mémoire. »
 - « Ce texte fait trop IA, réécris-le avec mes données. »
 - « Écris le DESIGN.md de notre application de gestion de stock. »
+- « Fais-moi le tableau de bord de suivi des interventions, avec de belles animations. »
 - « Revue de sécurité de ce contrôleur Laravel multi-tenant. »
 - « Checklist avant la mise en production de vendredi. »
 
@@ -122,7 +123,8 @@ dev-memoire-kit/
 │           │                 bibliotheques-ui, prompts
 │           └── assets/       design-md/ (modèle + exemple), prompts/ (bibliothèque de
 │                             l'équipe, image → interface, reconstruction de site,
-│                             intégration de composant), references-visuelles/*.png
+│                             intégration de composant), references-visuelles/*.png,
+│                             modeles-ui/ (modèles d'interface animés : style, animations, exemple.tsx)
 ├── CHANGELOG.md
 ├── THIRD_PARTY_NOTICES.md
 ├── README.md

@@ -1,5 +1,11 @@
 # Historique des versions
 
+## 1.9.0 — 04/11/2026
+### Ajouts
+- **anti-generique** : bibliothèque de **modèles d'interface animés** (`assets/modeles-ui/`), reconstruits à partir de vidéos de référence (structure, tokens et timings relevés image par image ; nom, données et code réécrits).
+  - Modèle 01 « Atelier » : tableau de bord clair en cartes, phrase d'accueil par vue, jauge, compteurs, cascade d'entrée (React + `motion`), avec fiches style et animations.
+  - Règle du skill : pour un tableau de bord ou un écran, partir du modèle le plus proche et l'adapter.
+
 ## 1.8.0 — 01/11/2026
 ### Modifications
 - **redaction-memoire** (`uml.md`) aligné sur la norme **UML 2.5.1** (OMG, formal/2017-12-05) :

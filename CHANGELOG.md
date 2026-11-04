@@ -1,5 +1,11 @@
 # Historique des versions
 
+## 1.10.0 — 04/11/2026
+### Ajouts
+- **anti-generique**, modèles d'interface :
+  - Modèle 02 « Relais » : tableau de bord de support (indicateurs à exposant, graphique pleine largeur révélé par découpe, boîte de réception avec délais SLA, toast d'annulation).
+  - Modèle 03 « Parking Plateau » : tableau de bord d'exploitation avec maquette 3D `three` (caméra bornée et amortie, vue éclatée, isolement de niveau, clic sur une place).
+
 ## 1.9.0 — 04/11/2026
 ### Ajouts
 - **anti-generique** : bibliothèque de **modèles d'interface animés** (`assets/modeles-ui/`), reconstruits à partir de vidéos de référence (structure, tokens et timings relevés image par image ; nom, données et code réécrits).

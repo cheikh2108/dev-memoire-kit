@@ -16,12 +16,15 @@ Dès qu'on demande un tableau de bord, un écran d'application, une landing page
 | N° | Modèle | Type | Points forts | Pile |
 |---|---|---|---|---|
 | 01 | [Tableau « Atelier »](01-tableau-atelier/README.md) | Tableau de bord clair, pilotage d'équipe | Phrase d'accueil qui change par vue, grille de cartes arrondies, accent unique, jauge et compteurs, cascade d'entrée | React + `motion` |
+| 02 | [Support « Relais »](02-support-relais/README.md) | Tableau de bord de service avec délais (support, tickets, réclamations) | Indicateurs géants à exposant, graphique pleine largeur révélé par découpe, boîte de réception avec délais SLA, accent jaune surligneur | React + `motion` |
+| 03 | [Parking « Plateau » en 3D](03-parking-3d/README.md) | Exploitation d'un lieu physique (parking, entrepôt, salles) | Maquette 3D cliquable, caméra bornée avec amorti, vue éclatée, isolement de niveau, panneau de détail | React + `three` + `motion` |
 
 ## Règles de mouvement communes
 
 - Une seule courbe pour toute l'interface (par défaut `[0.22, 1, 0.36, 1]`), pas de rebond sur un outil de travail.
 - Entrées courtes : 0,3 à 0,6 s, déplacement de 8 à 24 px, cascade de 30 à 60 ms dans l'ordre de lecture.
 - Les éléments entrent une fois, puis l'écran reste immobile ; rien ne boucle sauf un indicateur d'état (curseur, chargement).
+- Caméra 3D : préréglages de position et amorti exponentiel plutôt que des durées fixes (modèle 03).
 - Respecter `prefers-reduced-motion` (`<MotionConfig reducedMotion="user">` avec `motion`).
 
 ## Ajouter un modèle

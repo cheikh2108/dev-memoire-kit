@@ -23,9 +23,9 @@
 | Élément | Couleur | Note |
 |---|---|---|
 | Fond de la toile | dégradé `#EEF0F4` → `#E4E7EC` | rendu transparent, le fond vient du CSS |
-| Sol | `#E9EBEF` | grand plan sous les niveaux |
+| Sol | `#E6E8EC` | grand plan sous les niveaux ; route `#CFD3DA` et passage piéton blanc devant le bâtiment |
 | Dalles | `#F6F7F9` | boîtes de 0,4 d'épaisseur |
-| Place libre | `#B9DCC4` | vert doux |
+| Place libre | `#BFE0C9` | vert doux |
 | Place réservée | `#F3D58A` | ocre |
 | Place occupée | `#D9DCE3` | gris clair + voiture |
 | Hors service | `#9AA0AA` | gris moyen |
@@ -36,7 +36,7 @@ Lumières : hémisphérique (ciel blanc, sol `#D8DBE2`, intensité 2,2) + direct
 
 ## Forme et typographie
 
-- Conteneur 24 px, cartes 18 px avec bordure 1 px (pas d'ombre), toile 12 px, boutons et segments 10 px.
+- Conteneur 24 px, cartes 16 px avec bordure 1 px (pas d'ombre), toile 12 px, boutons et segments 10 px.
 - Grotesque neutre (Geist, Inter Tight) ; valeurs 26 px graisse 600 ; titre de page 22 px graisse 600 ; libellés 11 px.
 - Plaque d'immatriculation en police à chasse fixe, graisse 600, espacement 0,06 em, cadre blanc.
 - Barre latérale de 230 px ; panneau de droite de 290 px ; toile de 340 px de haut.

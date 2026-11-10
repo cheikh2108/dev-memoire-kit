@@ -1,5 +1,16 @@
 # Historique des versions
 
+## 1.17.0 — 10/11/2026
+### Ajouts
+- **anti-generique**, cinq modèles d'interface adaptés de démos **Codrops sous licence MIT** (crédits dans chaque modèle et dans `THIRD_PARTY_NOTICES.md`), réécrits en React/TypeScript avec contenus et illustrations originaux :
+  - 09 « Texte LCD » : lettres qui se mélangent ou glissent avant de se fixer, six effets, moteur réutilisable sans dépendance ;
+  - 10 « Grille 3D avec aperçu » : seize affiches en perspective qui dérivent avec la souris, effet magnétique, curseur à étiquette, ouverture en aperçu ;
+  - 11 « Grille qui s'écarte » : la vignette cliquée grandit et pousse ses voisines, quatre réglages, courbes GSAP portées en fonctions exactes ;
+  - 12 « Menu arrondi » : pilule orange, image plein écran qui se découvre, panneau qui descend, fermeture en lecture inversée, tissus wax en SVG ;
+  - 13 « Infobulle en pixels » : fond en cellules, six effets dont un filtre « gluant », texte qui grésille, page de terminal.
+### Modifications
+- Index des modèles : règle sur l'adaptation des démos sous licence libre (attribution obligatoire, vérifier la licence dans le dépôt).
+
 ## 1.16.0 — 04/11/2026
 ### Ajouts
 - **anti-generique**, modèle d'interface 08 « Onglets en verre » : quatre barres de navigation basses en verre, utilisables séparément (trait néon qui se soulève en cloche sous l'onglet actif avec champ de recherche, projecteur et cône de lumière, pastille posée dans un creux qui suit l'onglet, goutte liquide qui se détache et retombe grâce à un filtre SVG « gluant »), formes recalculées à chaque image, durées relevées sur la vidéo, décor de salon dessiné en CSS.

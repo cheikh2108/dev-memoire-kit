@@ -23,6 +23,13 @@ Dès qu'on demande un tableau de bord, une barre latérale ou une navigation, un
 | 06 | [Boutique « Kàddu »](06-boutique-audio/README.md) | **Landing e-commerce** d'un rayon (audio, téléphonie, électroménager) | Héros bleu saturé avec mot géant condensé derrière le produit, barre de garanties, rail de catégories qui déborde, bannière, rangée de marques, pied de page noir | React + `motion` |
 | 07 | [Boutique « Leeral »](07-boutique-tech/README.md) | **Page d'accueil e-commerce** claire, multi-rayons (téléphones, audio, écrans) | Héros blanc avec disque et bulles, mosaïque 4 × 3, rail de produits à pastilles de couleur, bannière pleine largeur à mot fantôme, catégories à hauteurs variées, une seule grammaire de cartes | React + `motion` |
 | 08 | [Onglets en verre](08-onglets-verre/README.md) | **Composant** : barre de navigation basse (application mobile) | 4 variantes : trait néon en cloche + champ de recherche, projecteur et cône de lumière, pastille dans un creux qui suit l'onglet, goutte liquide (filtre « gluant ») | React + `motion` |
+| 09 | [Texte LCD](09-texte-lcd/README.md) | **Effet de texte** : page d'identité technique, profil, outil en ligne de commande | Lettres qui se mélangent ou glissent avant de se fixer, six effets, art ASCII en fond | React |
+| 10 | [Grille 3D avec aperçu](10-grille-3d/README.md) | **Galerie** : programme d'événements, portfolio, sélection | Vignettes en perspective qui dérivent avec la souris, effet magnétique, curseur à étiquette, ouverture en aperçu lettre par lettre | React + `motion` |
+| 11 | [Grille qui s'écarte](11-grille-ecartee/README.md) | **Planche de miniatures** dans une page éditoriale | La vignette cliquée grandit, les voisines s'écartent et tournent ; quatre réglages (sobre, grand, élastique, cisaillé) | React + `motion` |
+| 12 | [Menu arrondi](12-menu-arrondi/README.md) | **Navigation** de site vitrine (mode, marque, magazine) | Pilule orange, image plein écran qui se découvre, panneau qui descend, fermeture en sens inverse | React + `motion` |
+| 13 | [Infobulle en pixels](13-infobulle-pixels/README.md) | **Glossaire** dans un texte, esthétique terminal | Fond d'infobulle en cellules, six effets dont un « gluant », texte qui grésille | React + `motion` |
+
+Les modèles 09 à 13 adaptent des démonstrations **Codrops sous licence MIT** (crédits dans chaque `README.md` et dans `THIRD_PARTY_NOTICES.md` à la racine).
 
 ## Règles de mouvement communes
 
@@ -42,4 +49,4 @@ Dès qu'on demande un tableau de bord, une barre latérale ou une navigation, un
 5. Compiler en TypeScript strict et rendre chaque vue dans un navigateur, sans erreur dans la console.
 
 
-Un dossier `NN-nom/` avec `README.md`, `style.md`, `animations.md`, `exemple.tsx` et une capture du rendu. Les mesures viennent de la vidéo (images extraites avec `ffmpeg`, écart entre images pour dater les transitions). Ne jamais copier le logo, le nom, les textes, les **photos** ou le code source d'un produit tiers, ni des noms de collections déposés : seulement les principes, sous un nom, des données et des illustrations inventés.
+Un dossier `NN-nom/` avec `README.md`, `style.md`, `animations.md`, `exemple.tsx` et une capture du rendu. Les mesures viennent de la vidéo (images extraites avec `ffmpeg`, écart entre images pour dater les transitions). Ne jamais copier le logo, le nom, les textes, les **photos** ou le code source d'un produit tiers, ni des noms de collections déposés : seulement les principes, sous un nom, des données et des illustrations inventés. **Exception** : une démo publiée sous licence libre (MIT, par exemple les dépôts Codrops) peut être adaptée fidèlement, code et minutages compris, à condition de citer l'auteur, la licence et le dépôt dans le `README.md` du modèle et dans `THIRD_PARTY_NOTICES.md` ; vérifier la licence dans le dépôt lui-même (« MIT + Commons Clause » n'est pas une licence libre).

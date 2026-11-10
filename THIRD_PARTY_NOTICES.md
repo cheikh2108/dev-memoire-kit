@@ -12,6 +12,18 @@ Le fichier `plugins/dev-memoire-kit/skills/anti-generique/references/principes-c
 
 L'exemple `plugins/dev-memoire-kit/skills/anti-generique/assets/design-md/exemple-paperflow.md` provient des modèles Neuform (auteur : Sourasith Phomhome, @madebysourasith) et est reproduit à titre d'exemple pédagogique, avec son attribution d'origine.
 
+## Modèles d'interface adaptés de démos Codrops
+
+Les modèles 09 à 13 de `plugins/dev-memoire-kit/skills/anti-generique/assets/modeles-ui/` adaptent des démonstrations publiées par Codrops sous licence MIT : algorithmes, mises en page, durées et courbes d'animation sont repris du code d'origine ; le code est réécrit en React/TypeScript, les contenus et les illustrations sont originaux.
+
+| Modèle | Démo d'origine | Copyright | Source |
+|---|---|---|---|
+| 09-texte-lcd | Type Shuffle Animation | Copyright (c) 2009 - 2022 Codrops | https://github.com/codrops/TypeShuffleAnimation |
+| 10-grille-3d | 3D Grid Interaction with Content Preview | Copyright (c) 2009 - 2020 Codrops | https://github.com/codrops/3DGridContentPreview |
+| 11-grille-ecartee | Make Way Grid Effect | Copyright (c) 2009 - 2021 Codrops | https://github.com/codrops/MakeWayGridEffect |
+| 12-menu-arrondi | Expanding Rounded Menu | Copyright (c) 2009 - 2021 Codrops | https://github.com/codrops/ExpandingRoundedMenu |
+| 13-infobulle-pixels | Pixel Gooey Tooltip (Segmented Tooltip Animation) | Copyright (c) 2009 - 2022 Codrops | https://github.com/codrops/PixelGooeyTooltip |
+
 ## Plugins référencés par la marketplace
 
 La marketplace (`.claude-plugin/marketplace.json`) **référence** des skills d'autres dépôts sans les copier : Claude Code les télécharge depuis le dépôt d'origine, au commit indiqué, lorsque l'utilisateur les installe. Ils restent soumis à la licence de leur auteur.

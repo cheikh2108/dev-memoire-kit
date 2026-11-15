@@ -1,6 +1,6 @@
 ---
 name: bonnes-pratiques-dev
-description: Bonnes pratiques de développeur pour concevoir, écrire, relire, sécuriser ou mettre en production du code : architecture back-end (monolithe, Clean, hexagonale, DDD, API, résilience), base de données (schéma, index, migrations, multi-tenant), front-end React/Next.js/Vue, Git, sécurité (OWASP, contrôle d'accès, IDOR, fuites entre tenants, Strix), revue de code, mise en production, ADR. À utiliser dès qu'on montre du code (contrôleur, route, requête, composant) en demandant s'il est sûr, correct ou bien écrit, pour une revue de sécurité ou de code d'une application Laravel, NestJS, Node ou Django, pour choisir une architecture, préparer un déploiement, ou préparer la partie Mise en œuvre d'un mémoire.
+description: "Bonnes pratiques de développeur pour concevoir, écrire, relire, sécuriser ou mettre en production du code : architecture back-end (monolithe, Clean, hexagonale, DDD, API, résilience), base de données (schéma, index, migrations, multi-tenant), front-end React/Next.js/Vue, Git, sécurité (OWASP, contrôle d'accès, IDOR, fuites entre tenants, Strix), revue de code, mise en production, ADR. À utiliser dès qu'on montre du code (contrôleur, route, requête, composant) en demandant s'il est sûr, correct ou bien écrit, pour une revue de sécurité ou de code d'une application Laravel, NestJS, Node ou Django, pour choisir une architecture, préparer un déploiement, ou préparer la partie Mise en œuvre d'un mémoire."
 ---
 
 # Bonnes pratiques de développeur

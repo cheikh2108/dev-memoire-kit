@@ -1,6 +1,6 @@
 ---
 name: anti-generique
-description: Détecter et réécrire le contenu qui « sonne IA » ou générique (texte, code, interfaces, prompts). À utiliser quand on produit ou relit un texte de mémoire, de rapport, de README, une interface ou un écran, du code généré par IA, ou quand l'utilisateur demande un résultat « moins générique », « plus humain », « plus concret », ou un bon prompt. À utiliser aussi pour construire un tableau de bord, un écran d'application ou une interface animée : partir des modèles d'interface fournis et les adapter.
+description: "Détecter et réécrire le contenu qui « sonne IA » ou générique (texte, code, interfaces, prompts). À utiliser quand on produit ou relit un texte de mémoire, de rapport, de README, une interface ou un écran, du code généré par IA, ou quand l'utilisateur demande un résultat « moins générique », « plus humain », « plus concret », ou un bon prompt. À utiliser aussi pour construire un tableau de bord, un écran d'application ou une interface animée : partir des modèles d'interface fournis et les adapter."
 ---
 
 # Anti-générique

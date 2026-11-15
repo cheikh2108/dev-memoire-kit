@@ -1,5 +1,10 @@
 # Historique des versions
 
+## 1.17.2 — 15/11/2026
+### Corrections
+- En-têtes des skills `anti-generique` et `bonnes-pratiques-dev` : la description contenait « : » sans guillemets, ce qui rend le YAML invalide (refusé par le validateur officiel Agent Skills, risque de rejet à l'import dans claude.ai). Les trois descriptions sont désormais entre guillemets ; les trois skills passent `skills-ref validate`.
+- `scripts/zipper-skills.sh` refuse de fabriquer un zip si une description contient « : » sans guillemets.
+
 ## 1.17.1 — 15/11/2026
 ### Installation sur claude.ai
 - README : installation par **marketplace** depuis claude.ai (Personnaliser > Plugins > Ajouter une marketplace > `cheikh2108/dev-memoire-kit`), les trois skills en une fois et sans zip.

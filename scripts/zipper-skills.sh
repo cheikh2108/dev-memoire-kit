@@ -23,6 +23,13 @@ for dossier in */; do
     echo "Erreur : $nom/SKILL.md déclare « name: $nom_declare »" >&2
     exit 1
   fi
+  # Une description non entre guillemets qui contient « : » casse le YAML de l'en-tête
+  # (claude.ai peut alors refuser le skill) : on bloque la publication.
+  ligne_desc="$(sed -n 's/^description: *//p' "$nom/SKILL.md" | head -1)"
+  case "$ligne_desc" in
+    \"*|\'*|'>'*|'|'*) ;;
+    *': '*) echo "Erreur : $nom/SKILL.md, la description contient « : » sans guillemets" >&2; exit 1 ;;
+  esac
   # Les captures des modèles d'interface (près de 11 Mo) illustrent les README sur GitHub ;
   # Claude n'en a pas besoin, on les laisse hors du zip pour un import léger.
   zip -qr -X "$sortie/$nom.zip" "$nom" -x '*/.DS_Store' '*/__pycache__/*' '*/evals/*' '*/modeles-ui/*/*.png'

@@ -44,10 +44,10 @@ Copier les dossiers de `plugins/dev-memoire-kit/skills/` dans `~/.claude/skills/
 
 **Le plus simple (forfaits payants : Pro, Max, Team, Enterprise) : ajouter le dépôt comme marketplace.** Une seule fois, et les trois skills arrivent ensemble, sans zip :
 1. Barre latérale : **Personnaliser** > onglet **Plugins** > **Ajouter** > **Ajouter une marketplace**.
-2. Choisir **Ajouter depuis un dépôt** et saisir `cheikh2108/dev-memoire-kit`.
+2. Saisir `cheikh2108/dev-memoire-kit`, laisser **Synchroniser automatiquement** activé, puis **Synchro**.
 3. Installer le plugin **dev-memoire-kit** (et, au besoin, les skills complémentaires listés plus bas).
 
-Les nouvelles versions viennent alors du dépôt : si une version récente n'apparaît pas, rouvrir la marketplace dans **Plugins** et la resynchroniser.
+Avec la synchronisation automatique, chaque nouvelle version poussée sur GitHub arrive toute seule. Si la marketplace était déjà ajoutée sans cette option : l'ouvrir dans **Plugins** > **Les vôtres**, menu **…**, et l'activer (ou lancer une synchronisation à la main).
 
 **Sans plugins (forfait gratuit) : les zips de la dernière version.** Chaque nouvelle version publie automatiquement un zip par skill sur la page [Releases](https://github.com/cheikh2108/dev-memoire-kit/releases/latest) :
 1. Télécharger `redaction-memoire.zip`, `bonnes-pratiques-dev.zip` et `anti-generique.zip`.

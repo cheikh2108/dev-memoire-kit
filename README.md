@@ -40,8 +40,21 @@ claude plugin install dev-memoire-kit@dev-memoire-kit
 ### À la main
 Copier les dossiers de `plugins/dev-memoire-kit/skills/` dans `~/.claude/skills/` (pour soi) ou dans `.claude/skills/` à la racine d'un projet (pour l'équipe).
 
-### claude.ai
-Zipper un dossier de skill (ex. `redaction-memoire/`, avec son `SKILL.md` à la racine du zip) et l'importer dans les paramètres de Claude, rubrique des skills.
+### claude.ai et application Claude
+
+**Le plus simple (forfaits payants : Pro, Max, Team, Enterprise) : ajouter le dépôt comme marketplace.** Une seule fois, et les trois skills arrivent ensemble, sans zip :
+1. Barre latérale : **Personnaliser** > onglet **Plugins** > **Ajouter** > **Ajouter une marketplace**.
+2. Choisir **Ajouter depuis un dépôt** et saisir `cheikh2108/dev-memoire-kit`.
+3. Installer le plugin **dev-memoire-kit** (et, au besoin, les skills complémentaires listés plus bas).
+
+Les nouvelles versions viennent alors du dépôt : si une version récente n'apparaît pas, rouvrir la marketplace dans **Plugins** et la resynchroniser.
+
+**Sans plugins (forfait gratuit) : les zips de la dernière version.** Chaque nouvelle version publie automatiquement un zip par skill sur la page [Releases](https://github.com/cheikh2108/dev-memoire-kit/releases/latest) :
+1. Télécharger `redaction-memoire.zip`, `bonnes-pratiques-dev.zip` et `anti-generique.zip`.
+2. **Personnaliser** > **Skills** > **+** > **Importer un skill**, un zip à la fois.
+3. Pour mettre à jour : supprimer l'ancien skill (menu **…** > **Supprimer**), puis importer le nouveau zip.
+
+Pour fabriquer les zips soi-même : `bash scripts/zipper-skills.sh` (résultat dans `dist/`). Le zip doit contenir le **dossier** du skill (`redaction-memoire/SKILL.md`), pas les fichiers en vrac : claude.ai ne reconnaît pas un `SKILL.md` posé à la racine de l'archive.
 
 Coût en contexte : environ 600 tokens permanents par session pour les trois skills ; le détail (références, exemples) n'est lu qu'à la demande.
 

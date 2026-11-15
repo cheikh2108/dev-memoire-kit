@@ -1,0 +1,43 @@
+# À chaque nouvelle version du plugin poussée sur main, publie une release GitHub
+# avec un zip par skill, prêt à importer dans claude.ai (Personnaliser > Skills).
+name: Zips pour claude.ai
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - plugins/dev-memoire-kit/.claude-plugin/plugin.json
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lire la version
+        id: version
+        run: |
+          v=$(sed -n 's/.*"version": *"\([^"]*\)".*/\1/p' plugins/dev-memoire-kit/.claude-plugin/plugin.json | head -1)
+          echo "tag=v$v" >> "$GITHUB_OUTPUT"
+
+      - name: Préparer les zips
+        run: bash scripts/zipper-skills.sh
+
+      - name: Publier la release (si elle n'existe pas encore)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "La release $TAG existe déjà : zips remplacés."
+            gh release upload "$TAG" dist/*.zip --clobber
+          else
+            notes=$(awk '/^## /{n++} n==1' CHANGELOG.md)
+            gh release create "$TAG" dist/*.zip --title "dev-memoire-kit $TAG" --notes "$notes
+
+          **claude.ai** : télécharger les zips ci-dessous, puis Personnaliser > Skills ; pour remplacer une ancienne version, supprimer le skill puis importer le nouveau zip. Plus simple : ajouter le dépôt comme marketplace (voir le README)."
+          fi

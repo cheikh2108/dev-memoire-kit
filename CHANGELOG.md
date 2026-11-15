@@ -1,5 +1,12 @@
 # Historique des versions
 
+## 1.17.1 — 15/11/2026
+### Installation sur claude.ai
+- README : installation par **marketplace** depuis claude.ai (Personnaliser > Plugins > Ajouter une marketplace > `cheikh2108/dev-memoire-kit`), les trois skills en une fois et sans zip.
+- Correction : le zip d'un skill doit contenir son **dossier** (`redaction-memoire/SKILL.md`) ; l'ancienne consigne (« `SKILL.md` à la racine du zip ») donnait une archive que claude.ai ne reconnaît pas.
+- `scripts/zipper-skills.sh` fabrique les trois zips au bon format (sans les captures des modèles d'interface : 0,8 Mo au lieu de 11 Mo pour `anti-generique`).
+- Publication automatique : à chaque nouvelle version, une release GitHub joint les trois zips prêts à importer.
+
 ## 1.17.0 — 10/11/2026
 ### Ajouts
 - **anti-generique**, cinq modèles d'interface adaptés de démos **Codrops sous licence MIT** (crédits dans chaque modèle et dans `THIRD_PARTY_NOTICES.md`), réécrits en React/TypeScript avec contenus et illustrations originaux :

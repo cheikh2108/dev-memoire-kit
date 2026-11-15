@@ -10,3 +10,6 @@ brouillons/
 # Résultats des évaluations
 plugins/dev-memoire-kit/evals/results/
 !plugins/dev-memoire-kit/skills/redaction-memoire/assets/modele-memoire.docx
+
+# Zips pour claude.ai, produits par scripts/zipper-skills.sh
+dist/
